@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-14T16:38:50.034Z",
+    "updatedAt": "2026-10-14T16:40:16+00:00",
     "version": 1,
     "season": {
       "name": "第一赛季",
@@ -92,7 +92,7 @@
       "id": "m005",
       "name": "小满",
       "avatar": "",
-      "totalPoints": 30,
+      "totalPoints": 25,
       "joinDate": "2026-04-19",
       "active": true
     },
@@ -249,16 +249,6 @@
       "member": "南烟",
       "delta": 70,
       "reason": "四月主题赛",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l1791995930034",
-      "ts": "2026-10-14T16:38:50.034Z",
-      "memberId": "m005",
-      "member": "小满",
-      "delta": 5,
-      "reason": "部署验证",
       "admin": "admin",
       "op": "add"
     }
