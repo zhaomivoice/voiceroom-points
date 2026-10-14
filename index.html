@@ -3,178 +3,219 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>声浪小馆 · 积分榜</title>
+<title>有声小馆 · 声浪积分榜</title>
 <style>
 :root{
   --glass-bg: rgba(255,255,255,0.10);
   --glass-bd: rgba(255,255,255,0.22);
   --txt: #f7f7fb;
-  --txt-dim: rgba(247,247,251,0.70);
+  --txt-dim: rgba(247,247,251,0.66);
   --gold: #ffd76a;
-  --silver: #d8e0ec;
-  --bronze: #e6a86b;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  color:var(--txt);
-  min-height:100vh;
-  background:linear-gradient(135deg,#4b3f8f 0%,#2b3a67 38%,#7a3f8f 70%,#b3456b 100%);
-  background-size:400% 400%;
-  animation:gradientShift 18s ease infinite;
-  padding:calc(24px + env(safe-area-inset-top)) 16px 96px;
+  color:var(--txt); min-height:100vh;
+  padding:calc(14px + env(safe-area-inset-top)) 12px 76px;
+  background:
+    radial-gradient(1200px 720px at 14% 6%, rgba(126,86,255,.38), transparent 62%),
+    radial-gradient(1000px 620px at 88% 88%, rgba(255,116,178,.34), transparent 62%),
+    linear-gradient(155deg,#110a22 0%,#1c1040 26%,#3a1c63 54%,#6b2a6d 78%,#a63a60 100%);
+  background-attachment:fixed;
+  overflow-x:hidden;
 }
-@keyframes gradientShift{
-  0%,100%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-}
-body::before{ /* 柔光装饰 */
-  content:"";position:fixed;inset:0;pointer-events:none;
-  background:radial-gradient(circle at 18% 12%,rgba(255,255,255,.18),transparent 45%),
-             radial-gradient(circle at 82% 78%,rgba(255,182,214,.16),transparent 50%);
-}
-.wrap{position:relative;max-width:920px;margin:0 auto}
 
-/* ===== 顶部标题 ===== */
-.hero{text-align:center;margin-bottom:22px;position:relative}
+/* ===== 华丽背景装饰层 ===== */
+.aurora,.notes,.waveform{position:fixed;z-index:0;pointer-events:none}
+.aurora{inset:0;overflow:hidden}
+.aurora::before,.aurora::after{content:"";position:absolute;width:64vmax;height:64vmax;border-radius:50%;filter:blur(72px);opacity:.5}
+.aurora::before{background:radial-gradient(circle,rgba(122,84,255,.55),transparent 66%);top:-22vmax;left:-14vmax;animation:float1 22s ease-in-out infinite}
+.aurora::after{background:radial-gradient(circle,rgba(255,110,172,.5),transparent 66%);bottom:-24vmax;right:-16vmax;animation:float2 28s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(7vmax,5vmax)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-7vmax,-6vmax)}}
+
+/* 飘浮音符 */
+.notes{inset:0;overflow:hidden}
+.notes span{position:absolute;bottom:-46px;font-size:30px;color:rgba(255,255,255,.15);text-shadow:0 0 18px rgba(255,215,106,.25);animation:rise linear infinite}
+.notes span:nth-child(1){left:6%;font-size:24px;animation-duration:17s;animation-delay:0s}
+.notes span:nth-child(2){left:22%;font-size:34px;animation-duration:23s;animation-delay:3s}
+.notes span:nth-child(3){left:44%;font-size:22px;animation-duration:19s;animation-delay:7s}
+.notes span:nth-child(4){left:63%;font-size:32px;animation-duration:26s;animation-delay:1.5s}
+.notes span:nth-child(5){left:80%;font-size:26px;animation-duration:21s;animation-delay:9s}
+.notes span:nth-child(6){left:92%;font-size:30px;animation-duration:24s;animation-delay:5s}
+@keyframes rise{
+  0%{transform:translateY(0) rotate(0);opacity:0}
+  12%{opacity:.85}
+  88%{opacity:.55}
+  100%{transform:translateY(-125vh) rotate(190deg);opacity:0}
+}
+
+/* 底部声浪波形 */
+.waveform{left:0;bottom:0;width:200%;height:130px;opacity:.20;animation:waveMove 16s linear infinite}
+.waveform path{fill:url(#wgrad)}
+@keyframes waveMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto}
+
+/* ===== 顶部 ===== */
+.hero{text-align:center;margin-bottom:12px;position:relative}
+.mic-badge{
+  width:46px;height:46px;margin:0 auto 6px;border-radius:50%;display:grid;place-items:center;
+  background:var(--glass-bg);border:1px solid var(--glass-bd);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 6px 22px rgba(0,0,0,.28), inset 0 0 18px rgba(255,215,106,.18);
+  color:var(--gold);animation:breathe 3.4s ease-in-out infinite;
+}
+.mic-badge svg{width:26px;height:26px}
+@keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 6px 22px rgba(0,0,0,.28),inset 0 0 14px rgba(255,215,106,.14)}50%{transform:scale(1.06);box-shadow:0 8px 26px rgba(0,0,0,.3),inset 0 0 22px rgba(255,215,106,.32)}}
 .art-title{
-  margin:0;
-  font-family:"STXingkai","华文行楷","STKaiti","KaiTi",serif;
-  font-size:clamp(44px,11vw,84px);
-  letter-spacing:.06em;
+  margin:0;font-family:"STXingkai","华文行楷","STKaiti","KaiTi",serif;
+  font-size:clamp(40px,10.5vw,76px);letter-spacing:.06em;
   background:linear-gradient(92deg,#ffe6a8,#ffd76a 22%,#fff 48%,#ffd76a 74%,#ffe6a8);
-  background-size:220% auto;
-  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 4px 18px rgba(255,215,106,.35));
   animation:shine 5.5s linear infinite;transform:rotate(-2deg);
 }
-.subtitle{
-  margin:4px 0 0;font-size:clamp(13px,3.6vw,16px);letter-spacing:.42em;
-  color:var(--txt-dim);text-indent:.42em;
-  animation:sway 6s ease-in-out infinite;
-}
 @keyframes shine{to{background-position:220% center}}
-@keyframes sway{0%,100%{transform:rotate(.6deg)}50%{transform:rotate(-.6deg)}}
+.subtitle{margin:2px 0 0;font-size:clamp(11px,3.2vw,14px);letter-spacing:.42em;color:var(--txt-dim);text-indent:.42em}
+
+/* 均衡器动画 */
+.eq{display:flex;justify-content:center;align-items:flex-end;gap:3px;height:16px;margin:8px 0 8px}
+.eq i{display:block;width:3px;border-radius:2px;background:linear-gradient(180deg,#ffd76a,#ff7fb4);animation:eq 1.1s ease-in-out infinite}
+.eq i:nth-child(1){height:7px;animation-delay:0s}
+.eq i:nth-child(2){height:14px;animation-delay:.15s}
+.eq i:nth-child(3){height:9px;animation-delay:.3s}
+.eq i:nth-child(4){height:16px;animation-delay:.45s}
+.eq i:nth-child(5){height:10px;animation-delay:.6s}
+.eq i:nth-child(6){height:13px;animation-delay:.75s}
+.eq i:nth-child(7){height:8px;animation-delay:.9s}
+@keyframes eq{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+
 .statusbar{
-  display:inline-flex;align-items:center;gap:10px;margin-top:14px;
-  padding:7px 16px;border-radius:999px;font-size:12.5px;color:var(--txt-dim);
+  display:inline-flex;align-items:center;gap:9px;padding:5px 14px;border-radius:999px;font-size:11.5px;color:var(--txt-dim);
   background:var(--glass-bg);border:1px solid var(--glass-bd);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
 }
-.dot{width:6px;height:6px;border-radius:50%;background:#7ef0b0;box-shadow:0 0 8px #7ef0b0}
+.dot{width:6px;height:6px;border-radius:50%;background:#7ef0b0;box-shadow:0 0 8px #7ef0b0;animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-/* ===== 玻璃卡片 ===== */
+/* ===== 玻璃卡片（紧凑） ===== */
 .glass{
-  background:var(--glass-bg);border:1px solid var(--glass-bd);border-radius:20px;
+  background:var(--glass-bg);border:1px solid var(--glass-bd);border-radius:15px;
   backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
-  box-shadow:0 8px 32px rgba(0,0,0,.18);
+  box-shadow:0 6px 22px rgba(0,0,0,.20);
 }
-.board{padding:18px 16px 12px;margin-bottom:18px}
-.board h2{
-  margin:0 0 12px;font-size:17px;font-weight:700;display:flex;align-items:baseline;gap:10px;
-}
+.board{padding:10px 11px 6px;margin-bottom:9px}
+.board h2{margin:0 0 6px;font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:8px}
 .board h2 .badge{
-  font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;
-  background:rgba(255,215,106,.16);color:var(--gold);border:1px solid rgba(255,215,106,.35);
+  font-size:10px;font-weight:600;padding:1px 8px;border-radius:999px;line-height:1.6;
+  background:rgba(255,215,106,.16);color:var(--gold);border:1px solid rgba(255,215,106,.34);
 }
-.board h2 small{font-size:11.5px;font-weight:400;color:var(--txt-dim);letter-spacing:.02em}
 
-/* ===== 榜单列表 ===== */
+/* ===== 榜单列表（行距很窄） ===== */
 .rank-list{list-style:none;margin:0;padding:0}
 .rank-list li{
-  display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:12px;
-  transition:background .18s;
+  display:flex;align-items:center;gap:8px;padding:2px 7px;border-radius:7px;
+  line-height:1.1;border-bottom:1px solid rgba(255,255,255,.055);
 }
-.rank-list li:hover{background:rgba(255,255,255,.06)}
+.rank-list li:last-child{border-bottom:0}
+.rank-list li:hover{background:rgba(255,255,255,.07)}
 .rank-no{
-  flex:0 0 30px;height:30px;border-radius:9px;display:grid;place-items:center;
-  font-weight:800;font-size:13.5px;background:rgba(255,255,255,.10);
+  flex:0 0 20px;height:18px;border-radius:5px;display:grid;place-items:center;
+  font-weight:800;font-size:10.5px;background:rgba(255,255,255,.10);
 }
 li.r1 .rank-no{background:linear-gradient(145deg,#ffe9a8,#e0a72e);color:#4a3600}
 li.r2 .rank-no{background:linear-gradient(145deg,#eef3fa,#aebcd0);color:#333b47}
 li.r3 .rank-no{background:linear-gradient(145deg,#f3c79a,#c07b3a);color:#402208}
-.rname{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
-.rname .n{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rtitle{font-size:11px;color:var(--gold);opacity:.92;letter-spacing:.02em}
-.rscore{font-variant-numeric:tabular-nums;font-weight:800;font-size:16px}
-.rscore small{font-size:11px;font-weight:500;color:var(--txt-dim);margin-left:2px}
-.empty{padding:16px 6px;color:var(--txt-dim);font-size:13.5px;text-align:center}
+.rname{flex:1;min-width:0;display:flex;align-items:baseline;gap:6px}
+.rname .n{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rtitle{font-size:10px;color:var(--gold);opacity:.92}
+.rscore{font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;white-space:nowrap}
+.rscore small{font-size:10px;font-weight:500;color:var(--txt-dim);margin-left:1px}
+.empty{padding:10px 6px;color:var(--txt-dim);font-size:12.5px;text-align:center}
 
-/* ===== 分段按钮 ===== */
-.seg{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:rgba(0,0,0,.16);margin-bottom:12px}
-.seg button{
-  border:0;cursor:pointer;padding:7px 18px;border-radius:9px;font-size:13px;font-weight:600;
-  color:var(--txt-dim);background:transparent;transition:.18s;font-family:inherit;
-}
-.seg button.active{background:rgba(255,215,106,.9);color:#3c2f00}
+/* ===== 全员榜切换 ===== */
+.board-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.seg{display:inline-flex;gap:3px;padding:3px;border-radius:10px;background:rgba(0,0,0,.18)}
+.seg button{border:0;cursor:pointer;padding:5px 14px;border-radius:7px;font-size:12px;font-weight:600;color:var(--txt-dim);background:transparent;transition:.18s;font-family:inherit}
+.seg button.active{background:rgba(255,215,106,.92);color:#3c2f00}
 
 /* ===== 底部入口 ===== */
-footer{max-width:920px;margin:6px auto 0;text-align:center;position:relative}
+footer{max-width:900px;margin:4px auto 0;text-align:center}
 .ghost-btn{
-  font-family:inherit;cursor:pointer;padding:9px 22px;border-radius:999px;font-size:12.5px;
+  font-family:inherit;cursor:pointer;padding:7px 20px;border-radius:999px;font-size:12px;
   color:var(--txt-dim);background:rgba(255,255,255,.07);border:1px solid var(--glass-bd);
   backdrop-filter:blur(10px);transition:.2s;
 }
 .ghost-btn:hover{color:var(--txt);background:rgba(255,255,255,.14)}
 
 /* ===== 弹层 ===== */
-.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px;
-  background:rgba(18,14,32,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:14px;background:rgba(16,12,30,.64);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .modal.hidden{display:none}
 .panel{
-  width:100%;max-width:620px;max-height:88vh;overflow:auto;border-radius:22px;padding:20px;
-  background:linear-gradient(160deg,rgba(60,52,110,.94),rgba(40,34,74,.96));
-  border:1px solid var(--glass-bd);box-shadow:0 24px 70px rgba(0,0,0,.45);
+  width:100%;max-width:600px;max-height:90vh;overflow:auto;border-radius:20px;padding:18px;
+  background:linear-gradient(160deg,rgba(58,48,108,.95),rgba(38,30,70,.97));
+  border:1px solid var(--glass-bd);box-shadow:0 24px 70px rgba(0,0,0,.5);
 }
-.panel h3{margin:0 0 14px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
+.panel h3{margin:0 0 12px;font-size:17px;display:flex;justify-content:space-between;align-items:center}
 .icon-btn{border:0;background:transparent;color:var(--txt-dim);font-size:22px;cursor:pointer;line-height:1}
-.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.tabs button{
-  font-family:inherit;cursor:pointer;border:1px solid var(--glass-bd);background:rgba(255,255,255,.06);
-  color:var(--txt-dim);padding:7px 14px;border-radius:999px;font-size:13px;transition:.18s;
-}
-.tabs button.active{background:rgba(255,215,106,.9);color:#3c2f00;border-color:transparent;font-weight:700}
+.tabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.tabs button{font-family:inherit;cursor:pointer;border:1px solid var(--glass-bd);background:rgba(255,255,255,.06);color:var(--txt-dim);padding:6px 13px;border-radius:999px;font-size:12.5px;transition:.18s}
+.tabs button.active{background:rgba(255,215,106,.92);color:#3c2f00;border-color:transparent;font-weight:700}
 .tabpane{display:none}.tabpane.active{display:block}
-label.f{display:block;font-size:12.5px;color:var(--txt-dim);margin:12px 0 6px}
-input,select,textarea{
-  width:100%;font-family:inherit;font-size:14px;color:var(--txt);padding:10px 12px;border-radius:11px;
-  background:rgba(0,0,0,.26);border:1px solid var(--glass-bd);outline:none;
-}
+label.f{display:block;font-size:12px;color:var(--txt-dim);margin:10px 0 5px}
+input,select,textarea{width:100%;font-family:inherit;font-size:13.5px;color:var(--txt);padding:9px 11px;border-radius:10px;background:rgba(0,0,0,.26);border:1px solid var(--glass-bd);outline:none}
 input:focus,select:focus,textarea:focus{border-color:rgba(255,215,106,.6)}
-textarea{resize:vertical;min-height:96px;line-height:1.5}
+textarea{resize:vertical;min-height:92px;line-height:1.5}
 select option{color:#111}
-.btn{
-  font-family:inherit;cursor:pointer;border:0;padding:11px 18px;border-radius:12px;font-size:14px;font-weight:700;
-  background:linear-gradient(135deg,#ffd76a,#f0a33a);color:#3c2f00;transition:.18s;
-}
+.btn{font-family:inherit;cursor:pointer;border:0;padding:10px 17px;border-radius:11px;font-size:13.5px;font-weight:700;background:linear-gradient(135deg,#ffd76a,#f0a33a);color:#3c2f00;transition:.18s}
 .btn:hover{filter:brightness(1.06)}
 .btn.sec{background:rgba(255,255,255,.12);color:var(--txt);font-weight:600}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-.row{display:flex;gap:10px}.row>*{flex:1}
-.hint{font-size:12px;color:var(--txt-dim);margin-top:8px;line-height:1.6}
-.toast{
-  position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:99;
-  padding:11px 20px;border-radius:999px;font-size:13.5px;background:rgba(20,16,36,.94);
-  border:1px solid var(--glass-bd);box-shadow:0 10px 30px rgba(0,0,0,.4);
-  opacity:0;transition:.28s;pointer-events:none;
-}
+.row{display:flex;gap:9px}.row>*{flex:1}
+.hint{font-size:11.5px;color:var(--txt-dim);margin-top:7px;line-height:1.6}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:99;padding:10px 18px;border-radius:999px;font-size:13px;background:rgba(20,16,36,.95);border:1px solid var(--glass-bd);box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;transition:.28s;pointer-events:none;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
 .toast.err{border-color:rgba(255,120,120,.6);color:#ffbdbd}
-.loglist{max-height:44vh;overflow:auto;border-radius:12px;background:rgba(0,0,0,.18);padding:6px}
-.logitem{display:flex;gap:10px;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.07);font-size:13px}
+.loglist{max-height:42vh;overflow:auto;border-radius:10px;background:rgba(0,0,0,.18);padding:5px}
+.logitem{display:flex;align-items:center;gap:9px;padding:7px 9px;border-bottom:1px solid rgba(255,255,255,.07);font-size:12.5px}
 .logitem:last-child{border-bottom:0}
-.logitem .t{color:var(--txt-dim);font-size:11.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
-.logitem .b{flex:1}.logitem .d{font-weight:800;font-variant-numeric:tabular-nums}
+.logitem .t{color:var(--txt-dim);font-size:11px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.logitem .b{flex:1;min-width:0}.logitem .d{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
 .d.plus{color:#8ff0b4}.d.minus{color:#ff9d9d}
-@media(max-width:520px){.row{flex-direction:column}.board{padding:15px 12px 10px}}
+.mini-btn{font-family:inherit;cursor:pointer;border:1px solid rgba(255,120,120,.5);background:rgba(255,120,120,.12);color:#ffb4b4;font-size:11.5px;padding:4px 11px;border-radius:7px;transition:.18s;white-space:nowrap}
+.mini-btn:hover{background:rgba(255,120,120,.26);color:#fff}
+@media(max-width:520px){.row{flex-direction:column}.board{padding:9px 9px 5px}}
 </style>
 </head>
 <body>
+<!-- 华丽背景装饰 -->
+<div class="aurora" aria-hidden="true"></div>
+<div class="notes" aria-hidden="true"><span>♪</span><span>♫</span><span>♬</span><span>♪</span><span>♫</span><span>♬</span></div>
+<svg class="waveform" viewBox="0 0 2880 130" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="wgrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7a54ff"/><stop offset="0.5" stop-color="#ff7fb4"/><stop offset="1" stop-color="#ffd76a"/>
+    </linearGradient>
+  </defs>
+  <!-- 波形重复两遍以保证无缝平移 -->
+  <path d="M0,70 C120,26 240,112 360,70 C480,26 600,112 720,70 C840,26 960,112 1080,70 C1200,26 1320,112 1440,70 C1560,26 1680,112 1800,70 C1920,26 2040,112 2160,70 C2280,26 2400,112 2520,70 C2640,26 2760,112 2880,70 L2880,130 L0,130 Z"/>
+</svg>
+
 <div class="wrap">
   <header class="hero">
-    <h1 class="art-title">声浪小馆</h1>
+    <div class="mic-badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="2" width="6" height="12" rx="3"/>
+        <path d="M5 11a7 7 0 0 0 14 0"/>
+        <line x1="12" y1="18" x2="12" y2="22"/>
+        <line x1="8" y1="22" x2="16" y2="22"/>
+      </svg>
+    </div>
+    <h1 class="art-title">有声小馆</h1>
     <p class="subtitle">声浪积分榜</p>
+    <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="statusbar">
       <span class="dot"></span>
       <span id="lastUpdated">加载中…</span>
@@ -184,28 +225,26 @@ select option{color:#111}
   </header>
 
   <main id="boards">
-    <!-- 1. 周榜 -->
     <section class="board glass">
       <h2>周榜 TOP10 <span class="badge" id="weeklyRange"></span></h2>
       <ol class="rank-list" id="weeklyList"></ol>
     </section>
-    <!-- 2. 月榜 -->
     <section class="board glass">
       <h2>月榜 TOP10 <span class="badge" id="monthlyRange"></span></h2>
       <ol class="rank-list" id="monthlyList"></ol>
     </section>
-    <!-- 3. 赛季 -->
     <section class="board glass">
       <h2>赛季 TOP10 <span class="badge" id="seasonRange"></span></h2>
       <ol class="rank-list" id="seasonList"></ol>
     </section>
-    <!-- 4. 全员榜 -->
     <section class="board glass">
-      <h2>全员榜单</h2>
-      <div class="seg" id="allSeg">
-        <button data-period="week">周</button>
-        <button data-period="month">月</button>
-        <button data-period="total" class="active">累计</button>
+      <div class="board-head">
+        <h2 style="margin:0">全员榜单</h2>
+        <div class="seg" id="allSeg">
+          <button data-period="week">周</button>
+          <button data-period="month">月</button>
+          <button data-period="total" class="active">累计</button>
+        </div>
       </div>
       <ol class="rank-list" id="allList"></ol>
     </section>
@@ -216,20 +255,17 @@ select option{color:#111}
   </footer>
 </div>
 
-<!-- 管理弹层 -->
 <div class="modal hidden" id="adminModal">
   <div class="panel">
     <h3><span id="adminTitle">管理员登录</span><button class="icon-btn" id="closeAdmin">×</button></h3>
 
-    <!-- 登录 -->
     <div id="loginPane">
       <label class="f">管理密码</label>
       <input type="password" id="pwInput" placeholder="请输入管理密码" autocomplete="current-password">
-      <div style="margin-top:16px"><button class="btn" id="loginBtn" style="width:100%">登 录</button></div>
+      <div style="margin-top:14px"><button class="btn" id="loginBtn" style="width:100%">登 录</button></div>
       <p class="hint">仅授权管理员使用。所有录分操作会写入仓库并永久留痕。</p>
     </div>
 
-    <!-- 管理面板 -->
     <div id="panelPane" style="display:none">
       <div class="tabs">
         <button class="active" data-tab="score">积分录入</button>
@@ -240,7 +276,6 @@ select option{color:#111}
         <button data-tab="data">数据导出</button>
       </div>
 
-      <!-- 积分录入 -->
       <div class="tabpane active" data-pane="score">
         <label class="f">选择成员</label>
         <select id="scoreMember"></select>
@@ -248,52 +283,45 @@ select option{color:#111}
           <div><label class="f">分值（可负数）</label><input type="number" id="scoreDelta" value="10" step="1"></div>
           <div><label class="f">原因</label><input type="text" id="scoreReason" placeholder="如：周赛奖励 / 违规扣分"></div>
         </div>
-        <div style="margin-top:16px"><button class="btn" id="addScoreBtn">提交积分</button></div>
-        <p class="hint">提交后会追加一条流水并同步更新累计积分，同时写入仓库（自动重试防冲突）。</p>
+        <div style="margin-top:14px"><button class="btn" id="addScoreBtn">提交积分</button></div>
+        <p class="hint">提交后追加一条流水并同步更新累计积分，同时写入仓库（自动重试防冲突）。</p>
       </div>
 
-      <!-- 称号设定 -->
       <div class="tabpane" data-pane="title">
         <label class="f">累计积分称号（每行：最小积分,称号；由低到高）</label>
-        <textarea id="titleCumulative" placeholder="0,初闻&#10;100,微声&#10;300,新声"></textarea>
-
+        <textarea id="titleCumulative"></textarea>
         <label class="f">周榜称号（每行一个，第 1 行 = 第 1 名）</label>
-        <textarea id="titleWeekly" placeholder="周·声浪之王&#10;周·强音"></textarea>
-
+        <textarea id="titleWeekly"></textarea>
         <label class="f">月榜称号（每行一个，第 1 行 = 第 1 名）</label>
-        <textarea id="titleMonthly" placeholder="月·声浪之王&#10;月·强音"></textarea>
-
+        <textarea id="titleMonthly"></textarea>
         <label class="f">赛季称号（每行一个，第 1 行 = 第 1 名）</label>
-        <textarea id="titleSeason" placeholder="赛季·声浪之王&#10;赛季·强音"></textarea>
-
-        <div style="margin-top:16px"><button class="btn" id="saveTitlesBtn">保存称号设定</button></div>
-        <p class="hint">称号设置立即生效：榜单单显示对应名次的称号，全员榜「累计」按最小积分匹配称号。</p>
+        <textarea id="titleSeason"></textarea>
+        <div style="margin-top:14px"><button class="btn" id="saveTitlesBtn">保存称号设定</button></div>
+        <p class="hint">称号设置立即生效：三个 TOP10 榜按名次显示称号，全员榜「累计」按最小积分匹配称号。</p>
       </div>
 
-      <!-- 赛季设定 -->
       <div class="tabpane" data-pane="season">
-        <div class="row">
-          <div><label class="f">赛季名称</label><input type="text" id="seasonName" placeholder="如：第一赛季"></div>
-        </div>
+        <label class="f">赛季名称</label>
+        <input type="text" id="seasonName" placeholder="如：第一赛季">
         <div class="row">
           <div><label class="f">开始日期</label><input type="date" id="seasonStart"></div>
           <div><label class="f">结束日期</label><input type="date" id="seasonEnd"></div>
         </div>
-        <div style="margin-top:16px"><button class="btn" id="saveSeasonBtn">保存赛季设定</button></div>
+        <div style="margin-top:14px"><button class="btn" id="saveSeasonBtn">保存赛季设定</button></div>
         <p class="hint">赛季榜统计该区间内的积分增量；结束日期当天 23:59:59 计入。</p>
       </div>
 
-      <!-- 成员管理 -->
       <div class="tabpane" data-pane="member">
+        <label class="f">昵称</label>
         <div class="row">
-          <div><label class="f">昵称</label><input type="text" id="newMemberName" placeholder="成员昵称"></div>
+          <input type="text" id="newMemberName" placeholder="成员昵称">
+          <button class="btn" id="addMemberBtn">新增成员</button>
         </div>
-        <div style="margin-top:16px"><button class="btn" id="addMemberBtn">新增成员</button></div>
-        <label class="f">成员列表</label>
+        <label class="f">成员列表（可删除）</label>
         <div class="loglist" id="memberListBox"></div>
+        <p class="hint">删除成员会从榜单移除；其历史积分流水仍保留在操作日志中，便于追溯。</p>
       </div>
 
-      <!-- 操作日志 -->
       <div class="tabpane" data-pane="log">
         <label class="f">筛选（昵称关键字，留空显示全部）</label>
         <input type="text" id="logFilter" placeholder="输入昵称过滤">
@@ -301,7 +329,6 @@ select option{color:#111}
         <div class="loglist" id="logBox"></div>
       </div>
 
-      <!-- 数据导出 -->
       <div class="tabpane" data-pane="data">
         <p class="hint">导出为本地备份文件；GitHub 仓库本身即永久版本记录，可从提交历史回退。</p>
         <div class="row" style="margin-top:12px">
@@ -323,7 +350,7 @@ const CONFIG = {
   owner: "zhaomivoice",
   repo:  "voiceroom-points",
   branch:"main",
-  // Token 分段 base64 存放，运行时拼接，降低明文曝光面
+  // Token 分段 base64 存放，运行时逐段解码后拼接，降低明文曝光面
   tokens:["Z2hvX0lMc3FuR2ZUOHI=", "RVlQRVpHQ0JoekpZZm8=", "dDI0VnpuMmVNbENy"],
   adminPassword: "voice2026"
 };
@@ -348,9 +375,9 @@ const DEFAULT_DATA = {
   ledger: []
 };
 
-let DATA = null;       // 当前数据
-let IS_ADMIN = false;  // 是否已登录
-let ALL_PERIOD = 'total'; // 全员榜当前维度
+let DATA = null;
+let IS_ADMIN = false;
+let ALL_PERIOD = 'total';
 
 /* =========================================================
    工具
@@ -364,21 +391,15 @@ function b64decode(s){ return decodeURIComponent(escape(atob(String(s).replace(/
 function b64encode(s){ return btoa(unescape(encodeURIComponent(s))); }
 
 /* 时间：Asia/Shanghai */
-function dayStartSH(ts){
-  const d = new Date(ts + TZ);
-  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - TZ;
-}
+function dayStartSH(ts){ const d = new Date(ts + TZ); return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - TZ; }
 function weekRange(ts){
-  const ds = dayStartSH(ts);
-  const d = new Date(ds + TZ);
-  const wd = d.getUTCDay();            // 0=周日
-  const sinceMonday = (wd + 6) % 7;
+  const ds = dayStartSH(ts); const d = new Date(ds + TZ);
+  const sinceMonday = (d.getUTCDay() + 6) % 7;
   const start = ds - sinceMonday * 86400000;
   return { start, end: start + 7*86400000, label:'本周' };
 }
 function monthRange(ts){
-  const d = new Date(ts + TZ);
-  const y = d.getUTCFullYear(), m = d.getUTCMonth();
+  const d = new Date(ts + TZ); const y = d.getUTCFullYear(), m = d.getUTCMonth();
   const start = Date.UTC(y, m, 1) - TZ;
   return { start, end: Date.UTC(y, m+1, 1) - TZ, label:`${y}年${m+1}月` };
 }
@@ -389,25 +410,19 @@ function seasonRange(season){
   if(isNaN(start) || isNaN(end) || end <= start) return null;
   return { start, end, label: season.name || '赛季' };
 }
-function fmtDate(ts){
-  const d = new Date(ts + TZ);
-  const p = n => String(n).padStart(2,'0');
-  return `${d.getUTCFullYear()}-${p(d.getUTCMonth()+1)}-${p(d.getUTCDate())}`;
-}
+function fmtDate(ts){ const d = new Date(ts + TZ); const p = n => String(n).padStart(2,'0'); return `${d.getUTCFullYear()}-${p(d.getUTCMonth()+1)}-${p(d.getUTCDate())}`; }
 
 /* 称号解析 */
 function cumulativeTitle(points){
   const arr = (DATA.meta.titles && DATA.meta.titles.cumulative) || DEFAULT_TITLES.cumulative;
-  let name = '';
-  for(const t of arr){ if(points >= t.min) name = t.name; }
-  return name;
+  let name = ''; for(const t of arr){ if(points >= t.min) name = t.name; } return name;
 }
 function rankTitle(kind, rank){
   const arr = (DATA.meta.titles && DATA.meta.titles[kind]) || [];
   return arr[rank-1] || '';
 }
 
-/* 区间聚合：返回 [{id,name,pts}] 降序 */
+/* 区间聚合：[{id,name,pts}] 降序；includeZero=true 时把 0 分成员也纳入（用于固定 TOP10） */
 function rankInRange(ledger, start, end, includeZero){
   const sum = {};
   for(const e of ledger){
@@ -430,24 +445,15 @@ async function readData(){
   try{
     const r = await fetch(`${API}/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${DATA_PATH}?ref=${CONFIG.branch}&t=${Date.now()}`,
       { headers: token ? { Authorization:`token ${token}` } : {} });
-    if(r.ok){
-      const j = await r.json();
-      return normalize(JSON.parse(b64decode(j.content)));
-    }
+    if(r.ok){ const j = await r.json(); return normalize(JSON.parse(b64decode(j.content))); }
   }catch(e){ console.warn('API 读取失败', e); }
-  try{
-    const r = await fetch(`./${DATA_PATH}?t=${Date.now()}`);
-    if(r.ok) return normalize(await r.json());
-  }catch(e){ console.warn('CDN 读取失败', e); }
-  try{
-    const ls = localStorage.getItem('voiceroom_data');
-    if(ls) return normalize(JSON.parse(ls));
-  }catch(e){}
+  try{ const r = await fetch(`./${DATA_PATH}?t=${Date.now()}`); if(r.ok) return normalize(await r.json()); }
+  catch(e){ console.warn('CDN 读取失败', e); }
+  try{ const ls = localStorage.getItem('voiceroom_data'); if(ls) return normalize(JSON.parse(ls)); }catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_DATA));
 }
 function normalize(d){
-  d = d || {};
-  d.meta = d.meta || {};
+  d = d || {}; d.meta = d.meta || {};
   d.meta.titles = Object.assign({}, DEFAULT_TITLES, d.meta.titles || {});
   d.meta.season = d.meta.season || { name:'', start:'', end:'' };
   d.members = Array.isArray(d.members) ? d.members : [];
@@ -474,13 +480,10 @@ async function writeData(data){
     const sha = g.ok ? (await g.json()).sha : undefined;
     const put = await fetch(url, {
       method:'PUT', headers,
-      body: JSON.stringify({
-        message:`积分更新 @${new Date().toISOString()}`,
-        content, sha, branch: CONFIG.branch
-      })
+      body: JSON.stringify({ message:`积分更新 @${new Date().toISOString()}`, content, sha, branch: CONFIG.branch })
     });
     if(put.ok) return true;
-    if(put.status !== 409) {           // 409 = SHA 冲突，重试
+    if(put.status !== 409){
       let msg = put.status;
       try{ msg = (await put.json()).message || msg; }catch(e){}
       throw new Error('写入失败：' + msg);
@@ -492,6 +495,8 @@ async function writeData(data){
 /* =========================================================
    渲染
    ========================================================= */
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
 function renderBoard(listEl, rows, topN, titleKind){
   listEl.innerHTML = '';
   const slice = (typeof topN === 'number') ? rows.slice(0, topN) : rows;
@@ -510,7 +515,6 @@ function renderBoard(listEl, rows, topN, titleKind){
     listEl.appendChild(li);
   });
 }
-function esc(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
 function renderAll(){
   const now = Date.now();
@@ -523,22 +527,19 @@ function renderAll(){
   const up = DATA.meta.updatedAt;
   document.getElementById('lastUpdated').textContent = up ? `更新于 ${up.replace('T',' ').slice(0,16)}` : '尚未录入';
 
-  renderBoard(document.getElementById('weeklyList'),
-    rankInRange(DATA.ledger, wk.start, wk.end), 10, 'weekly');
-  renderBoard(document.getElementById('monthlyList'),
-    rankInRange(DATA.ledger, mo.start, mo.end), 10, 'monthly');
-  renderBoard(document.getElementById('seasonList'),
-    se ? rankInRange(DATA.ledger, se.start, se.end) : [], 10, 'season');
+  // 周/月/赛季 固定显示 TOP10（不足 10 人时以 0 分成员补齐）
+  renderBoard(document.getElementById('weeklyList'),  rankInRange(DATA.ledger, wk.start, wk.end, true), 10, 'weekly');
+  renderBoard(document.getElementById('monthlyList'), rankInRange(DATA.ledger, mo.start, mo.end, true), 10, 'monthly');
+  renderBoard(document.getElementById('seasonList'),  se ? rankInRange(DATA.ledger, se.start, se.end, true) : [], 10, 'season');
 
-  // 全员榜：按当前维度
+  // 全员榜单：周 / 月 / 累计 三态
   let allRows, tk;
-  if(ALL_PERIOD === 'week'){ allRows = rankInRange(DATA.ledger, wk.start, wk.end); tk = null; }
-  else if(ALL_PERIOD === 'month'){ allRows = rankInRange(DATA.ledger, mo.start, mo.end); tk = null; }
+  if(ALL_PERIOD === 'week'){ allRows = rankInRange(DATA.ledger, wk.start, wk.end, true); tk = null; }
+  else if(ALL_PERIOD === 'month'){ allRows = rankInRange(DATA.ledger, mo.start, mo.end, true); tk = null; }
   else { allRows = (DATA.members||[]).filter(m=>m.active!==false).map(m=>({id:m.id,name:m.name,pts:m.totalPoints||0})); tk = 'cumulative'; }
   allRows.sort((a,b)=> b.pts - a.pts || a.name.localeCompare(b.name,'zh'));
   renderBoard(document.getElementById('allList'), allRows, undefined, tk);
 
-  // 管理面板成员下拉
   const sel = document.getElementById('scoreMember');
   const cur = sel.value;
   sel.innerHTML = '';
@@ -549,7 +550,7 @@ function renderAll(){
 }
 
 /* =========================================================
-   管理面板逻辑
+   管理面板
    ========================================================= */
 function openAdmin(){
   document.getElementById('adminModal').classList.remove('hidden');
@@ -562,8 +563,7 @@ function closeAdmin(){ document.getElementById('adminModal').classList.add('hidd
 
 function fillAdmin(){
   const t = DATA.meta.titles;
-  document.getElementById('titleCumulative').value =
-    (t.cumulative||[]).map(x=>`${x.min},${x.name}`).join('\n');
+  document.getElementById('titleCumulative').value = (t.cumulative||[]).map(x=>`${x.min},${x.name}`).join('\n');
   document.getElementById('titleWeekly').value  = (t.weekly ||[]).join('\n');
   document.getElementById('titleMonthly').value = (t.monthly||[]).join('\n');
   document.getElementById('titleSeason').value  = (t.season ||[]).join('\n');
@@ -578,8 +578,9 @@ function renderMembers(){
   if(!DATA.members.length){ box.innerHTML = '<div class="empty">暂无成员</div>'; return; }
   DATA.members.forEach(m=>{
     const div = document.createElement('div'); div.className='logitem';
-    div.innerHTML = `<div class="b">${esc(m.name)}<span style="color:var(--txt-dim);font-size:11.5px"> · 累计 ${m.totalPoints||0} 分 · ${cumulativeTitle(m.totalPoints||0)||'—'}</span></div>
-      <div class="d">${m.active===false?'<span style="color:#ff9d9d">已停用</span>':''}</div>`;
+    div.innerHTML =
+      `<div class="b">${esc(m.name)}<span style="color:var(--txt-dim);font-size:11px"> · 累计 ${m.totalPoints||0} 分 · ${cumulativeTitle(m.totalPoints||0)||'—'}</span></div>
+       <button class="mini-btn" data-del="${m.id}">删除</button>`;
     box.appendChild(div);
   });
 }
@@ -587,15 +588,14 @@ function renderLogs(filter){
   const box = document.getElementById('logBox');
   box.innerHTML = '';
   const kw = (filter||'').trim();
-  const rows = [...DATA.ledger].sort((a,b)=> Date.parse(b.ts)-Date.parse(a.ts))
-    .filter(e=> !kw || (e.member||'').includes(kw));
+  const rows = [...DATA.ledger].sort((a,b)=> Date.parse(b.ts)-Date.parse(a.ts)).filter(e=> !kw || (e.member||'').includes(kw));
   if(!rows.length){ box.innerHTML = '<div class="empty">暂无操作记录</div>'; return; }
   rows.slice(0, 300).forEach(e=>{
     const d = Number(e.delta)||0;
     const div = document.createElement('div'); div.className='logitem';
     div.innerHTML = `<div class="t">${e.ts.replace('T',' ').slice(0,16)}</div>
       <div class="b"><b>${esc(e.member)}</b> · ${esc(e.reason||'')}
-        <span style="color:var(--txt-dim);font-size:11.5px">（操作人：${esc(e.admin||'admin')}）</span></div>
+        <span style="color:var(--txt-dim);font-size:11px">（操作人：${esc(e.admin||'admin')}）</span></div>
       <div class="d ${d>=0?'plus':'minus'}">${d>=0?'+':''}${d}</div>`;
     box.appendChild(div);
   });
@@ -612,32 +612,20 @@ async function addScore(){
   if(!Number.isFinite(delta) || delta===0) return toast('请输入有效分值', true);
   const m = DATA.members.find(x=>x.id===mid);
   if(!m) return toast('成员不存在', true);
-
   const now = new Date();
-  DATA.ledger.push({
-    id:'l'+Date.now(), ts:now.toISOString(),
-    memberId:m.id, member:m.name, delta, reason, admin:'admin', op: delta>=0?'add':'sub'
-  });
+  DATA.ledger.push({ id:'l'+Date.now(), ts:now.toISOString(), memberId:m.id, member:m.name, delta, reason, admin:'admin', op: delta>=0?'add':'sub' });
   m.totalPoints = (Number(m.totalPoints)||0) + delta;
   DATA.meta.updatedAt = now.toISOString();
-
-  try{
-    toast('保存中…');
-    await saveData(DATA);
-    document.getElementById('scoreReason').value = '';
-    refreshAdminPanes();
-    toast('已提交并同步到仓库');
-  }catch(e){ toast(e.message || '保存失败', true); }
+  try{ toast('保存中…'); await saveData(DATA); document.getElementById('scoreReason').value = ''; refreshAdminPanes(); toast('已提交并同步到仓库'); }
+  catch(e){ toast(e.message || '保存失败', true); }
 }
 
 /* 称号设定 */
 async function saveTitles(){
   const parseCumulative = txt => txt.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{
-    const [a,b] = l.split(',');
-    return { min:Number(a)||0, name:(b||'').trim() };
+    const [a,b] = l.split(','); return { min:Number(a)||0, name:(b||'').trim() };
   }).sort((x,y)=>x.min-y.min);
   const parseLines = txt => txt.split('\n').map(s=>s.trim()).filter(Boolean);
-
   DATA.meta.titles = {
     cumulative: parseCumulative(document.getElementById('titleCumulative').value),
     weekly:  parseLines(document.getElementById('titleWeekly').value),
@@ -672,11 +660,21 @@ async function addMember(){
   catch(e){ toast(e.message||'保存失败', true); }
 }
 
+/* 删除成员（历史流水保留在日志中） */
+async function deleteMember(id){
+  const m = DATA.members.find(x=>x.id===id);
+  if(!m) return;
+  if(!confirm(`确认删除成员「${m.name}」？删除后将从榜单移除，但其历史流水仍保留在操作日志中。`)) return;
+  DATA.members = DATA.members.filter(x=>x.id!==id);
+  DATA.meta.updatedAt = new Date().toISOString();
+  try{ toast('保存中…'); await saveData(DATA); refreshAdminPanes(); toast('成员已删除'); }
+  catch(e){ toast(e.message||'保存失败', true); }
+}
+
 /* 导出 */
 function download(filename, text, type){
   const blob = new Blob([text], { type: type||'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob); a.download = filename;
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename;
   document.body.appendChild(a); a.click(); a.remove();
 }
 
@@ -689,8 +687,7 @@ document.getElementById('adminModal').addEventListener('click', e=>{ if(e.target
 
 document.getElementById('loginBtn').addEventListener('click', ()=>{
   const pw = document.getElementById('pwInput').value;
-  if(pw === CONFIG.adminPassword){ IS_ADMIN = true; openAdmin(); }
-  else toast('密码错误', true);
+  if(pw === CONFIG.adminPassword){ IS_ADMIN = true; openAdmin(); } else toast('密码错误', true);
 });
 document.getElementById('pwInput').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('loginBtn').click(); });
 
@@ -717,14 +714,20 @@ document.getElementById('saveSeasonBtn').addEventListener('click', saveSeason);
 document.getElementById('addMemberBtn').addEventListener('click', addMember);
 document.getElementById('logFilter').addEventListener('input', e=> renderLogs(e.target.value));
 
+/* 删除按钮采用事件委托，适配动态列表 */
+document.getElementById('memberListBox').addEventListener('click', e=>{
+  const btn = e.target.closest('button[data-del]');
+  if(btn) deleteMember(btn.dataset.del);
+});
+
 document.getElementById('exportJsonBtn').addEventListener('click', ()=>{
-  download(`声浪小馆-数据-${fmtDate(Date.now())}.json`, JSON.stringify(DATA, null, 2));
+  download(`有声小馆-数据-${fmtDate(Date.now())}.json`, JSON.stringify(DATA, null, 2));
 });
 document.getElementById('exportCsvBtn').addEventListener('click', ()=>{
   const head = '时间,成员,分值,原因,操作人\n';
   const body = [...DATA.ledger].sort((a,b)=>Date.parse(a.ts)-Date.parse(b.ts))
     .map(e=>`${e.ts},${e.member},${e.delta},${(e.reason||'').replace(/,/g,'，')},${e.admin||'admin'}`).join('\n');
-  download(`声浪小馆-流水-${fmtDate(Date.now())}.csv`, '\uFEFF'+head+body, 'text/csv');
+  download(`有声小馆-流水-${fmtDate(Date.now())}.csv`, '\uFEFF'+head+body, 'text/csv');
 });
 
 /* =========================================================
