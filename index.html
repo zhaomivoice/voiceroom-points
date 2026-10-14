@@ -476,10 +476,11 @@ async function writeData(data){
   const url = `${API}/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${DATA_PATH}`;
   const headers = { Authorization:`token ${token}`, 'Content-Type':'application/json' };
   for(let attempt=0; attempt<3; attempt++){
-    const g = await fetch(`${url}?ref=${CONFIG.branch}`, { headers });
+    // 加时间戳 + cache:no-store：避免浏览器缓存 API 响应导致取到过期 sha（连续写会触发 409）
+    const g = await fetch(`${url}?ref=${CONFIG.branch}&t=${Date.now()}`, { headers, cache:'no-store' });
     const sha = g.ok ? (await g.json()).sha : undefined;
     const put = await fetch(url, {
-      method:'PUT', headers,
+      method:'PUT', headers, cache:'no-store',
       body: JSON.stringify({ message:`积分更新 @${new Date().toISOString()}`, content, sha, branch: CONFIG.branch })
     });
     if(put.ok) return true;
