@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-14T16:58:09.785Z",
+    "updatedAt": "2026-10-14T16:58:37.080Z",
     "version": 1,
     "season": {
       "name": "第一赛季",
@@ -118,14 +118,6 @@
       "avatar": "",
       "totalPoints": 120,
       "joinDate": "2026-07-21",
-      "active": true
-    },
-    {
-      "id": "m1791997089785",
-      "name": "临时测试",
-      "avatar": "",
-      "totalPoints": 0,
-      "joinDate": "2026-10-15",
       "active": true
     }
   ],
