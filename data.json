@@ -1,256 +1,46 @@
 {
   "meta": {
-    "updatedAt": "2026-10-14T16:53:59.434Z",
+    "updatedAt": "2026-10-14T20:30:00+08:00",
     "version": 1,
-    "season": {
-      "name": "第一赛季",
-      "start": "2026-01-01",
-      "end": "2026-12-31"
-    },
+    "season": { "name": "第一赛季", "start": "2026-01-01", "end": "2026-12-31" },
     "titles": {
       "cumulative": [
-        {
-          "min": 0,
-          "name": "初闻"
-        },
-        {
-          "min": 100,
-          "name": "微声"
-        },
-        {
-          "min": 300,
-          "name": "新声"
-        },
-        {
-          "min": 600,
-          "name": "声浪"
-        },
-        {
-          "min": 1000,
-          "name": "强音"
-        },
-        {
-          "min": 2000,
-          "name": "声浪达人"
-        },
-        {
-          "min": 5000,
-          "name": "声浪之王"
-        }
+        { "min": 0, "name": "初闻" },
+        { "min": 100, "name": "微声" },
+        { "min": 300, "name": "新声" },
+        { "min": 600, "name": "声浪" },
+        { "min": 1000, "name": "强音" },
+        { "min": 2000, "name": "声浪达人" },
+        { "min": 5000, "name": "声浪之王" }
       ],
-      "weekly": [
-        "周·声浪之王",
-        "周·强音",
-        "周·新声"
-      ],
-      "monthly": [
-        "月·声浪之王",
-        "月·强音",
-        "月·新声"
-      ],
-      "season": [
-        "赛季·声浪之王",
-        "赛季·强音",
-        "赛季·新声"
-      ]
+      "weekly": ["周·声浪之王", "周·强音", "周·新声"],
+      "monthly": ["月·声浪之王", "月·强音", "月·新声"],
+      "season": ["赛季·声浪之王", "赛季·强音", "赛季·新声"]
     }
   },
   "members": [
-    {
-      "id": "m001",
-      "name": "夜莺",
-      "avatar": "",
-      "totalPoints": 270,
-      "joinDate": "2026-01-08",
-      "active": true
-    },
-    {
-      "id": "m002",
-      "name": "清野",
-      "avatar": "",
-      "totalPoints": 45,
-      "joinDate": "2026-02-11",
-      "active": true
-    },
-    {
-      "id": "m003",
-      "name": "阿澈",
-      "avatar": "",
-      "totalPoints": 180,
-      "joinDate": "2026-01-20",
-      "active": true
-    },
-    {
-      "id": "m004",
-      "name": "南烟",
-      "avatar": "",
-      "totalPoints": 110,
-      "joinDate": "2026-03-02",
-      "active": true
-    },
-    {
-      "id": "m005",
-      "name": "小满",
-      "avatar": "",
-      "totalPoints": 25,
-      "joinDate": "2026-04-19",
-      "active": true
-    },
-    {
-      "id": "m006",
-      "name": "子墨",
-      "avatar": "",
-      "totalPoints": 60,
-      "joinDate": "2026-05-06",
-      "active": true
-    },
-    {
-      "id": "m007",
-      "name": "浮生",
-      "avatar": "",
-      "totalPoints": 90,
-      "joinDate": "2026-06-15",
-      "active": true
-    },
-    {
-      "id": "m008",
-      "name": "晚风",
-      "avatar": "",
-      "totalPoints": 120,
-      "joinDate": "2026-07-21",
-      "active": true
-    }
+    { "id": "m001", "name": "夜莺", "avatar": "", "totalPoints": 270, "joinDate": "2026-01-08", "active": true },
+    { "id": "m002", "name": "清野", "avatar": "", "totalPoints": 45,  "joinDate": "2026-02-11", "active": true },
+    { "id": "m003", "name": "阿澈", "avatar": "", "totalPoints": 180, "joinDate": "2026-01-20", "active": true },
+    { "id": "m004", "name": "南烟", "avatar": "", "totalPoints": 110, "joinDate": "2026-03-02", "active": true },
+    { "id": "m005", "name": "小满", "avatar": "", "totalPoints": 25,  "joinDate": "2026-04-19", "active": true },
+    { "id": "m006", "name": "子墨", "avatar": "", "totalPoints": 60,  "joinDate": "2026-05-06", "active": true },
+    { "id": "m007", "name": "浮生", "avatar": "", "totalPoints": 90,  "joinDate": "2026-06-15", "active": true },
+    { "id": "m008", "name": "晚风", "avatar": "", "totalPoints": 120, "joinDate": "2026-07-21", "active": true }
   ],
   "ledger": [
-    {
-      "id": "l1",
-      "ts": "2026-10-14T21:10:00+08:00",
-      "memberId": "m001",
-      "member": "夜莺",
-      "delta": 20,
-      "reason": "晚场连麦奖励",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l2",
-      "ts": "2026-10-14T20:40:00+08:00",
-      "memberId": "m005",
-      "member": "小满",
-      "delta": 25,
-      "reason": "新人首播奖励",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l3",
-      "ts": "2026-10-13T22:05:00+08:00",
-      "memberId": "m001",
-      "member": "夜莺",
-      "delta": 50,
-      "reason": "周赛奖励",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l4",
-      "ts": "2026-10-13T21:30:00+08:00",
-      "memberId": "m002",
-      "member": "清野",
-      "delta": 30,
-      "reason": "周赛奖励",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l5",
-      "ts": "2026-10-12T20:55:00+08:00",
-      "memberId": "m003",
-      "member": "阿澈",
-      "delta": 80,
-      "reason": "周赛冠军",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l6",
-      "ts": "2026-10-12T20:20:00+08:00",
-      "memberId": "m004",
-      "member": "南烟",
-      "delta": 40,
-      "reason": "周赛奖励",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l7",
-      "ts": "2026-10-06T21:00:00+08:00",
-      "memberId": "m002",
-      "member": "清野",
-      "delta": 15,
-      "reason": "日常活跃",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l8",
-      "ts": "2026-10-03T20:30:00+08:00",
-      "memberId": "m006",
-      "member": "子墨",
-      "delta": 60,
-      "reason": "月度贡献奖励",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l9",
-      "ts": "2026-09-20T21:15:00+08:00",
-      "memberId": "m003",
-      "member": "阿澈",
-      "delta": 100,
-      "reason": "九月主题活动",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l10",
-      "ts": "2026-08-11T20:45:00+08:00",
-      "memberId": "m007",
-      "member": "浮生",
-      "delta": 90,
-      "reason": "八月主题活动",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l11",
-      "ts": "2026-07-05T19:50:00+08:00",
-      "memberId": "m008",
-      "member": "晚风",
-      "delta": 120,
-      "reason": "夏日声浪赛",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l12",
-      "ts": "2026-06-18T21:20:00+08:00",
-      "memberId": "m001",
-      "member": "夜莺",
-      "delta": 200,
-      "reason": "上半年总榜冠军",
-      "admin": "admin",
-      "op": "add"
-    },
-    {
-      "id": "l13",
-      "ts": "2026-04-22T20:10:00+08:00",
-      "memberId": "m004",
-      "member": "南烟",
-      "delta": 70,
-      "reason": "四月主题赛",
-      "admin": "admin",
-      "op": "add"
-    }
+    { "id": "l1", "ts": "2026-10-14T21:10:00+08:00", "memberId": "m001", "member": "夜莺", "delta": 20,  "reason": "晚场连麦奖励", "admin": "admin", "op": "add" },
+    { "id": "l2", "ts": "2026-10-14T20:40:00+08:00", "memberId": "m005", "member": "小满", "delta": 25,  "reason": "新人首播奖励", "admin": "admin", "op": "add" },
+    { "id": "l3", "ts": "2026-10-13T22:05:00+08:00", "memberId": "m001", "member": "夜莺", "delta": 50,  "reason": "周赛奖励",   "admin": "admin", "op": "add" },
+    { "id": "l4", "ts": "2026-10-13T21:30:00+08:00", "memberId": "m002", "member": "清野", "delta": 30,  "reason": "周赛奖励",   "admin": "admin", "op": "add" },
+    { "id": "l5", "ts": "2026-10-12T20:55:00+08:00", "memberId": "m003", "member": "阿澈", "delta": 80,  "reason": "周赛冠军",   "admin": "admin", "op": "add" },
+    { "id": "l6", "ts": "2026-10-12T20:20:00+08:00", "memberId": "m004", "member": "南烟", "delta": 40,  "reason": "周赛奖励",   "admin": "admin", "op": "add" },
+    { "id": "l7", "ts": "2026-10-06T21:00:00+08:00", "memberId": "m002", "member": "清野", "delta": 15,  "reason": "日常活跃",   "admin": "admin", "op": "add" },
+    { "id": "l8", "ts": "2026-10-03T20:30:00+08:00", "memberId": "m006", "member": "子墨", "delta": 60,  "reason": "月度贡献奖励", "admin": "admin", "op": "add" },
+    { "id": "l9", "ts": "2026-09-20T21:15:00+08:00", "memberId": "m003", "member": "阿澈", "delta": 100, "reason": "九月主题活动", "admin": "admin", "op": "add" },
+    { "id": "l10","ts": "2026-08-11T20:45:00+08:00", "memberId": "m007", "member": "浮生", "delta": 90,  "reason": "八月主题活动", "admin": "admin", "op": "add" },
+    { "id": "l11","ts": "2026-07-05T19:50:00+08:00", "memberId": "m008", "member": "晚风", "delta": 120, "reason": "夏日声浪赛",  "admin": "admin", "op": "add" },
+    { "id": "l12","ts": "2026-06-18T21:20:00+08:00", "memberId": "m001", "member": "夜莺", "delta": 200, "reason": "上半年总榜冠军", "admin": "admin", "op": "add" },
+    { "id": "l13","ts": "2026-04-22T20:10:00+08:00", "memberId": "m004", "member": "南烟", "delta": 70,  "reason": "四月主题赛",  "admin": "admin", "op": "add" }
   ]
 }
