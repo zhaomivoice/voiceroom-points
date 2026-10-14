@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>声浪小馆 · 积分榜</title>
+<style>
+:root{
+  --glass-bg: rgba(255,255,255,0.10);
+  --glass-bd: rgba(255,255,255,0.22);
+  --txt: #f7f7fb;
+  --txt-dim: rgba(247,247,251,0.70);
+  --gold: #ffd76a;
+  --silver: #d8e0ec;
+  --bronze: #e6a86b;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  color:var(--txt);
+  min-height:100vh;
+  background:linear-gradient(135deg,#4b3f8f 0%,#2b3a67 38%,#7a3f8f 70%,#b3456b 100%);
+  background-size:400% 400%;
+  animation:gradientShift 18s ease infinite;
+  padding:calc(24px + env(safe-area-inset-top)) 16px 96px;
+}
+@keyframes gradientShift{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+body::before{ /* 柔光装饰 */
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 18% 12%,rgba(255,255,255,.18),transparent 45%),
+             radial-gradient(circle at 82% 78%,rgba(255,182,214,.16),transparent 50%);
+}
+.wrap{position:relative;max-width:920px;margin:0 auto}
+
+/* ===== 顶部标题 ===== */
+.hero{text-align:center;margin-bottom:22px;position:relative}
+.art-title{
+  margin:0;
+  font-family:"STXingkai","华文行楷","STKaiti","KaiTi",serif;
+  font-size:clamp(44px,11vw,84px);
+  letter-spacing:.06em;
+  background:linear-gradient(92deg,#ffe6a8,#ffd76a 22%,#fff 48%,#ffd76a 74%,#ffe6a8);
+  background-size:220% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 18px rgba(255,215,106,.35));
+  animation:shine 5.5s linear infinite;transform:rotate(-2deg);
+}
+.subtitle{
+  margin:4px 0 0;font-size:clamp(13px,3.6vw,16px);letter-spacing:.42em;
+  color:var(--txt-dim);text-indent:.42em;
+  animation:sway 6s ease-in-out infinite;
+}
+@keyframes shine{to{background-position:220% center}}
+@keyframes sway{0%,100%{transform:rotate(.6deg)}50%{transform:rotate(-.6deg)}}
+.statusbar{
+  display:inline-flex;align-items:center;gap:10px;margin-top:14px;
+  padding:7px 16px;border-radius:999px;font-size:12.5px;color:var(--txt-dim);
+  background:var(--glass-bg);border:1px solid var(--glass-bd);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.dot{width:6px;height:6px;border-radius:50%;background:#7ef0b0;box-shadow:0 0 8px #7ef0b0}
+
+/* ===== 玻璃卡片 ===== */
+.glass{
+  background:var(--glass-bg);border:1px solid var(--glass-bd);border-radius:20px;
+  backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
+  box-shadow:0 8px 32px rgba(0,0,0,.18);
+}
+.board{padding:18px 16px 12px;margin-bottom:18px}
+.board h2{
+  margin:0 0 12px;font-size:17px;font-weight:700;display:flex;align-items:baseline;gap:10px;
+}
+.board h2 .badge{
+  font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;
+  background:rgba(255,215,106,.16);color:var(--gold);border:1px solid rgba(255,215,106,.35);
+}
+.board h2 small{font-size:11.5px;font-weight:400;color:var(--txt-dim);letter-spacing:.02em}
+
+/* ===== 榜单列表 ===== */
+.rank-list{list-style:none;margin:0;padding:0}
+.rank-list li{
+  display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:12px;
+  transition:background .18s;
+}
+.rank-list li:hover{background:rgba(255,255,255,.06)}
+.rank-no{
+  flex:0 0 30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  font-weight:800;font-size:13.5px;background:rgba(255,255,255,.10);
+}
+li.r1 .rank-no{background:linear-gradient(145deg,#ffe9a8,#e0a72e);color:#4a3600}
+li.r2 .rank-no{background:linear-gradient(145deg,#eef3fa,#aebcd0);color:#333b47}
+li.r3 .rank-no{background:linear-gradient(145deg,#f3c79a,#c07b3a);color:#402208}
+.rname{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.rname .n{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rtitle{font-size:11px;color:var(--gold);opacity:.92;letter-spacing:.02em}
+.rscore{font-variant-numeric:tabular-nums;font-weight:800;font-size:16px}
+.rscore small{font-size:11px;font-weight:500;color:var(--txt-dim);margin-left:2px}
+.empty{padding:16px 6px;color:var(--txt-dim);font-size:13.5px;text-align:center}
+
+/* ===== 分段按钮 ===== */
+.seg{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:rgba(0,0,0,.16);margin-bottom:12px}
+.seg button{
+  border:0;cursor:pointer;padding:7px 18px;border-radius:9px;font-size:13px;font-weight:600;
+  color:var(--txt-dim);background:transparent;transition:.18s;font-family:inherit;
+}
+.seg button.active{background:rgba(255,215,106,.9);color:#3c2f00}
+
+/* ===== 底部入口 ===== */
+footer{max-width:920px;margin:6px auto 0;text-align:center;position:relative}
+.ghost-btn{
+  font-family:inherit;cursor:pointer;padding:9px 22px;border-radius:999px;font-size:12.5px;
+  color:var(--txt-dim);background:rgba(255,255,255,.07);border:1px solid var(--glass-bd);
+  backdrop-filter:blur(10px);transition:.2s;
+}
+.ghost-btn:hover{color:var(--txt);background:rgba(255,255,255,.14)}
+
+/* ===== 弹层 ===== */
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px;
+  background:rgba(18,14,32,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modal.hidden{display:none}
+.panel{
+  width:100%;max-width:620px;max-height:88vh;overflow:auto;border-radius:22px;padding:20px;
+  background:linear-gradient(160deg,rgba(60,52,110,.94),rgba(40,34,74,.96));
+  border:1px solid var(--glass-bd);box-shadow:0 24px 70px rgba(0,0,0,.45);
+}
+.panel h3{margin:0 0 14px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
+.icon-btn{border:0;background:transparent;color:var(--txt-dim);font-size:22px;cursor:pointer;line-height:1}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.tabs button{
+  font-family:inherit;cursor:pointer;border:1px solid var(--glass-bd);background:rgba(255,255,255,.06);
+  color:var(--txt-dim);padding:7px 14px;border-radius:999px;font-size:13px;transition:.18s;
+}
+.tabs button.active{background:rgba(255,215,106,.9);color:#3c2f00;border-color:transparent;font-weight:700}
+.tabpane{display:none}.tabpane.active{display:block}
+label.f{display:block;font-size:12.5px;color:var(--txt-dim);margin:12px 0 6px}
+input,select,textarea{
+  width:100%;font-family:inherit;font-size:14px;color:var(--txt);padding:10px 12px;border-radius:11px;
+  background:rgba(0,0,0,.26);border:1px solid var(--glass-bd);outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:rgba(255,215,106,.6)}
+textarea{resize:vertical;min-height:96px;line-height:1.5}
+select option{color:#111}
+.btn{
+  font-family:inherit;cursor:pointer;border:0;padding:11px 18px;border-radius:12px;font-size:14px;font-weight:700;
+  background:linear-gradient(135deg,#ffd76a,#f0a33a);color:#3c2f00;transition:.18s;
+}
+.btn:hover{filter:brightness(1.06)}
+.btn.sec{background:rgba(255,255,255,.12);color:var(--txt);font-weight:600}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.hint{font-size:12px;color:var(--txt-dim);margin-top:8px;line-height:1.6}
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:99;
+  padding:11px 20px;border-radius:999px;font-size:13.5px;background:rgba(20,16,36,.94);
+  border:1px solid var(--glass-bd);box-shadow:0 10px 30px rgba(0,0,0,.4);
+  opacity:0;transition:.28s;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+.toast.err{border-color:rgba(255,120,120,.6);color:#ffbdbd}
+.loglist{max-height:44vh;overflow:auto;border-radius:12px;background:rgba(0,0,0,.18);padding:6px}
+.logitem{display:flex;gap:10px;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.07);font-size:13px}
+.logitem:last-child{border-bottom:0}
+.logitem .t{color:var(--txt-dim);font-size:11.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.logitem .b{flex:1}.logitem .d{font-weight:800;font-variant-numeric:tabular-nums}
+.d.plus{color:#8ff0b4}.d.minus{color:#ff9d9d}
+@media(max-width:520px){.row{flex-direction:column}.board{padding:15px 12px 10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1 class="art-title">声浪小馆</h1>
+    <p class="subtitle">声浪积分榜</p>
+    <div class="statusbar">
+      <span class="dot"></span>
+      <span id="lastUpdated">加载中…</span>
+      <span>·</span>
+      <span id="seasonInfo">赛季</span>
+    </div>
+  </header>
+
+  <main id="boards">
+    <!-- 1. 周榜 -->
+    <section class="board glass">
+      <h2>周榜 TOP10 <span class="badge" id="weeklyRange"></span></h2>
+      <ol class="rank-list" id="weeklyList"></ol>
+    </section>
+    <!-- 2. 月榜 -->
+    <section class="board glass">
+      <h2>月榜 TOP10 <span class="badge" id="monthlyRange"></span></h2>
+      <ol class="rank-list" id="monthlyList"></ol>
+    </section>
+    <!-- 3. 赛季 -->
+    <section class="board glass">
+      <h2>赛季 TOP10 <span class="badge" id="seasonRange"></span></h2>
+      <ol class="rank-list" id="seasonList"></ol>
+    </section>
+    <!-- 4. 全员榜 -->
+    <section class="board glass">
+      <h2>全员榜单</h2>
+      <div class="seg" id="allSeg">
+        <button data-period="week">周</button>
+        <button data-period="month">月</button>
+        <button data-period="total" class="active">累计</button>
+      </div>
+      <ol class="rank-list" id="allList"></ol>
+    </section>
+  </main>
+
+  <footer>
+    <button class="ghost-btn" id="adminEntry">管理入口</button>
+  </footer>
+</div>
+
+<!-- 管理弹层 -->
+<div class="modal hidden" id="adminModal">
+  <div class="panel">
+    <h3><span id="adminTitle">管理员登录</span><button class="icon-btn" id="closeAdmin">×</button></h3>
+
+    <!-- 登录 -->
+    <div id="loginPane">
+      <label class="f">管理密码</label>
+      <input type="password" id="pwInput" placeholder="请输入管理密码" autocomplete="current-password">
+      <div style="margin-top:16px"><button class="btn" id="loginBtn" style="width:100%">登 录</button></div>
+      <p class="hint">仅授权管理员使用。所有录分操作会写入仓库并永久留痕。</p>
+    </div>
+
+    <!-- 管理面板 -->
+    <div id="panelPane" style="display:none">
+      <div class="tabs">
+        <button class="active" data-tab="score">积分录入</button>
+        <button data-tab="title">称号设定</button>
+        <button data-tab="season">赛季设定</button>
+        <button data-tab="member">成员管理</button>
+        <button data-tab="log">操作日志</button>
+        <button data-tab="data">数据导出</button>
+      </div>
+
+      <!-- 积分录入 -->
+      <div class="tabpane active" data-pane="score">
+        <label class="f">选择成员</label>
+        <select id="scoreMember"></select>
+        <div class="row">
+          <div><label class="f">分值（可负数）</label><input type="number" id="scoreDelta" value="10" step="1"></div>
+          <div><label class="f">原因</label><input type="text" id="scoreReason" placeholder="如：周赛奖励 / 违规扣分"></div>
+        </div>
+        <div style="margin-top:16px"><button class="btn" id="addScoreBtn">提交积分</button></div>
+        <p class="hint">提交后会追加一条流水并同步更新累计积分，同时写入仓库（自动重试防冲突）。</p>
+      </div>
+
+      <!-- 称号设定 -->
+      <div class="tabpane" data-pane="title">
+        <label class="f">累计积分称号（每行：最小积分,称号；由低到高）</label>
+        <textarea id="titleCumulative" placeholder="0,初闻&#10;100,微声&#10;300,新声"></textarea>
+
+        <label class="f">周榜称号（每行一个，第 1 行 = 第 1 名）</label>
+        <textarea id="titleWeekly" placeholder="周·声浪之王&#10;周·强音"></textarea>
+
+        <label class="f">月榜称号（每行一个，第 1 行 = 第 1 名）</label>
+        <textarea id="titleMonthly" placeholder="月·声浪之王&#10;月·强音"></textarea>
+
+        <label class="f">赛季称号（每行一个，第 1 行 = 第 1 名）</label>
+        <textarea id="titleSeason" placeholder="赛季·声浪之王&#10;赛季·强音"></textarea>
+
+        <div style="margin-top:16px"><button class="btn" id="saveTitlesBtn">保存称号设定</button></div>
+        <p class="hint">称号设置立即生效：榜单单显示对应名次的称号，全员榜「累计」按最小积分匹配称号。</p>
+      </div>
+
+      <!-- 赛季设定 -->
+      <div class="tabpane" data-pane="season">
+        <div class="row">
+          <div><label class="f">赛季名称</label><input type="text" id="seasonName" placeholder="如：第一赛季"></div>
+        </div>
+        <div class="row">
+          <div><label class="f">开始日期</label><input type="date" id="seasonStart"></div>
+          <div><label class="f">结束日期</label><input type="date" id="seasonEnd"></div>
+        </div>
+        <div style="margin-top:16px"><button class="btn" id="saveSeasonBtn">保存赛季设定</button></div>
+        <p class="hint">赛季榜统计该区间内的积分增量；结束日期当天 23:59:59 计入。</p>
+      </div>
+
+      <!-- 成员管理 -->
+      <div class="tabpane" data-pane="member">
+        <div class="row">
+          <div><label class="f">昵称</label><input type="text" id="newMemberName" placeholder="成员昵称"></div>
+        </div>
+        <div style="margin-top:16px"><button class="btn" id="addMemberBtn">新增成员</button></div>
+        <label class="f">成员列表</label>
+        <div class="loglist" id="memberListBox"></div>
+      </div>
+
+      <!-- 操作日志 -->
+      <div class="tabpane" data-pane="log">
+        <label class="f">筛选（昵称关键字，留空显示全部）</label>
+        <input type="text" id="logFilter" placeholder="输入昵称过滤">
+        <label class="f">操作流水</label>
+        <div class="loglist" id="logBox"></div>
+      </div>
+
+      <!-- 数据导出 -->
+      <div class="tabpane" data-pane="data">
+        <p class="hint">导出为本地备份文件；GitHub 仓库本身即永久版本记录，可从提交历史回退。</p>
+        <div class="row" style="margin-top:12px">
+          <button class="btn sec" id="exportJsonBtn">导出 JSON</button>
+          <button class="btn sec" id="exportCsvBtn">导出 CSV</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   配置区（部署时由部署脚本注入真实值）
+   ========================================================= */
+const CONFIG = {
+  owner: "zhaomivoice",
+  repo:  "voiceroom-points",
+  branch:"main",
+  // Token 分段 base64 存放，运行时拼接，降低明文曝光面
+  tokens:["WjJodlgwbE1jM0Z1UjJaVU9ISg==", "RldWQkZXa2REUW1oNlNsbG1iMw==", "UXlORlo2YmpKbFRXeERjZz09"],
+  adminPassword: "voice2026"
+};
+function getToken(){ try{ return CONFIG.tokens.map(s=>atob(s)).join(''); }catch(e){ return ''; } }
+
+const API = 'https://api.github.com';
+const TZ = 8 * 3600 * 1000;              // Asia/Shanghai (UTC+8)
+const DATA_PATH = 'data.json';
+
+const DEFAULT_TITLES = {
+  cumulative: [{min:0,name:'初闻'},{min:100,name:'微声'},{min:300,name:'新声'},
+               {min:600,name:'声浪'},{min:1000,name:'强音'},{min:2000,name:'声浪达人'},{min:5000,name:'声浪之王'}],
+  weekly:  ['周·声浪之王','周·强音','周·新声'],
+  monthly: ['月·声浪之王','月·强音','月·新声'],
+  season:  ['赛季·声浪之王','赛季·强音','赛季·新声']
+};
+const DEFAULT_DATA = {
+  meta:{ updatedAt:'', version:1,
+    season:{ name:'第一赛季', start:'2026-01-01', end:'2026-12-31' },
+    titles: DEFAULT_TITLES },
+  members: [],
+  ledger: []
+};
+
+let DATA = null;       // 当前数据
+let IS_ADMIN = false;  // 是否已登录
+let ALL_PERIOD = 'total'; // 全员榜当前维度
+
+/* =========================================================
+   工具
+   ========================================================= */
+function toast(msg, isErr){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show' + (isErr?' err':'');
+  clearTimeout(t._t); t._t = setTimeout(()=>{ t.className='toast'; }, 2400);
+}
+function b64decode(s){ return decodeURIComponent(escape(atob(String(s).replace(/\n/g,'')))); }
+function b64encode(s){ return btoa(unescape(encodeURIComponent(s))); }
+
+/* 时间：Asia/Shanghai */
+function dayStartSH(ts){
+  const d = new Date(ts + TZ);
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - TZ;
+}
+function weekRange(ts){
+  const ds = dayStartSH(ts);
+  const d = new Date(ds + TZ);
+  const wd = d.getUTCDay();            // 0=周日
+  const sinceMonday = (wd + 6) % 7;
+  const start = ds - sinceMonday * 86400000;
+  return { start, end: start + 7*86400000, label:'本周' };
+}
+function monthRange(ts){
+  const d = new Date(ts + TZ);
+  const y = d.getUTCFullYear(), m = d.getUTCMonth();
+  const start = Date.UTC(y, m, 1) - TZ;
+  return { start, end: Date.UTC(y, m+1, 1) - TZ, label:`${y}年${m+1}月` };
+}
+function seasonRange(season){
+  if(!season || !season.start || !season.end) return null;
+  const start = Date.parse(season.start + 'T00:00:00+08:00');
+  const end   = Date.parse(season.end   + 'T23:59:59+08:00') + 1000;
+  if(isNaN(start) || isNaN(end) || end <= start) return null;
+  return { start, end, label: season.name || '赛季' };
+}
+function fmtDate(ts){
+  const d = new Date(ts + TZ);
+  const p = n => String(n).padStart(2,'0');
+  return `${d.getUTCFullYear()}-${p(d.getUTCMonth()+1)}-${p(d.getUTCDate())}`;
+}
+
+/* 称号解析 */
+function cumulativeTitle(points){
+  const arr = (DATA.meta.titles && DATA.meta.titles.cumulative) || DEFAULT_TITLES.cumulative;
+  let name = '';
+  for(const t of arr){ if(points >= t.min) name = t.name; }
+  return name;
+}
+function rankTitle(kind, rank){
+  const arr = (DATA.meta.titles && DATA.meta.titles[kind]) || [];
+  return arr[rank-1] || '';
+}
+
+/* 区间聚合：返回 [{id,name,pts}] 降序 */
+function rankInRange(ledger, start, end, includeZero){
+  const sum = {};
+  for(const e of ledger){
+    const t = Date.parse(e.ts);
+    if(t >= start && t < end) sum[e.memberId] = (sum[e.memberId]||0) + (Number(e.delta)||0);
+  }
+  const rows = (DATA.members||[])
+    .filter(m => m.active !== false)
+    .map(m => ({ id:m.id, name:m.name, pts: sum[m.id]||0 }))
+    .filter(r => includeZero || r.pts !== 0);
+  rows.sort((a,b)=> b.pts - a.pts || a.name.localeCompare(b.name,'zh'));
+  return rows;
+}
+
+/* =========================================================
+   数据读写（API → CDN → localStorage）
+   ========================================================= */
+async function readData(){
+  const token = getToken();
+  try{
+    const r = await fetch(`${API}/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${DATA_PATH}?ref=${CONFIG.branch}&t=${Date.now()}`,
+      { headers: token ? { Authorization:`token ${token}` } : {} });
+    if(r.ok){
+      const j = await r.json();
+      return normalize(JSON.parse(b64decode(j.content)));
+    }
+  }catch(e){ console.warn('API 读取失败', e); }
+  try{
+    const r = await fetch(`./${DATA_PATH}?t=${Date.now()}`);
+    if(r.ok) return normalize(await r.json());
+  }catch(e){ console.warn('CDN 读取失败', e); }
+  try{
+    const ls = localStorage.getItem('voiceroom_data');
+    if(ls) return normalize(JSON.parse(ls));
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+function normalize(d){
+  d = d || {};
+  d.meta = d.meta || {};
+  d.meta.titles = Object.assign({}, DEFAULT_TITLES, d.meta.titles || {});
+  d.meta.season = d.meta.season || { name:'', start:'', end:'' };
+  d.members = Array.isArray(d.members) ? d.members : [];
+  d.ledger  = Array.isArray(d.ledger)  ? d.ledger  : [];
+  return d;
+}
+
+let saveQueue = Promise.resolve();
+function saveData(data){
+  DATA = data;
+  localStorage.setItem('voiceroom_data', JSON.stringify(data));
+  const p = saveQueue.then(()=> writeData(data));
+  saveQueue = p.catch(()=>{});
+  return p;
+}
+async function writeData(data){
+  const token = getToken();
+  if(!token) throw new Error('未配置访问令牌');
+  const content = b64encode(JSON.stringify(data, null, 2));
+  const url = `${API}/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${DATA_PATH}`;
+  const headers = { Authorization:`token ${token}`, 'Content-Type':'application/json' };
+  for(let attempt=0; attempt<3; attempt++){
+    const g = await fetch(`${url}?ref=${CONFIG.branch}`, { headers });
+    const sha = g.ok ? (await g.json()).sha : undefined;
+    const put = await fetch(url, {
+      method:'PUT', headers,
+      body: JSON.stringify({
+        message:`积分更新 @${new Date().toISOString()}`,
+        content, sha, branch: CONFIG.branch
+      })
+    });
+    if(put.ok) return true;
+    if(put.status !== 409) {           // 409 = SHA 冲突，重试
+      let msg = put.status;
+      try{ msg = (await put.json()).message || msg; }catch(e){}
+      throw new Error('写入失败：' + msg);
+    }
+  }
+  throw new Error('写入冲突，重试后仍失败');
+}
+
+/* =========================================================
+   渲染
+   ========================================================= */
+function renderBoard(listEl, rows, topN, titleKind){
+  listEl.innerHTML = '';
+  const slice = (typeof topN === 'number') ? rows.slice(0, topN) : rows;
+  if(!slice.length){ listEl.innerHTML = '<div class="empty">暂无记录</div>'; return; }
+  slice.forEach((r, i)=>{
+    const rank = i + 1;
+    const li = document.createElement('li');
+    li.className = rank<=3 ? 'r'+rank : '';
+    let title = '';
+    if(titleKind === 'cumulative') title = cumulativeTitle(r.pts);
+    else if(titleKind) title = rankTitle(titleKind, rank);
+    li.innerHTML =
+      `<div class="rank-no">${rank}</div>
+       <div class="rname"><span class="n">${esc(r.name)}</span>${title?`<span class="rtitle">${esc(title)}</span>`:''}</div>
+       <div class="rscore">${r.pts}<small>分</small></div>`;
+    listEl.appendChild(li);
+  });
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function renderAll(){
+  const now = Date.now();
+  const wk = weekRange(now), mo = monthRange(now), se = seasonRange(DATA.meta.season);
+
+  document.getElementById('weeklyRange').textContent  = `${fmtDate(wk.start)} ~ ${fmtDate(wk.end-1)}`;
+  document.getElementById('monthlyRange').textContent = mo.label;
+  document.getElementById('seasonRange').textContent  = se ? `${DATA.meta.season.name} · ${fmtDate(se.start)} ~ ${fmtDate(se.end-1)}` : '未设置';
+  document.getElementById('seasonInfo').textContent   = se ? `赛季：${DATA.meta.season.name}` : '赛季未设置';
+  const up = DATA.meta.updatedAt;
+  document.getElementById('lastUpdated').textContent = up ? `更新于 ${up.replace('T',' ').slice(0,16)}` : '尚未录入';
+
+  renderBoard(document.getElementById('weeklyList'),
+    rankInRange(DATA.ledger, wk.start, wk.end), 10, 'weekly');
+  renderBoard(document.getElementById('monthlyList'),
+    rankInRange(DATA.ledger, mo.start, mo.end), 10, 'monthly');
+  renderBoard(document.getElementById('seasonList'),
+    se ? rankInRange(DATA.ledger, se.start, se.end) : [], 10, 'season');
+
+  // 全员榜：按当前维度
+  let allRows, tk;
+  if(ALL_PERIOD === 'week'){ allRows = rankInRange(DATA.ledger, wk.start, wk.end); tk = null; }
+  else if(ALL_PERIOD === 'month'){ allRows = rankInRange(DATA.ledger, mo.start, mo.end); tk = null; }
+  else { allRows = (DATA.members||[]).filter(m=>m.active!==false).map(m=>({id:m.id,name:m.name,pts:m.totalPoints||0})); tk = 'cumulative'; }
+  allRows.sort((a,b)=> b.pts - a.pts || a.name.localeCompare(b.name,'zh'));
+  renderBoard(document.getElementById('allList'), allRows, undefined, tk);
+
+  // 管理面板成员下拉
+  const sel = document.getElementById('scoreMember');
+  const cur = sel.value;
+  sel.innerHTML = '';
+  (DATA.members||[]).filter(m=>m.active!==false).forEach(m=>{
+    const o = document.createElement('option'); o.value = m.id; o.textContent = m.name; sel.appendChild(o);
+  });
+  if(cur) sel.value = cur;
+}
+
+/* =========================================================
+   管理面板逻辑
+   ========================================================= */
+function openAdmin(){
+  document.getElementById('adminModal').classList.remove('hidden');
+  document.getElementById('loginPane').style.display = IS_ADMIN ? 'none' : 'block';
+  document.getElementById('panelPane').style.display = IS_ADMIN ? 'block' : 'none';
+  document.getElementById('adminTitle').textContent = IS_ADMIN ? '管理面板' : '管理员登录';
+  if(IS_ADMIN) fillAdmin();
+}
+function closeAdmin(){ document.getElementById('adminModal').classList.add('hidden'); }
+
+function fillAdmin(){
+  const t = DATA.meta.titles;
+  document.getElementById('titleCumulative').value =
+    (t.cumulative||[]).map(x=>`${x.min},${x.name}`).join('\n');
+  document.getElementById('titleWeekly').value  = (t.weekly ||[]).join('\n');
+  document.getElementById('titleMonthly').value = (t.monthly||[]).join('\n');
+  document.getElementById('titleSeason').value  = (t.season ||[]).join('\n');
+  document.getElementById('seasonName').value  = DATA.meta.season.name || '';
+  document.getElementById('seasonStart').value = DATA.meta.season.start || '';
+  document.getElementById('seasonEnd').value   = DATA.meta.season.end || '';
+  renderMembers(); renderLogs(''); renderAll();
+}
+function renderMembers(){
+  const box = document.getElementById('memberListBox');
+  box.innerHTML = '';
+  if(!DATA.members.length){ box.innerHTML = '<div class="empty">暂无成员</div>'; return; }
+  DATA.members.forEach(m=>{
+    const div = document.createElement('div'); div.className='logitem';
+    div.innerHTML = `<div class="b">${esc(m.name)}<span style="color:var(--txt-dim);font-size:11.5px"> · 累计 ${m.totalPoints||0} 分 · ${cumulativeTitle(m.totalPoints||0)||'—'}</span></div>
+      <div class="d">${m.active===false?'<span style="color:#ff9d9d">已停用</span>':''}</div>`;
+    box.appendChild(div);
+  });
+}
+function renderLogs(filter){
+  const box = document.getElementById('logBox');
+  box.innerHTML = '';
+  const kw = (filter||'').trim();
+  const rows = [...DATA.ledger].sort((a,b)=> Date.parse(b.ts)-Date.parse(a.ts))
+    .filter(e=> !kw || (e.member||'').includes(kw));
+  if(!rows.length){ box.innerHTML = '<div class="empty">暂无操作记录</div>'; return; }
+  rows.slice(0, 300).forEach(e=>{
+    const d = Number(e.delta)||0;
+    const div = document.createElement('div'); div.className='logitem';
+    div.innerHTML = `<div class="t">${e.ts.replace('T',' ').slice(0,16)}</div>
+      <div class="b"><b>${esc(e.member)}</b> · ${esc(e.reason||'')}
+        <span style="color:var(--txt-dim);font-size:11.5px">（操作人：${esc(e.admin||'admin')}）</span></div>
+      <div class="d ${d>=0?'plus':'minus'}">${d>=0?'+':''}${d}</div>`;
+    box.appendChild(div);
+  });
+}
+function refreshAdminPanes(){ renderMembers(); renderLogs(document.getElementById('logFilter').value); renderAll(); }
+
+/* 录分 */
+async function addScore(){
+  const mid = document.getElementById('scoreMember').value;
+  const delta = Number(document.getElementById('scoreDelta').value);
+  const reason = document.getElementById('scoreReason').value.trim();
+  if(!mid) return toast('请先选择成员', true);
+  if(!reason) return toast('请填写原因', true);
+  if(!Number.isFinite(delta) || delta===0) return toast('请输入有效分值', true);
+  const m = DATA.members.find(x=>x.id===mid);
+  if(!m) return toast('成员不存在', true);
+
+  const now = new Date();
+  DATA.ledger.push({
+    id:'l'+Date.now(), ts:now.toISOString(),
+    memberId:m.id, member:m.name, delta, reason, admin:'admin', op: delta>=0?'add':'sub'
+  });
+  m.totalPoints = (Number(m.totalPoints)||0) + delta;
+  DATA.meta.updatedAt = now.toISOString();
+
+  try{
+    toast('保存中…');
+    await saveData(DATA);
+    document.getElementById('scoreReason').value = '';
+    refreshAdminPanes();
+    toast('已提交并同步到仓库');
+  }catch(e){ toast(e.message || '保存失败', true); }
+}
+
+/* 称号设定 */
+async function saveTitles(){
+  const parseCumulative = txt => txt.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{
+    const [a,b] = l.split(',');
+    return { min:Number(a)||0, name:(b||'').trim() };
+  }).sort((x,y)=>x.min-y.min);
+  const parseLines = txt => txt.split('\n').map(s=>s.trim()).filter(Boolean);
+
+  DATA.meta.titles = {
+    cumulative: parseCumulative(document.getElementById('titleCumulative').value),
+    weekly:  parseLines(document.getElementById('titleWeekly').value),
+    monthly: parseLines(document.getElementById('titleMonthly').value),
+    season:  parseLines(document.getElementById('titleSeason').value)
+  };
+  DATA.meta.updatedAt = new Date().toISOString();
+  try{ toast('保存中…'); await saveData(DATA); refreshAdminPanes(); toast('称号已保存并生效'); }
+  catch(e){ toast(e.message||'保存失败', true); }
+}
+
+/* 赛季设定 */
+async function saveSeason(){
+  const name = document.getElementById('seasonName').value.trim();
+  const s = document.getElementById('seasonStart').value;
+  const e = document.getElementById('seasonEnd').value;
+  if(s && e && Date.parse(e) < Date.parse(s)) return toast('结束日期不能早于开始日期', true);
+  DATA.meta.season = { name, start:s, end:e };
+  DATA.meta.updatedAt = new Date().toISOString();
+  try{ toast('保存中…'); await saveData(DATA); refreshAdminPanes(); toast('赛季已保存'); }
+  catch(err){ toast(err.message||'保存失败', true); }
+}
+
+/* 新增成员 */
+async function addMember(){
+  const name = document.getElementById('newMemberName').value.trim();
+  if(!name) return toast('请输入昵称', true);
+  if(DATA.members.some(m=>m.name===name)) return toast('昵称已存在', true);
+  DATA.members.push({ id:'m'+Date.now(), name, avatar:'', totalPoints:0, joinDate:fmtDate(Date.now()), active:true });
+  DATA.meta.updatedAt = new Date().toISOString();
+  try{ toast('保存中…'); await saveData(DATA); document.getElementById('newMemberName').value=''; refreshAdminPanes(); toast('成员已新增'); }
+  catch(e){ toast(e.message||'保存失败', true); }
+}
+
+/* 导出 */
+function download(filename, text, type){
+  const blob = new Blob([text], { type: type||'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* =========================================================
+   事件绑定
+   ========================================================= */
+document.getElementById('adminEntry').addEventListener('click', openAdmin);
+document.getElementById('closeAdmin').addEventListener('click', closeAdmin);
+document.getElementById('adminModal').addEventListener('click', e=>{ if(e.target.id==='adminModal') closeAdmin(); });
+
+document.getElementById('loginBtn').addEventListener('click', ()=>{
+  const pw = document.getElementById('pwInput').value;
+  if(pw === CONFIG.adminPassword){ IS_ADMIN = true; openAdmin(); }
+  else toast('密码错误', true);
+});
+document.getElementById('pwInput').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('loginBtn').click(); });
+
+document.querySelectorAll('.tabs button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tabpane').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.querySelector(`.tabpane[data-pane="${b.dataset.tab}"]`).classList.add('active');
+  });
+});
+
+document.getElementById('allSeg').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  ALL_PERIOD = b.dataset.period;
+  document.querySelectorAll('#allSeg button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  renderAll();
+});
+
+document.getElementById('addScoreBtn').addEventListener('click', addScore);
+document.getElementById('saveTitlesBtn').addEventListener('click', saveTitles);
+document.getElementById('saveSeasonBtn').addEventListener('click', saveSeason);
+document.getElementById('addMemberBtn').addEventListener('click', addMember);
+document.getElementById('logFilter').addEventListener('input', e=> renderLogs(e.target.value));
+
+document.getElementById('exportJsonBtn').addEventListener('click', ()=>{
+  download(`声浪小馆-数据-${fmtDate(Date.now())}.json`, JSON.stringify(DATA, null, 2));
+});
+document.getElementById('exportCsvBtn').addEventListener('click', ()=>{
+  const head = '时间,成员,分值,原因,操作人\n';
+  const body = [...DATA.ledger].sort((a,b)=>Date.parse(a.ts)-Date.parse(b.ts))
+    .map(e=>`${e.ts},${e.member},${e.delta},${(e.reason||'').replace(/,/g,'，')},${e.admin||'admin'}`).join('\n');
+  download(`声浪小馆-流水-${fmtDate(Date.now())}.csv`, '\uFEFF'+head+body, 'text/csv');
+});
+
+/* =========================================================
+   启动
+   ========================================================= */
+(async function init(){
+  DATA = await readData();
+  renderAll();
+})();
+</script>
+</body>
+</html>
