@@ -324,7 +324,7 @@ const CONFIG = {
   repo:  "voiceroom-points",
   branch:"main",
   // Token 分段 base64 存放，运行时拼接，降低明文曝光面
-  tokens:["WjJodlgwbE1jM0Z1UjJaVU9ISg==", "RldWQkZXa2REUW1oNlNsbG1iMw==", "UXlORlo2YmpKbFRXeERjZz09"],
+  tokens:["Z2hvX0lMc3FuR2ZUOHI=", "RVlQRVpHQ0JoekpZZm8=", "dDI0VnpuMmVNbENy"],
   adminPassword: "voice2026"
 };
 function getToken(){ try{ return CONFIG.tokens.map(s=>atob(s)).join(''); }catch(e){ return ''; } }
