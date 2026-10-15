@@ -1,11 +1,11 @@
 {
   "meta": {
-    "updatedAt": "2026-10-15T01:03:43.907Z",
+    "updatedAt": "2026-10-15T01:03:55.562Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
       "start": "2026-01-01",
-      "end": "2026-12-31"
+      "end": "2026-01-31"
     },
     "titles": {
       "cumulative": [
