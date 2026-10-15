@@ -277,14 +277,10 @@ select option{color:#111}
       </div>
 
       <div class="tabpane active" data-pane="score">
-        <label class="f">选择成员</label>
-        <select id="scoreMember"></select>
-        <div class="row">
-          <div><label class="f">分值（可负数）</label><input type="number" id="scoreDelta" value="10" step="1"></div>
-          <div><label class="f">原因</label><input type="text" id="scoreReason" placeholder="如：周赛奖励 / 违规扣分"></div>
-        </div>
+        <label class="f">批量积分录入（每行一人，格式：昵称,分值,理由）</label>
+        <textarea id="scoreInput" placeholder="夜莺,100,周赛奖励&#10;阿澈,-20,违规扣分&#10;小满,50,新人首播奖励"></textarea>
         <div style="margin-top:14px"><button class="btn" id="addScoreBtn">提交积分</button></div>
-        <p class="hint">提交后追加一条流水并同步更新累计积分，同时写入仓库（自动重试防冲突）。</p>
+        <p class="hint">每行格式：<b>昵称,分值,理由</b>（支持中英文逗号）。换行为换人；分值为负数即扣分。提交后每人各产生一条流水并写入仓库。</p>
       </div>
 
       <div class="tabpane" data-pane="title">
@@ -351,7 +347,7 @@ const CONFIG = {
   repo:  "voiceroom-points",
   branch:"main",
   // Token 分段 base64 存放，运行时逐段解码后拼接，降低明文曝光面
-  tokens:["Z2hvX0lMc3FuR2ZUOHI=", "RVlQRVpHQ0JoekpZZm8=", "dDI0VnpuMmVNbENy"],
+  tokens:["Z2hvXzVPT2lnODI5eDY=", "eUl1Sm04TmlqNVpsRDk=", "RW5wemN5MzdVYVZK"],
   adminPassword: "voice2026"
 };
 function getToken(){ try{ return CONFIG.tokens.map(s=>atob(s)).join(''); }catch(e){ return ''; } }
@@ -540,14 +536,6 @@ function renderAll(){
   else { allRows = (DATA.members||[]).filter(m=>m.active!==false).map(m=>({id:m.id,name:m.name,pts:m.totalPoints||0})); tk = 'cumulative'; }
   allRows.sort((a,b)=> b.pts - a.pts || a.name.localeCompare(b.name,'zh'));
   renderBoard(document.getElementById('allList'), allRows, undefined, tk);
-
-  const sel = document.getElementById('scoreMember');
-  const cur = sel.value;
-  sel.innerHTML = '';
-  (DATA.members||[]).filter(m=>m.active!==false).forEach(m=>{
-    const o = document.createElement('option'); o.value = m.id; o.textContent = m.name; sel.appendChild(o);
-  });
-  if(cur) sel.value = cur;
 }
 
 /* =========================================================
@@ -603,22 +591,53 @@ function renderLogs(filter){
 }
 function refreshAdminPanes(){ renderMembers(); renderLogs(document.getElementById('logFilter').value); renderAll(); }
 
-/* 录分 */
+/* 批量录分：每行 昵称,分值,理由（支持中英文逗号；负数即扣分） */
 async function addScore(){
-  const mid = document.getElementById('scoreMember').value;
-  const delta = Number(document.getElementById('scoreDelta').value);
-  const reason = document.getElementById('scoreReason').value.trim();
-  if(!mid) return toast('请先选择成员', true);
-  if(!reason) return toast('请填写原因', true);
-  if(!Number.isFinite(delta) || delta===0) return toast('请输入有效分值', true);
-  const m = DATA.members.find(x=>x.id===mid);
-  if(!m) return toast('成员不存在', true);
+  const raw = document.getElementById('scoreInput').value.trim();
+  if(!raw) return toast('请输入积分信息', true);
+  const lines = raw.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  const entries = [];
+  const errors = [];
+  lines.forEach((line, idx)=>{
+    const parts = line.split(/[,，]/).map(p=>p.trim());
+    if(parts.length < 3){ errors.push(`第${idx+1}行：格式应为 昵称,分值,理由`); return; }
+    const name = parts[0];
+    const deltaStr = parts[1];
+    const reason = parts.slice(2).join('，').trim();
+    const delta = Number(deltaStr);
+    if(!name){ errors.push(`第${idx+1}行：昵称为空`); return; }
+    if(!Number.isFinite(delta) || delta===0){ errors.push(`第${idx+1}行：分值无效（须为非零数字，负数为扣分）`); return; }
+    if(!reason){ errors.push(`第${idx+1}行：理由为空`); return; }
+    const m = DATA.members.find(x=>x.name===name);
+    if(!m){ errors.push(`第${idx+1}行：成员「${name}」不存在`); return; }
+    entries.push({ member:m, delta, reason });
+  });
+  if(errors.length){
+    toast(errors[0] + (errors.length>1 ? ` 等${errors.length}处错误` : ''), true);
+    return;
+  }
   const now = new Date();
-  DATA.ledger.push({ id:'l'+Date.now(), ts:now.toISOString(), memberId:m.id, member:m.name, delta, reason, admin:'admin', op: delta>=0?'add':'sub' });
-  m.totalPoints = (Number(m.totalPoints)||0) + delta;
-  DATA.meta.updatedAt = now.toISOString();
-  try{ toast('保存中…'); await saveData(DATA); document.getElementById('scoreReason').value = ''; refreshAdminPanes(); toast('已提交并同步到仓库'); }
-  catch(e){ toast(e.message || '保存失败', true); }
+  const ts = now.toISOString();
+  // 统一记账：每人一条流水，并同步累计积分
+  entries.forEach(({member, delta, reason})=>{
+    DATA.ledger.push({
+      id:'l'+Date.now()+'_'+Math.random().toString(36).slice(2,6),
+      ts, memberId:member.id, member:member.name, delta, reason,
+      admin:'admin', op: delta>=0 ? 'add' : 'sub'
+    });
+    member.totalPoints = (Number(member.totalPoints)||0) + delta;
+  });
+  DATA.meta.updatedAt = ts;
+  try{
+    toast('保存中…');
+    await saveData(DATA);
+    document.getElementById('scoreInput').value = '';
+    refreshAdminPanes();
+    const names = entries.map(e=>e.member.name);
+    toast(`${names.join('、')} 积分录入成功`);
+  }catch(e){
+    toast(e.message || '保存失败', true);
+  }
 }
 
 /* 称号设定 */
