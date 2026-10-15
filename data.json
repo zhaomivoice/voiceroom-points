@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-15T01:23:54.682Z",
+    "updatedAt": "2026-10-15T01:24:20.275Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -124,7 +124,7 @@
       "id": "m1792027434682",
       "name": "小迁",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6666,
       "joinDate": "2026-10-15",
       "active": true
     }
@@ -257,6 +257,16 @@
       "member": "南烟",
       "delta": 70,
       "reason": "四月主题赛",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1792027460275_ecud",
+      "ts": "2026-10-15T01:24:20.275Z",
+      "memberId": "m1792027434682",
+      "member": "小迁",
+      "delta": 6666,
+      "reason": "长得帅",
       "admin": "admin",
       "op": "add"
     }
