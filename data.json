@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-15T01:03:55.562Z",
+    "updatedAt": "2026-10-15T01:23:54.682Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -118,6 +118,14 @@
       "avatar": "",
       "totalPoints": 120,
       "joinDate": "2026-07-21",
+      "active": true
+    },
+    {
+      "id": "m1792027434682",
+      "name": "小迁",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-10-15",
       "active": true
     }
   ],
