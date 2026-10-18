@@ -201,20 +201,20 @@ footer{max-width:900px;margin:4px auto 0;text-align:center}
 .tabs button{font-family:inherit;cursor:pointer;border:1px solid var(--glass-bd);background:rgba(255,255,255,.06);color:var(--txt-dim);padding:8px 6px;border-radius:10px;font-size:12.5px;transition:.18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tabs button.active{background:rgba(255,215,106,.92);color:#3c2f00;border-color:transparent;font-weight:700}
 
-/* 标题右侧悬浮「小馆等级说明」按钮 */
-.title-wrap{position:relative;display:inline-block;max-width:100%}
+/* 标题右侧悬浮「小馆等级说明」圆形按钮 */
+.title-wrap{position:relative;display:block;text-align:center}
 .lv-help-btn{
-  position:absolute;right:-8px;bottom:7px;transform:translateY(50%);z-index:3;
-  display:inline-flex;align-items:center;gap:5px;
+  position:absolute;right:8px;bottom:7px;transform:translateY(50%);z-index:3;
+  width:38px;height:38px;border-radius:50%;padding:0;
+  display:grid;place-items:center;
   font-family:inherit;cursor:pointer;
-  padding:6px 12px;border-radius:999px;font-size:11px;font-weight:600;
   color:var(--txt);background:rgba(255,255,255,.10);border:1px solid var(--glass-bd);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  box-shadow:0 4px 14px rgba(0,0,0,.25);transition:.2s;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.25);transition:.2s;
 }
-.lv-help-btn:hover{background:rgba(255,215,106,.22);color:#fff7de;border-color:rgba(255,215,106,.5)}
-.lv-help-btn svg{width:13px;height:13px;flex:0 0 auto}
-@media(max-width:420px){.lv-help-btn{font-size:10px;padding:5px 9px;right:-6px}.lv-help-btn svg{width:12px;height:12px}}
+.lv-help-btn:hover{background:rgba(255,215,106,.22);color:#fff7de;border-color:rgba(255,215,106,.5);transform:translateY(50%) scale(1.08)}
+.lv-help-btn svg{width:18px;height:18px}
+@media(max-width:420px){.lv-help-btn{width:34px;height:34px;right:6px}.lv-help-btn svg{width:16px;height:16px}}
 
 /* 等级权益说明弹层列表（紧凑型） */
 .lv-list{display:flex;flex-direction:column;gap:6px}
@@ -295,9 +295,8 @@ select option{color:#111}
     <div class="title-wrap">
       <h1 class="art-title">有声小馆</h1>
       <p class="subtitle">音浪榜</p>
-      <button class="lv-help-btn" id="lvHelpBtn" aria-label="小馆等级说明">
+      <button class="lv-help-btn" id="lvHelpBtn" aria-label="小馆等级说明" title="小馆等级说明">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        <span>小馆等级说明</span>
       </button>
     </div>
     <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
