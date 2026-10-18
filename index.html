@@ -260,6 +260,11 @@ select option{color:#111}
 .d.plus{color:#8ff0b4}.d.minus{color:#ff9d9d}
 .mini-btn{font-family:inherit;cursor:pointer;border:1px solid rgba(255,120,120,.5);background:rgba(255,120,120,.12);color:#ffb4b4;font-size:11.5px;padding:4px 11px;border-radius:7px;transition:.18s;white-space:nowrap}
 .mini-btn:hover{background:rgba(255,120,120,.26);color:#fff}
+.mini-btn.ren{border-color:rgba(255,215,106,.5);background:rgba(255,215,106,.12);color:#ffdf9a}
+.mini-btn.ren:hover{background:rgba(255,215,106,.26);color:#fff}
+/* 并排等宽按钮行（不受 .row 移动端纵向堆叠规则影响） */
+.btnrow{display:flex;gap:9px}.btnrow>*{flex:1;min-width:0}
+.logitem .ren-input{flex:1;min-width:0;width:auto;padding:5px 9px;font-size:12.5px;border-radius:8px}
 @media(max-width:520px){.row{flex-direction:column}.board{padding:9px 9px 5px}}
 </style>
 </head>
@@ -418,13 +423,17 @@ select option{color:#111}
 
       <div class="tabpane" data-pane="member">
         <label class="f">昵称</label>
-        <div class="row">
-          <input type="text" id="newMemberName" placeholder="成员昵称">
+        <input type="text" id="newMemberName" placeholder="成员昵称">
+        <div class="btnrow" style="margin-top:10px">
           <button class="btn" id="addMemberBtn">新增成员</button>
+          <button class="btn sec" id="searchMemberBtn">搜索成员</button>
         </div>
-        <label class="f">成员列表（可删除）</label>
+        <div id="memberSearchWrap" style="display:none;margin-top:10px">
+          <input type="text" id="memberSearchInput" placeholder="输入昵称关键字，实时筛选成员">
+        </div>
+        <label class="f">成员列表（可更名 / 删除）</label>
         <div class="loglist" id="memberListBox"></div>
-        <p class="hint">删除成员会从榜单移除；其历史音浪流水仍保留在操作日志中，便于追溯。</p>
+        <p class="hint">删除成员会从榜单移除；更名仅修改昵称，不影响已产生的音浪流水与榜单统计。两者的历史流水均保留在操作日志中，便于追溯。</p>
       </div>
 
       <div class="tabpane" data-pane="log">
@@ -751,17 +760,30 @@ function fillAdmin(){
   document.getElementById('noSeason').checked  = !!DATA.meta.season.none;
   renderMembers(); renderLogs(''); renderAll();
 }
+let renamingId = null;   /* 正在更名的成员 id */
 function renderMembers(){
   const box = document.getElementById('memberListBox');
+  const kw = (document.getElementById('memberSearchInput').value || '').trim();
+  const list = (DATA.members||[]).filter(m => !kw || (m.name||'').includes(kw));
   box.innerHTML = '';
-  if(!DATA.members.length){ box.innerHTML = '<div class="empty">暂无成员</div>'; return; }
-  DATA.members.forEach(m=>{
+  if(!list.length){ box.innerHTML = `<div class="empty">${kw ? '未找到匹配成员' : '暂无成员'}</div>`; return; }
+  list.forEach(m=>{
     const div = document.createElement('div'); div.className='logitem';
-    div.innerHTML =
-      `<div class="b">${esc(m.name)}<span style="color:var(--txt-dim);font-size:11px"> · 累计 ${m.totalPoints||0} 音浪 · ${cumulativeTitle(m.totalPoints||0)||'—'} · lv.${levelOf(m.totalPoints||0)}</span></div>
-       <button class="mini-btn" data-del="${m.id}">删除</button>`;
+    if(m.id === renamingId){
+      div.innerHTML =
+        `<input type="text" class="ren-input" data-ren-input="${m.id}" value="${esc(m.name)}">
+         <button class="mini-btn ren" data-ok="${m.id}">保存</button>
+         <button class="mini-btn" data-cancel="1">取消</button>`;
+    }else{
+      div.innerHTML =
+        `<div class="b">${esc(m.name)}<span style="color:var(--txt-dim);font-size:11px"> · 累计 ${m.totalPoints||0} 音浪 · ${cumulativeTitle(m.totalPoints||0)||'—'} · lv.${levelOf(m.totalPoints||0)}</span></div>
+         <button class="mini-btn ren" data-ren="${m.id}">更名</button>
+         <button class="mini-btn" data-del="${m.id}">删除</button>`;
+    }
     box.appendChild(div);
   });
+  const inp = box.querySelector('input[data-ren-input]');
+  if(inp){ inp.focus(); inp.select(); }
 }
 function renderLogs(filter){
   const box = document.getElementById('logBox');
@@ -917,6 +939,28 @@ async function deleteMember(id){
   catch(e){ toast(e.message||'保存失败', true); }
 }
 
+/* 成员更名（保留原 id，音浪流水与榜单统计不受影响） */
+async function saveRename(id){
+  const inp = document.querySelector(`input[data-ren-input="${id}"]`);
+  if(!inp) return;
+  const m = DATA.members.find(x=>x.id===id);
+  if(!m) return;
+  const oldName = m.name;
+  const name = inp.value.trim();
+  if(!name) return toast('昵称不能为空', true);
+  if(name === oldName){ renamingId = null; renderMembers(); return; }
+  if(DATA.members.some(x=>x.id!==id && x.name===name)) return toast('昵称已存在', true);
+  m.name = name;
+  DATA.meta.updatedAt = new Date().toISOString();
+  try{
+    toast('保存中…');
+    await saveData(DATA);
+    renamingId = null; refreshAdminPanes(); toast(`「${oldName}」已更名为「${name}」`);
+  }catch(e){
+    m.name = oldName; renderMembers(); toast(e.message||'保存失败', true);
+  }
+}
+
 /* =========================================================
    事件绑定
    ========================================================= */
@@ -960,10 +1004,34 @@ document.getElementById('lvHelpBtn').addEventListener('click', openLevelDesc);
 document.getElementById('closeLevelDesc').addEventListener('click', closeLevelDesc);
 document.getElementById('levelDescModal').addEventListener('click', e=>{ if(e.target.id==='levelDescModal') closeLevelDesc(); });
 
-/* 删除按钮采用事件委托，适配动态列表 */
+/* 搜索成员：按钮展开/收起筛选输入框 */
+document.getElementById('searchMemberBtn').addEventListener('click', ()=>{
+  const wrap = document.getElementById('memberSearchWrap');
+  const input = document.getElementById('memberSearchInput');
+  const show = wrap.style.display !== 'block';
+  wrap.style.display = show ? 'block' : 'none';
+  document.getElementById('searchMemberBtn').textContent = show ? '收起搜索' : '搜索成员';
+  renamingId = null;
+  if(show){ input.focus(); } else { input.value = ''; }
+  renderMembers();
+});
+document.getElementById('memberSearchInput').addEventListener('input', renderMembers);
+
+/* 成员列表按钮采用事件委托，适配动态列表 */
 document.getElementById('memberListBox').addEventListener('click', e=>{
-  const btn = e.target.closest('button[data-del]');
-  if(btn) deleteMember(btn.dataset.del);
+  const del = e.target.closest('button[data-del]');
+  if(del){ deleteMember(del.dataset.del); return; }
+  const ren = e.target.closest('button[data-ren]');
+  if(ren){ renamingId = ren.dataset.ren; renderMembers(); return; }
+  const ok = e.target.closest('button[data-ok]');
+  if(ok){ saveRename(ok.dataset.ok); return; }
+  if(e.target.closest('button[data-cancel]')){ renamingId = null; renderMembers(); }
+});
+document.getElementById('memberListBox').addEventListener('keydown', e=>{
+  const inp = e.target.closest('input[data-ren-input]');
+  if(!inp) return;
+  if(e.key === 'Enter'){ e.preventDefault(); saveRename(inp.dataset.renInput); }
+  else if(e.key === 'Escape'){ renamingId = null; renderMembers(); }
 });
 
 /* =========================================================
