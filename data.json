@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-18T05:19:46.726Z",
+    "updatedAt": "2026-10-18T15:11:31.141Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -166,6 +166,14 @@
       "avatar": "",
       "totalPoints": 6666,
       "joinDate": "2026-10-15",
+      "active": true
+    },
+    {
+      "id": "m1792336291141",
+      "name": "新娘",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-10-18",
       "active": true
     }
   ],
