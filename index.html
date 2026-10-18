@@ -197,9 +197,40 @@ footer{max-width:900px;margin:4px auto 0;text-align:center}
 .panel h3{margin:0;flex:0 0 auto;font-size:17px;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid rgba(255,255,255,.12);background:linear-gradient(160deg,rgba(64,53,118,.98),rgba(45,36,82,.98))}
 .panel-body{flex:1 1 auto;min-height:0;overflow:auto;padding:18px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .icon-btn{border:0;background:transparent;color:var(--txt-dim);font-size:22px;cursor:pointer;line-height:1}
-.tabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.tabs button{font-family:inherit;cursor:pointer;border:1px solid var(--glass-bd);background:rgba(255,255,255,.06);color:var(--txt-dim);padding:6px 13px;border-radius:999px;font-size:12.5px;transition:.18s}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+.tabs button{font-family:inherit;cursor:pointer;border:1px solid var(--glass-bd);background:rgba(255,255,255,.06);color:var(--txt-dim);padding:8px 6px;border-radius:10px;font-size:12.5px;transition:.18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tabs button.active{background:rgba(255,215,106,.92);color:#3c2f00;border-color:transparent;font-weight:700}
+
+/* 标题右侧悬浮「小馆等级说明」按钮 */
+.lv-help-btn{
+  position:absolute;right:6px;top:8px;z-index:3;
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:inherit;cursor:pointer;
+  padding:6px 11px;border-radius:999px;font-size:11.5px;font-weight:600;
+  color:var(--txt);background:rgba(255,255,255,.10);border:1px solid var(--glass-bd);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 4px 14px rgba(0,0,0,.25);transition:.2s;
+}
+.lv-help-btn:hover{background:rgba(255,215,106,.22);color:#fff7de;border-color:rgba(255,215,106,.5)}
+.lv-help-btn svg{width:13px;height:13px}
+@media(max-width:420px){.lv-help-btn{font-size:10.5px;padding:5px 9px;right:4px;top:6px}}
+
+/* 等级权益说明弹层列表 */
+.lv-list{display:flex;flex-direction:column;gap:10px}
+.lv-item{
+  display:flex;gap:11px;align-items:flex-start;
+  padding:12px 13px;border-radius:13px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);
+}
+.lv-badge{
+  flex:0 0 auto;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;
+  font-weight:800;font-size:15px;color:#3c2f00;
+  background:linear-gradient(145deg,#ffe9a8,#f0a33a);box-shadow:inset 0 0 10px rgba(255,255,255,.4);
+}
+.lv-body{min-width:0;flex:1}
+.lv-body .t{font-size:13px;font-weight:700;color:var(--gold)}
+.lv-body .r{font-size:10.5px;color:var(--txt-dim);margin:2px 0 4px}
+.lv-body .d{font-size:12px;line-height:1.55;color:var(--txt)}
 .tabpane{display:none}.tabpane.active{display:block}
 label.f{display:block;font-size:12px;color:var(--txt-dim);margin:10px 0 5px}
 input,select,textarea{width:100%;font-family:inherit;font-size:13.5px;color:var(--txt);padding:9px 11px;border-radius:10px;background:rgba(0,0,0,.26);border:1px solid var(--glass-bd);outline:none}
@@ -252,6 +283,10 @@ select option{color:#111}
 
 <div class="wrap">
   <header class="hero">
+    <button class="lv-help-btn" id="lvHelpBtn" aria-label="小馆等级说明">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span>小馆等级说明</span>
+    </button>
     <div class="mic-badge" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
         <rect x="9" y="2" width="6" height="12" rx="3"/>
@@ -319,6 +354,7 @@ select option{color:#111}
         <button class="active" data-tab="score">音浪录入</button>
         <button data-tab="title">称号设定</button>
         <button data-tab="level">等级设定</button>
+        <button data-tab="leveldesc">等级说明</button>
         <button data-tab="season">赛季设定</button>
         <button data-tab="member">成员管理</button>
         <button data-tab="log">操作日志</button>
@@ -350,6 +386,13 @@ select option{color:#111}
         <textarea id="levelCumulative" placeholder="0,1&#10;100,2&#10;300,3&#10;600,4&#10;1000,5"></textarea>
         <div style="margin-top:14px"><button class="btn" id="saveLevelsBtn">保存等级设定</button></div>
         <p class="hint">按成员累计音浪赋予小馆等级；全员榜「累计」每行会显示「小馆等级 lv.？」。等级数字留空时按行号自动生成。</p>
+      </div>
+
+      <div class="tabpane" data-pane="leveldesc">
+        <label class="f">等级权益说明（每行：等级数字,权益说明）</label>
+        <textarea id="levelDescInput" placeholder="1,解锁基础连麦与点歌权限&#10;2,获得专属称号，可发起3人连麦房&#10;3,解锁唱歌房权限"></textarea>
+        <div style="margin-top:14px"><button class="btn" id="saveLevelDescBtn">保存等级说明</button></div>
+        <p class="hint">每行对应一个小馆等级的权益说明，将展示在首页「小馆等级说明」弹层中。未配置的等级将使用默认权益说明。</p>
       </div>
 
       <div class="tabpane" data-pane="season">
@@ -398,6 +441,16 @@ select option{color:#111}
 
 <div class="toast" id="toast"></div>
 
+<div class="modal hidden" id="levelDescModal">
+  <div class="panel">
+    <h3><span>小馆等级说明</span><button class="icon-btn" id="closeLevelDesc">×</button></h3>
+    <div class="panel-body">
+      <div class="lv-list" id="levelDescList"></div>
+      <p class="hint" style="margin-top:14px">等级由成员累计音浪自动匹配，等级越高权益越丰富。</p>
+    </div>
+  </div>
+</div>
+
 <script>
 /* =========================================================
    配置区（部署时由部署脚本注入真实值）
@@ -428,6 +481,16 @@ const DEFAULT_LEVELS = [
   {min:0,lv:1},{min:100,lv:2},{min:300,lv:3},{min:600,lv:4},
   {min:1000,lv:5},{min:2000,lv:6},{min:5000,lv:7}
 ];
+/* 小馆等级权益说明：按等级数字索引 */
+const DEFAULT_LEVEL_BENEFITS = {
+  1:'解锁基础连麦与点歌权限，可参与日常音浪活动。',
+  2:'获得专属称号，可发起 3 人连麦房，参与周榜角逐。',
+  3:'解锁唱歌房权限，可上传翻唱作品，周榜加权 +10%。',
+  4:'可创建家族/小馆分队，享受双倍日常音浪奖励。',
+  5:'解锁专属表情包与进场特效，月榜加权 +15%。',
+  6:'可申请官方推荐位，赛季榜加权 +20%，享受专属客服。',
+  7:'声浪之王专属金色标识，全馆置顶展示，享有最高管理权限。'
+};
 const DEFAULT_DATA = {
   meta:{ updatedAt:'', version:1,
     season:{ name:'第一赛季', start:'2026-01-01', end:'2026-12-31', none:false },
@@ -525,6 +588,7 @@ function normalize(d){
   d = d || {}; d.meta = d.meta || {};
   d.meta.titles = Object.assign({}, DEFAULT_TITLES, d.meta.titles || {});
   d.meta.levels = Array.isArray(d.meta.levels) && d.meta.levels.length ? d.meta.levels : DEFAULT_LEVELS.slice();
+  d.meta.levelBenefits = Object.assign({}, DEFAULT_LEVEL_BENEFITS, d.meta.levelBenefits || {});
   d.meta.season = d.meta.season || { name:'', start:'', end:'', none:false };
   d.members = Array.isArray(d.members) ? d.members : [];
   d.ledger  = Array.isArray(d.ledger)  ? d.ledger  : [];
@@ -639,6 +703,33 @@ function openAdmin(){
 }
 function closeAdmin(){ document.getElementById('adminModal').classList.add('hidden'); }
 
+/* 小馆等级说明弹层 */
+function renderLevelDesc(){
+  const levels = (DATA.meta.levels && DATA.meta.levels.length) ? DATA.meta.levels : DEFAULT_LEVELS;
+  const benefits = DATA.meta.levelBenefits || DEFAULT_LEVEL_BENEFITS;
+  const box = document.getElementById('levelDescList');
+  box.innerHTML = '';
+  levels.forEach((t, idx)=>{
+    const lv = Number(t.lv)||(idx+1);
+    const min = Number(t.min)||0;
+    const next = levels[idx+1];
+    const range = next ? `${min} ~ ${(Number(next.min)||0)-1} 音浪` : `${min} 音浪 及以上`;
+    const desc = benefits[lv] || DEFAULT_LEVEL_BENEFITS[lv] || '该等级权益持续开放中，敬请期待。';
+    const div = document.createElement('div');
+    div.className = 'lv-item';
+    div.innerHTML =
+      `<div class="lv-badge">lv${lv}</div>
+       <div class="lv-body">
+         <div class="t">小馆等级 ${lv}</div>
+         <div class="r">累计音浪 ${range}</div>
+         <div class="d">${esc(desc)}</div>
+       </div>`;
+    box.appendChild(div);
+  });
+}
+function openLevelDesc(){ renderLevelDesc(); document.getElementById('levelDescModal').classList.remove('hidden'); }
+function closeLevelDesc(){ document.getElementById('levelDescModal').classList.add('hidden'); }
+
 function fillAdmin(){
   const t = DATA.meta.titles;
   document.getElementById('titleCumulative').value = (t.cumulative||[]).map(x=>`${x.min},${x.name}`).join('\n');
@@ -646,6 +737,7 @@ function fillAdmin(){
   document.getElementById('titleMonthly').value = (t.monthly||[]).join('\n');
   document.getElementById('titleSeason').value  = (t.season ||[]).join('\n');
   document.getElementById('levelCumulative').value = (DATA.meta.levels||DEFAULT_LEVELS).map(x=>`${x.min},${x.lv}`).join('\n');
+  document.getElementById('levelDescInput').value = Object.entries(DATA.meta.levelBenefits||{}).map(([lv,d])=>`${lv},${d}`).join('\n');
   document.getElementById('seasonName').value  = DATA.meta.season.name || '';
   document.getElementById('seasonStart').value = DATA.meta.season.start || '';
   document.getElementById('seasonEnd').value   = DATA.meta.season.end || '';
@@ -763,6 +855,26 @@ async function saveLevels(){
   catch(e){ toast(e.message||'保存失败', true); }
 }
 
+/* 等级权益说明：每行 等级数字,权益说明（支持中英文逗号） */
+async function saveLevelDesc(){
+  const parse = txt => {
+    const o = {};
+    txt.split('\n').map(l=>l.trim()).filter(Boolean).forEach(l=>{
+      const i = l.search(/[,，]/);
+      if(i<0) return;
+      const lv = Number(l.slice(0,i).trim())||0;
+      const desc = l.slice(i+1).trim();
+      if(lv>0 && desc) o[lv] = desc;
+    });
+    return o;
+  };
+  const obj = parse(document.getElementById('levelDescInput').value);
+  DATA.meta.levelBenefits = Object.keys(obj).length ? obj : Object.assign({}, DEFAULT_LEVEL_BENEFITS);
+  DATA.meta.updatedAt = new Date().toISOString();
+  try{ toast('保存中…'); await saveData(DATA); refreshAdminPanes(); toast('等级说明已保存'); }
+  catch(e){ toast(e.message||'保存失败', true); }
+}
+
 /* 赛季设定 */
 async function saveSeason(){
   const name = document.getElementById('seasonName').value.trim();
@@ -831,9 +943,15 @@ document.getElementById('allSeg').addEventListener('click', e=>{
 document.getElementById('addScoreBtn').addEventListener('click', addScore);
 document.getElementById('saveTitlesBtn').addEventListener('click', saveTitles);
 document.getElementById('saveLevelsBtn').addEventListener('click', saveLevels);
+document.getElementById('saveLevelDescBtn').addEventListener('click', saveLevelDesc);
 document.getElementById('saveSeasonBtn').addEventListener('click', saveSeason);
 document.getElementById('addMemberBtn').addEventListener('click', addMember);
 document.getElementById('logFilter').addEventListener('input', e=> renderLogs(e.target.value));
+
+/* 小馆等级说明弹层 */
+document.getElementById('lvHelpBtn').addEventListener('click', openLevelDesc);
+document.getElementById('closeLevelDesc').addEventListener('click', closeLevelDesc);
+document.getElementById('levelDescModal').addEventListener('click', e=>{ if(e.target.id==='levelDescModal') closeLevelDesc(); });
 
 /* 删除按钮采用事件委托，适配动态列表 */
 document.getElementById('memberListBox').addEventListener('click', e=>{
