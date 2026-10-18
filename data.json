@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-18T15:11:31.141Z",
+    "updatedAt": "2026-10-18T15:12:11.065Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -172,7 +172,7 @@
       "id": "m1792336291141",
       "name": "新娘",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 9999,
       "joinDate": "2026-10-18",
       "active": true
     }
@@ -315,6 +315,16 @@
       "member": "小迁",
       "delta": 6666,
       "reason": "长得帅",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1792336331065_j6y3",
+      "ts": "2026-10-18T15:12:11.065Z",
+      "memberId": "m1792336291141",
+      "member": "新娘",
+      "delta": 9999,
+      "reason": "测试",
       "admin": "admin",
       "op": "add"
     }
