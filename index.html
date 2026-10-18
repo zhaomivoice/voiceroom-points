@@ -201,22 +201,23 @@ footer{max-width:900px;margin:4px auto 0;text-align:center}
 .tabs button{font-family:inherit;cursor:pointer;border:1px solid var(--glass-bd);background:rgba(255,255,255,.06);color:var(--txt-dim);padding:8px 6px;border-radius:10px;font-size:12.5px;transition:.18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tabs button.active{background:rgba(255,215,106,.92);color:#3c2f00;border-color:transparent;font-weight:700}
 
-/* 标题右侧悬浮「小馆等级说明」圆形按钮 */
+/* 标题右侧悬浮「小馆等级说明」玻璃圆形按钮 */
 .title-wrap{position:relative;display:block;text-align:center}
 .lv-help-btn{
   position:absolute;right:4px;bottom:7px;transform:translateY(50%);z-index:3;
-  width:82px;height:82px;border-radius:50%;padding:0;
+  width:72px;height:72px;border-radius:50%;padding:0;
   display:grid;place-items:center;
   font-family:inherit;cursor:pointer;
-  color:#fff7de;font-size:12.5px;font-weight:700;line-height:1.25;text-align:center;
-  background:radial-gradient(circle at 30% 28%,rgba(255,215,106,.55),rgba(126,86,255,.32) 60%,rgba(60,30,90,.45));
-  border:1px solid rgba(255,215,106,.55);
-  box-shadow:0 6px 18px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.35);
+  color:#fff;font-size:11px;font-weight:700;line-height:1.15;text-align:center;letter-spacing:0.5px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.32);
+  backdrop-filter:blur(14px) saturate(1.6);-webkit-backdrop-filter:blur(14px) saturate(1.6);
+  box-shadow:0 6px 18px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(255,255,255,.08);
   transition:.2s;
 }
-.lv-help-btn:hover{transform:translateY(50%) scale(1.08);box-shadow:0 8px 22px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.45)}
+.lv-help-btn:hover{background:rgba(255,255,255,.20);transform:translateY(50%) scale(1.08);box-shadow:0 8px 22px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.6)}
 .lv-help-btn span{display:block}
-@media(max-width:420px){.lv-help-btn{width:72px;height:72px;font-size:11.5px;right:2px}}
+@media(max-width:420px){.lv-help-btn{width:64px;height:64px;font-size:10px;right:2px}}
 
 /* 等级权益说明弹层列表（紧凑型） */
 .lv-list{display:flex;flex-direction:column;gap:6px}
