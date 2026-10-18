@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>有声小馆 · 声浪积分榜</title>
+<title>有声小馆 · 音浪榜</title>
 <style>
 :root{
   --glass-bg: rgba(255,255,255,0.10);
@@ -70,14 +70,21 @@ body{
 .mic-badge svg{width:26px;height:26px}
 @keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 6px 22px rgba(0,0,0,.28),inset 0 0 14px rgba(255,215,106,.14)}50%{transform:scale(1.06);box-shadow:0 8px 26px rgba(0,0,0,.3),inset 0 0 22px rgba(255,215,106,.32)}}
 .art-title{
-  margin:0;font-family:"STXingkai","华文行楷","STKaiti","KaiTi",serif;
-  font-size:clamp(40px,10.5vw,76px);letter-spacing:.06em;
-  background:linear-gradient(92deg,#ffe6a8,#ffd76a 22%,#fff 48%,#ffd76a 74%,#ffe6a8);
-  background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 4px 18px rgba(255,215,106,.35));
-  animation:shine 5.5s linear infinite;transform:rotate(-2deg);
+  margin:0;position:relative;font-family:"STXingkai","华文行楷","STKaiti","KaiTi",serif;
+  font-size:clamp(40px,10.5vw,76px);letter-spacing:.08em;
+  background:linear-gradient(100deg,#fff4d6,#ffd76a 18%,#ffffff 38%,#ffc7e6 56%,#c9b3ff 74%,#ffe9b8 92%,#fff4d6);
+  background-size:260% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 2px 10px rgba(255,224,150,.55)) drop-shadow(0 8px 24px rgba(255,140,210,.34)) drop-shadow(0 16px 44px rgba(150,110,255,.34));
+  animation:shine 6.5s linear infinite, floatTitle 7s ease-in-out infinite;
+  transform:rotate(-2deg);
 }
-@keyframes shine{to{background-position:220% center}}
+.art-title::after{
+  content:"";position:absolute;left:50%;top:52%;width:128%;height:160%;transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse at center, rgba(255,215,106,.30), rgba(255,140,210,.20) 46%, transparent 72%);
+  filter:blur(20px);z-index:-1;pointer-events:none;
+}
+@keyframes shine{to{background-position:260% center}}
+@keyframes floatTitle{0%,100%{transform:rotate(-2deg) translateY(0) scale(1)}50%{transform:rotate(-2deg) translateY(-4px) scale(1.012)}}
 .subtitle{margin:2px 0 0;font-size:clamp(11px,3.2vw,14px);letter-spacing:.42em;color:var(--txt-dim);text-indent:.42em}
 
 /* 均衡器动画 */
@@ -131,6 +138,7 @@ li.r3 .rank-no{background:linear-gradient(145deg,#f3c79a,#c07b3a);color:#402208}
 .rname{flex:1;min-width:0;display:flex;align-items:baseline;gap:6px}
 .rname .n{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rtitle{font-size:10px;color:var(--gold);opacity:.92}
+.rlv{font-size:10px;font-weight:600;white-space:nowrap;color:#e6d2ff;opacity:.95}
 .rscore{font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;white-space:nowrap}
 .rscore small{font-size:10px;font-weight:500;color:var(--txt-dim);margin-left:1px}
 .empty{padding:10px 6px;color:var(--txt-dim);font-size:12.5px;text-align:center}
@@ -214,7 +222,7 @@ select option{color:#111}
       </svg>
     </div>
     <h1 class="art-title">有声小馆</h1>
-    <p class="subtitle">声浪积分榜</p>
+    <p class="subtitle">音浪榜</p>
     <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="statusbar">
       <span class="dot"></span>
@@ -233,7 +241,7 @@ select option{color:#111}
       <h2>月榜 TOP10 <span class="badge" id="monthlyRange"></span></h2>
       <ol class="rank-list" id="monthlyList"></ol>
     </section>
-    <section class="board glass">
+    <section class="board glass" id="seasonBoard">
       <h2>赛季 TOP10 <span class="badge" id="seasonRange"></span></h2>
       <ol class="rank-list" id="seasonList"></ol>
     </section>
@@ -263,13 +271,14 @@ select option{color:#111}
       <label class="f">管理密码</label>
       <input type="password" id="pwInput" placeholder="请输入管理密码" autocomplete="current-password">
       <div style="margin-top:14px"><button class="btn" id="loginBtn" style="width:100%">登 录</button></div>
-      <p class="hint">仅授权管理员使用。所有录分操作会写入仓库并永久留痕。</p>
+      <p class="hint">仅授权管理员使用。所有录音浪操作会写入仓库并永久留痕。</p>
     </div>
 
     <div id="panelPane" style="display:none">
       <div class="tabs">
-        <button class="active" data-tab="score">积分录入</button>
+        <button class="active" data-tab="score">音浪录入</button>
         <button data-tab="title">称号设定</button>
+        <button data-tab="level">等级设定</button>
         <button data-tab="season">赛季设定</button>
         <button data-tab="member">成员管理</button>
         <button data-tab="log">操作日志</button>
@@ -277,14 +286,14 @@ select option{color:#111}
       </div>
 
       <div class="tabpane active" data-pane="score">
-        <label class="f">批量积分录入（每行一人，格式：昵称,分值,理由）</label>
-        <textarea id="scoreInput" placeholder="夜莺,100,周赛奖励&#10;阿澈,-20,违规扣分&#10;小满,50,新人首播奖励"></textarea>
-        <div style="margin-top:14px"><button class="btn" id="addScoreBtn">提交积分</button></div>
-        <p class="hint">每行格式：<b>昵称,分值,理由</b>（支持中英文逗号）。换行为换人；分值为负数即扣分。提交后每人各产生一条流水并写入仓库。</p>
+        <label class="f">批量音浪录入（每行一人，格式：昵称,音浪值,理由）</label>
+        <textarea id="scoreInput" placeholder="夜莺,100,周赛奖励&#10;阿澈,-20,违规扣音浪&#10;小满,50,新人首播奖励"></textarea>
+        <div style="margin-top:14px"><button class="btn" id="addScoreBtn">提交音浪</button></div>
+        <p class="hint">每行格式：<b>昵称,音浪值,理由</b>（支持中英文逗号）。换行为换人；音浪值为负数即扣除音浪。提交后每人各产生一条流水并写入仓库。</p>
       </div>
 
       <div class="tabpane" data-pane="title">
-        <label class="f">累计积分称号（每行：最小积分,称号；由低到高）</label>
+        <label class="f">累计音浪称号（每行：最小音浪,称号；由低到高）</label>
         <textarea id="titleCumulative"></textarea>
         <label class="f">周榜称号（每行一个，第 1 行 = 第 1 名）</label>
         <textarea id="titleWeekly"></textarea>
@@ -293,10 +302,20 @@ select option{color:#111}
         <label class="f">赛季称号（每行一个，第 1 行 = 第 1 名）</label>
         <textarea id="titleSeason"></textarea>
         <div style="margin-top:14px"><button class="btn" id="saveTitlesBtn">保存称号设定</button></div>
-        <p class="hint">称号设置立即生效：三个 TOP10 榜按名次显示称号，全员榜「累计」按最小积分匹配称号。</p>
+        <p class="hint">称号设置立即生效：三个 TOP10 榜按名次显示称号，全员榜「累计」按最小音浪匹配称号。</p>
+      </div>
+
+      <div class="tabpane" data-pane="level">
+        <label class="f">小馆等级（每行：最小音浪,等级数字；由低到高）</label>
+        <textarea id="levelCumulative" placeholder="0,1&#10;100,2&#10;300,3&#10;600,4&#10;1000,5"></textarea>
+        <div style="margin-top:14px"><button class="btn" id="saveLevelsBtn">保存等级设定</button></div>
+        <p class="hint">按成员累计音浪赋予小馆等级；全员榜「累计」每行会显示「小馆等级 lv.？」。等级数字留空时按行号自动生成。</p>
       </div>
 
       <div class="tabpane" data-pane="season">
+        <label class="f" style="display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input type="checkbox" id="noSeason" style="width:auto;margin:0"> 无赛季（勾选后首页隐藏赛季榜）
+        </label>
         <label class="f">赛季名称</label>
         <input type="text" id="seasonName" placeholder="如：第一赛季">
         <div class="row">
@@ -304,7 +323,7 @@ select option{color:#111}
           <div><label class="f">结束日期</label><input type="date" id="seasonEnd"></div>
         </div>
         <div style="margin-top:14px"><button class="btn" id="saveSeasonBtn">保存赛季设定</button></div>
-        <p class="hint">赛季榜统计该区间内的积分增量；结束日期当天 23:59:59 计入。</p>
+        <p class="hint">赛季榜统计该区间内的音浪增量；结束日期当天 23:59:59 计入。勾选「无赛季」后，首页赛季榜将不显示。</p>
       </div>
 
       <div class="tabpane" data-pane="member">
@@ -315,7 +334,7 @@ select option{color:#111}
         </div>
         <label class="f">成员列表（可删除）</label>
         <div class="loglist" id="memberListBox"></div>
-        <p class="hint">删除成员会从榜单移除；其历史积分流水仍保留在操作日志中，便于追溯。</p>
+        <p class="hint">删除成员会从榜单移除；其历史音浪流水仍保留在操作日志中，便于追溯。</p>
       </div>
 
       <div class="tabpane" data-pane="log">
@@ -326,10 +345,10 @@ select option{color:#111}
       </div>
 
       <div class="tabpane" data-pane="data">
-        <p class="hint">导出为本地备份文件；GitHub 仓库本身即永久版本记录，可从提交历史回退。</p>
+        <p class="hint">导出/导入功能暂时关闭，后续将支持 Excel 备份与还原。GitHub 仓库本身即永久版本记录，可从提交历史回退。</p>
         <div class="row" style="margin-top:12px">
-          <button class="btn sec" id="exportJsonBtn">导出 JSON</button>
-          <button class="btn sec" id="exportCsvBtn">导出 CSV</button>
+          <button class="btn sec" id="exportExcelBtn" disabled>导出 Excel（暂时关闭）</button>
+          <button class="btn sec" id="importExcelBtn" disabled>导入 Excel（暂时关闭）</button>
         </div>
       </div>
     </div>
@@ -363,10 +382,16 @@ const DEFAULT_TITLES = {
   monthly: ['月·声浪之王','月·强音','月·新声'],
   season:  ['赛季·声浪之王','赛季·强音','赛季·新声']
 };
+/* 小馆等级：按累计音浪匹配（由低到高） */
+const DEFAULT_LEVELS = [
+  {min:0,lv:1},{min:100,lv:2},{min:300,lv:3},{min:600,lv:4},
+  {min:1000,lv:5},{min:2000,lv:6},{min:5000,lv:7}
+];
 const DEFAULT_DATA = {
   meta:{ updatedAt:'', version:1,
-    season:{ name:'第一赛季', start:'2026-01-01', end:'2026-12-31' },
-    titles: DEFAULT_TITLES },
+    season:{ name:'第一赛季', start:'2026-01-01', end:'2026-12-31', none:false },
+    titles: DEFAULT_TITLES,
+    levels: DEFAULT_LEVELS },
   members: [],
   ledger: []
 };
@@ -400,7 +425,7 @@ function monthRange(ts){
   return { start, end: Date.UTC(y, m+1, 1) - TZ, label:`${y}年${m+1}月` };
 }
 function seasonRange(season){
-  if(!season || !season.start || !season.end) return null;
+  if(!season || season.none || !season.start || !season.end) return null;
   const start = Date.parse(season.start + 'T00:00:00+08:00');
   const end   = Date.parse(season.end   + 'T23:59:59+08:00') + 1000;
   if(isNaN(start) || isNaN(end) || end <= start) return null;
@@ -417,8 +442,15 @@ function rankTitle(kind, rank){
   const arr = (DATA.meta.titles && DATA.meta.titles[kind]) || [];
   return arr[rank-1] || '';
 }
+/* 小馆等级解析：按累计音浪匹配最高档 */
+function levelOf(points){
+  const arr = (DATA.meta.levels && DATA.meta.levels.length) ? DATA.meta.levels : DEFAULT_LEVELS;
+  let lv = 1;
+  for(const t of arr){ if(points >= (Number(t.min)||0)) lv = Number(t.lv)||lv; }
+  return lv;
+}
 
-/* 区间聚合：[{id,name,pts}] 降序；includeZero=true 时把 0 分成员也纳入（用于固定 TOP10） */
+/* 区间聚合：[{id,name,pts}] 降序；includeZero=true 时把 0 音浪成员也纳入（用于固定 TOP10） */
 function rankInRange(ledger, start, end, includeZero){
   const sum = {};
   for(const e of ledger){
@@ -451,7 +483,8 @@ async function readData(){
 function normalize(d){
   d = d || {}; d.meta = d.meta || {};
   d.meta.titles = Object.assign({}, DEFAULT_TITLES, d.meta.titles || {});
-  d.meta.season = d.meta.season || { name:'', start:'', end:'' };
+  d.meta.levels = Array.isArray(d.meta.levels) && d.meta.levels.length ? d.meta.levels : DEFAULT_LEVELS.slice();
+  d.meta.season = d.meta.season || { name:'', start:'', end:'', none:false };
   d.members = Array.isArray(d.members) ? d.members : [];
   d.ledger  = Array.isArray(d.ledger)  ? d.ledger  : [];
   return d;
@@ -477,7 +510,7 @@ async function writeData(data){
     const sha = g.ok ? (await g.json()).sha : undefined;
     const put = await fetch(url, {
       method:'PUT', headers, cache:'no-store',
-      body: JSON.stringify({ message:`积分更新 @${new Date().toISOString()}`, content, sha, branch: CONFIG.branch })
+      body: JSON.stringify({ message:`音浪更新 @${new Date().toISOString()}`, content, sha, branch: CONFIG.branch })
     });
     if(put.ok) return true;
     if(put.status !== 409){
@@ -494,7 +527,7 @@ async function writeData(data){
    ========================================================= */
 function esc(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-function renderBoard(listEl, rows, topN, titleKind){
+function renderBoard(listEl, rows, topN, titleKind, showLevel){
   listEl.innerHTML = '';
   const slice = (typeof topN === 'number') ? rows.slice(0, topN) : rows;
   if(!slice.length){ listEl.innerHTML = '<div class="empty">暂无记录</div>'; return; }
@@ -505,10 +538,12 @@ function renderBoard(listEl, rows, topN, titleKind){
     let title = '';
     if(titleKind === 'cumulative') title = cumulativeTitle(r.pts);
     else if(titleKind) title = rankTitle(titleKind, rank);
+    const lv = showLevel ? levelOf(r.pts) : null;
     li.innerHTML =
       `<div class="rank-no">${rank}</div>
        <div class="rname"><span class="n">${esc(r.name)}</span>${title?`<span class="rtitle">${esc(title)}</span>`:''}</div>
-       <div class="rscore">${r.pts}<small>分</small></div>`;
+       ${lv!==null?`<div class="rlv">小馆等级 lv.${lv}</div>`:''}
+       <div class="rscore">${r.pts}<small>音浪</small></div>`;
     listEl.appendChild(li);
   });
 }
@@ -520,22 +555,30 @@ function renderAll(){
   document.getElementById('weeklyRange').textContent  = `${fmtDate(wk.start)} ~ ${fmtDate(wk.end-1)}`;
   document.getElementById('monthlyRange').textContent = mo.label;
   document.getElementById('seasonRange').textContent  = se ? `${DATA.meta.season.name} · ${fmtDate(se.start)} ~ ${fmtDate(se.end-1)}` : '未设置';
-  document.getElementById('seasonInfo').textContent   = se ? `赛季：${DATA.meta.season.name}` : '赛季未设置';
+  document.getElementById('seasonInfo').textContent   = se ? `赛季：${DATA.meta.season.name}` : '暂无赛季';
   const up = DATA.meta.updatedAt;
   document.getElementById('lastUpdated').textContent = up ? `更新于 ${up.replace('T',' ').slice(0,16)}` : '尚未录入';
 
-  // 周/月/赛季 固定显示 TOP10（不足 10 人时以 0 分成员补齐）
+  // 周/月 固定显示 TOP10（不足 10 人时以 0 音浪成员补齐）
   renderBoard(document.getElementById('weeklyList'),  rankInRange(DATA.ledger, wk.start, wk.end, true), 10, 'weekly');
   renderBoard(document.getElementById('monthlyList'), rankInRange(DATA.ledger, mo.start, mo.end, true), 10, 'monthly');
-  renderBoard(document.getElementById('seasonList'),  se ? rankInRange(DATA.ledger, se.start, se.end, true) : [], 10, 'season');
 
-  // 全员榜单：周 / 月 / 累计 三态
-  let allRows, tk;
+  // 赛季榜：设置为「无赛季」或日期无效时整块隐藏
+  const seBoard = document.getElementById('seasonBoard');
+  if(se){
+    seBoard.style.display = '';
+    renderBoard(document.getElementById('seasonList'), rankInRange(DATA.ledger, se.start, se.end, true), 10, 'season');
+  } else {
+    seBoard.style.display = 'none';
+  }
+
+  // 全员榜单：周 / 月 / 累计 三态（累计显示小馆等级）
+  let allRows, tk, showLevel = false;
   if(ALL_PERIOD === 'week'){ allRows = rankInRange(DATA.ledger, wk.start, wk.end, true); tk = null; }
   else if(ALL_PERIOD === 'month'){ allRows = rankInRange(DATA.ledger, mo.start, mo.end, true); tk = null; }
-  else { allRows = (DATA.members||[]).filter(m=>m.active!==false).map(m=>({id:m.id,name:m.name,pts:m.totalPoints||0})); tk = 'cumulative'; }
+  else { allRows = (DATA.members||[]).filter(m=>m.active!==false).map(m=>({id:m.id,name:m.name,pts:m.totalPoints||0})); tk = 'cumulative'; showLevel = true; }
   allRows.sort((a,b)=> b.pts - a.pts || a.name.localeCompare(b.name,'zh'));
-  renderBoard(document.getElementById('allList'), allRows, undefined, tk);
+  renderBoard(document.getElementById('allList'), allRows, undefined, tk, showLevel);
 }
 
 /* =========================================================
@@ -556,9 +599,11 @@ function fillAdmin(){
   document.getElementById('titleWeekly').value  = (t.weekly ||[]).join('\n');
   document.getElementById('titleMonthly').value = (t.monthly||[]).join('\n');
   document.getElementById('titleSeason').value  = (t.season ||[]).join('\n');
+  document.getElementById('levelCumulative').value = (DATA.meta.levels||DEFAULT_LEVELS).map(x=>`${x.min},${x.lv}`).join('\n');
   document.getElementById('seasonName').value  = DATA.meta.season.name || '';
   document.getElementById('seasonStart').value = DATA.meta.season.start || '';
   document.getElementById('seasonEnd').value   = DATA.meta.season.end || '';
+  document.getElementById('noSeason').checked  = !!DATA.meta.season.none;
   renderMembers(); renderLogs(''); renderAll();
 }
 function renderMembers(){
@@ -568,7 +613,7 @@ function renderMembers(){
   DATA.members.forEach(m=>{
     const div = document.createElement('div'); div.className='logitem';
     div.innerHTML =
-      `<div class="b">${esc(m.name)}<span style="color:var(--txt-dim);font-size:11px"> · 累计 ${m.totalPoints||0} 分 · ${cumulativeTitle(m.totalPoints||0)||'—'}</span></div>
+      `<div class="b">${esc(m.name)}<span style="color:var(--txt-dim);font-size:11px"> · 累计 ${m.totalPoints||0} 音浪 · ${cumulativeTitle(m.totalPoints||0)||'—'} · lv.${levelOf(m.totalPoints||0)}</span></div>
        <button class="mini-btn" data-del="${m.id}">删除</button>`;
     box.appendChild(div);
   });
@@ -591,22 +636,22 @@ function renderLogs(filter){
 }
 function refreshAdminPanes(){ renderMembers(); renderLogs(document.getElementById('logFilter').value); renderAll(); }
 
-/* 批量录分：每行 昵称,分值,理由（支持中英文逗号；负数即扣分） */
+/* 批量录音浪：每行 昵称,音浪值,理由（支持中英文逗号；负数即扣音浪） */
 async function addScore(){
   const raw = document.getElementById('scoreInput').value.trim();
-  if(!raw) return toast('请输入积分信息', true);
+  if(!raw) return toast('请输入音浪信息', true);
   const lines = raw.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
   const entries = [];
   const errors = [];
   lines.forEach((line, idx)=>{
     const parts = line.split(/[,，]/).map(p=>p.trim());
-    if(parts.length < 3){ errors.push(`第${idx+1}行：格式应为 昵称,分值,理由`); return; }
+    if(parts.length < 3){ errors.push(`第${idx+1}行：格式应为 昵称,音浪值,理由`); return; }
     const name = parts[0];
     const deltaStr = parts[1];
     const reason = parts.slice(2).join('，').trim();
     const delta = Number(deltaStr);
     if(!name){ errors.push(`第${idx+1}行：昵称为空`); return; }
-    if(!Number.isFinite(delta) || delta===0){ errors.push(`第${idx+1}行：分值无效（须为非零数字，负数为扣分）`); return; }
+    if(!Number.isFinite(delta) || delta===0){ errors.push(`第${idx+1}行：音浪值无效（须为非零数字，负数为扣音浪）`); return; }
     if(!reason){ errors.push(`第${idx+1}行：理由为空`); return; }
     const m = DATA.members.find(x=>x.name===name);
     if(!m){ errors.push(`第${idx+1}行：成员「${name}」不存在`); return; }
@@ -618,7 +663,7 @@ async function addScore(){
   }
   const now = new Date();
   const ts = now.toISOString();
-  // 统一记账：每人一条流水，并同步累计积分
+  // 统一记账：每人一条流水，并同步累计音浪
   entries.forEach(({member, delta, reason})=>{
     DATA.ledger.push({
       id:'l'+Date.now()+'_'+Math.random().toString(36).slice(2,6),
@@ -634,7 +679,7 @@ async function addScore(){
     document.getElementById('scoreInput').value = '';
     refreshAdminPanes();
     const names = entries.map(e=>e.member.name);
-    toast(`${names.join('、')} 积分录入成功`);
+    toast(`${names.join('、')} 音浪录入成功`);
   }catch(e){
     toast(e.message || '保存失败', true);
   }
@@ -657,15 +702,31 @@ async function saveTitles(){
   catch(e){ toast(e.message||'保存失败', true); }
 }
 
+/* 等级设定：每行 最小音浪,等级数字（支持中英文逗号；等级留空按行号生成） */
+async function saveLevels(){
+  const parseLevels = txt => txt.split('\n').map(l=>l.trim()).filter(Boolean).map((l,i)=>{
+    const [a,b] = l.split(/[,，]/);
+    const min = Number((a||'').trim())||0;
+    const lv  = Number((b||'').trim())||i+1;
+    return { min, lv };
+  }).sort((x,y)=>x.min-y.min);
+  const arr = parseLevels(document.getElementById('levelCumulative').value);
+  DATA.meta.levels = arr.length ? arr : DEFAULT_LEVELS.slice();
+  DATA.meta.updatedAt = new Date().toISOString();
+  try{ toast('保存中…'); await saveData(DATA); refreshAdminPanes(); toast('等级已保存并生效'); }
+  catch(e){ toast(e.message||'保存失败', true); }
+}
+
 /* 赛季设定 */
 async function saveSeason(){
   const name = document.getElementById('seasonName').value.trim();
   const s = document.getElementById('seasonStart').value;
   const e = document.getElementById('seasonEnd').value;
-  if(s && e && Date.parse(e) < Date.parse(s)) return toast('结束日期不能早于开始日期', true);
-  DATA.meta.season = { name, start:s, end:e };
+  const none = document.getElementById('noSeason').checked;
+  if(!none && s && e && Date.parse(e) < Date.parse(s)) return toast('结束日期不能早于开始日期', true);
+  DATA.meta.season = { name, start:s, end:e, none };
   DATA.meta.updatedAt = new Date().toISOString();
-  try{ toast('保存中…'); await saveData(DATA); refreshAdminPanes(); toast('赛季已保存'); }
+  try{ toast('保存中…'); await saveData(DATA); refreshAdminPanes(); toast(none ? '已设为无赛季，赛季榜隐藏' : '赛季已保存'); }
   catch(err){ toast(err.message||'保存失败', true); }
 }
 
@@ -689,13 +750,6 @@ async function deleteMember(id){
   DATA.meta.updatedAt = new Date().toISOString();
   try{ toast('保存中…'); await saveData(DATA); refreshAdminPanes(); toast('成员已删除'); }
   catch(e){ toast(e.message||'保存失败', true); }
-}
-
-/* 导出 */
-function download(filename, text, type){
-  const blob = new Blob([text], { type: type||'application/json' });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename;
-  document.body.appendChild(a); a.click(); a.remove();
 }
 
 /* =========================================================
@@ -730,6 +784,7 @@ document.getElementById('allSeg').addEventListener('click', e=>{
 
 document.getElementById('addScoreBtn').addEventListener('click', addScore);
 document.getElementById('saveTitlesBtn').addEventListener('click', saveTitles);
+document.getElementById('saveLevelsBtn').addEventListener('click', saveLevels);
 document.getElementById('saveSeasonBtn').addEventListener('click', saveSeason);
 document.getElementById('addMemberBtn').addEventListener('click', addMember);
 document.getElementById('logFilter').addEventListener('input', e=> renderLogs(e.target.value));
@@ -738,16 +793,6 @@ document.getElementById('logFilter').addEventListener('input', e=> renderLogs(e.
 document.getElementById('memberListBox').addEventListener('click', e=>{
   const btn = e.target.closest('button[data-del]');
   if(btn) deleteMember(btn.dataset.del);
-});
-
-document.getElementById('exportJsonBtn').addEventListener('click', ()=>{
-  download(`有声小馆-数据-${fmtDate(Date.now())}.json`, JSON.stringify(DATA, null, 2));
-});
-document.getElementById('exportCsvBtn').addEventListener('click', ()=>{
-  const head = '时间,成员,分值,原因,操作人\n';
-  const body = [...DATA.ledger].sort((a,b)=>Date.parse(a.ts)-Date.parse(b.ts))
-    .map(e=>`${e.ts},${e.member},${e.delta},${(e.reason||'').replace(/,/g,'，')},${e.admin||'admin'}`).join('\n');
-  download(`有声小馆-流水-${fmtDate(Date.now())}.csv`, '\uFEFF'+head+body, 'text/csv');
 });
 
 /* =========================================================
