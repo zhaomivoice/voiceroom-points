@@ -204,17 +204,19 @@ footer{max-width:900px;margin:4px auto 0;text-align:center}
 /* 标题右侧悬浮「小馆等级说明」圆形按钮 */
 .title-wrap{position:relative;display:block;text-align:center}
 .lv-help-btn{
-  position:absolute;right:8px;bottom:7px;transform:translateY(50%);z-index:3;
-  width:38px;height:38px;border-radius:50%;padding:0;
+  position:absolute;right:4px;bottom:7px;transform:translateY(50%);z-index:3;
+  width:82px;height:82px;border-radius:50%;padding:0;
   display:grid;place-items:center;
   font-family:inherit;cursor:pointer;
-  color:var(--txt);background:rgba(255,255,255,.10);border:1px solid var(--glass-bd);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  box-shadow:0 4px 14px rgba(0,0,0,.25);transition:.2s;
+  color:#fff7de;font-size:12.5px;font-weight:700;line-height:1.25;text-align:center;
+  background:radial-gradient(circle at 30% 28%,rgba(255,215,106,.55),rgba(126,86,255,.32) 60%,rgba(60,30,90,.45));
+  border:1px solid rgba(255,215,106,.55);
+  box-shadow:0 6px 18px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.35);
+  transition:.2s;
 }
-.lv-help-btn:hover{background:rgba(255,215,106,.22);color:#fff7de;border-color:rgba(255,215,106,.5);transform:translateY(50%) scale(1.08)}
-.lv-help-btn svg{width:18px;height:18px}
-@media(max-width:420px){.lv-help-btn{width:34px;height:34px;right:6px}.lv-help-btn svg{width:16px;height:16px}}
+.lv-help-btn:hover{transform:translateY(50%) scale(1.08);box-shadow:0 8px 22px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.45)}
+.lv-help-btn span{display:block}
+@media(max-width:420px){.lv-help-btn{width:72px;height:72px;font-size:11.5px;right:2px}}
 
 /* 等级权益说明弹层列表（紧凑型） */
 .lv-list{display:flex;flex-direction:column;gap:6px}
@@ -296,7 +298,7 @@ select option{color:#111}
       <h1 class="art-title">有声小馆</h1>
       <p class="subtitle">音浪榜</p>
       <button class="lv-help-btn" id="lvHelpBtn" aria-label="小馆等级说明" title="小馆等级说明">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span>小馆等级</span><span>说明</span>
       </button>
     </div>
     <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
