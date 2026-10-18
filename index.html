@@ -177,15 +177,6 @@ li.has-lv .rlv{width:auto;justify-self:center;text-align:left}
 .seg button{border:0;cursor:pointer;padding:5px 14px;border-radius:7px;font-size:12px;font-weight:600;color:var(--txt-dim);background:transparent;transition:.18s;font-family:inherit}
 .seg button.active{background:rgba(255,215,106,.92);color:#3c2f00}
 
-/* ===== 底部入口 ===== */
-footer{max-width:900px;margin:4px auto 0;text-align:center}
-.ghost-btn{
-  font-family:inherit;cursor:pointer;padding:7px 20px;border-radius:999px;font-size:12px;
-  color:var(--txt-dim);background:rgba(255,255,255,.07);border:1px solid var(--glass-bd);
-  backdrop-filter:blur(10px);transition:.2s;
-}
-.ghost-btn:hover{color:var(--txt);background:rgba(255,255,255,.14)}
-
 /* ===== 弹层 ===== */
 .modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom));background:rgba(16,12,30,.64);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .modal.hidden{display:none}
@@ -201,7 +192,7 @@ footer{max-width:900px;margin:4px auto 0;text-align:center}
 .tabs button{font-family:inherit;cursor:pointer;border:1px solid var(--glass-bd);background:rgba(255,255,255,.06);color:var(--txt-dim);padding:8px 6px;border-radius:10px;font-size:12.5px;transition:.18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tabs button.active{background:rgba(255,215,106,.92);color:#3c2f00;border-color:transparent;font-weight:700}
 
-/* 标题右侧悬浮「小馆等级说明」玻璃圆形按钮 */
+/* 标题两侧悬浮玻璃圆形按钮（右：小馆等级说明 / 左：管理入口，对称） */
 .title-wrap{position:relative;display:block;text-align:center}
 .lv-help-btn{
   position:absolute;right:4px;bottom:7px;transform:translateY(50%);z-index:3;
@@ -217,9 +208,10 @@ footer{max-width:900px;margin:4px auto 0;text-align:center}
   transition:.2s;
 }
 .lv-help-btn:hover{filter:brightness(1.12);transform:translateY(50%) scale(1.08);box-shadow:0 6px 18px rgba(0,0,0,.28),inset 0 1px 1px rgba(255,255,255,.65)}
+.lv-help-btn.left{right:auto;left:4px}
 .lv-help-btn span{display:block}
 .lv-help-btn span:first-child{margin-top:1px}
-@media(max-width:420px){.lv-help-btn{width:46px;height:46px;font-size:10px;right:2px}}
+@media(max-width:420px){.lv-help-btn{width:46px;height:46px;font-size:10px;right:2px}.lv-help-btn.left{right:auto;left:2px}}
 
 /* 等级权益说明弹层列表（紧凑型） */
 .lv-list{display:flex;flex-direction:column;gap:6px}
@@ -305,6 +297,9 @@ select option{color:#111}
     <div class="title-wrap">
       <h1 class="art-title">有声小馆</h1>
       <p class="subtitle">音浪榜</p>
+      <button class="lv-help-btn left" id="adminEntry" aria-label="管理入口" title="管理入口">
+        <span>管理</span><span>入口</span>
+      </button>
       <button class="lv-help-btn" id="lvHelpBtn" aria-label="小馆等级说明" title="小馆等级说明">
         <span>小馆等级</span><span>说明</span>
       </button>
@@ -343,10 +338,6 @@ select option{color:#111}
       <ol class="rank-list" id="allList"></ol>
     </section>
   </main>
-
-  <footer>
-    <button class="ghost-btn" id="adminEntry">管理入口</button>
-  </footer>
 </div>
 
 <div class="modal hidden" id="adminModal">
