@@ -640,10 +640,10 @@ def build_main():
     o.append(rect(sx, cy, sw, 360, 22, fill="url(#glass)", op=1, stroke=WHITE, sw=2))
     o.append(rect(sx + 1, cy + 1, sw - 2, 42, 21, fill=WHITE, op=0.18))
     rows = [
-        (icon_calendar, "每日小馆打卡", "2音浪/条 · 每日上限3条", "+2", "条"),
-        (icon_mic, "周三唱歌比赛", "参赛10音浪 · 投票5音浪/场", "+10", ""),
-        (icon_radio, "周日小电台", "挂麦5音浪/场 · 接点歌3音浪/首", "+5", ""),
-        (icon_star_badge, "额外加分", "协助控场 · 活跃 · 整理歌单 3音浪/场", "+3", ""),
+        (icon_calendar, "每日小馆打卡", "2音浪/条 · 每日上限3条", "+2", "音浪"),
+        (icon_mic, "周三唱歌比赛", "参赛10音浪 · 投票5音浪/场", "+10", "音浪"),
+        (icon_radio, "周日小电台", "挂麦5音浪/场 · 接点歌3音浪/首", "+5", "音浪"),
+        (icon_star_badge, "额外加分", "协助控场 · 活跃 · 整理歌单 3音浪/场", "+3", "音浪"),
     ]
     heights = [78, 78, 78, 96]
     ry = cy + 18
@@ -654,10 +654,10 @@ def build_main():
         o.append(circle(sx + 54, ry + rh / 2 + 1, 28, stroke="#a9c9dc", sw=1, op=0.65))
         o.append(T(sx + 96, ry + 36, title, size=28, fill=INK, weight=700, ls=1))
         o.append(T(sx + 96, ry + 66, sub, size=22, fill=MUT, weight=400, ls=0.5))
-        # 分值徽章
-        o.append(rect(sx + sw - 122, ry + (rh - 48) / 2, 96, 40, 20, fill="url(#pillGrad)", op=0.95, stroke=ICE, sw=1))
-        o.append(T(sx + sw - 74, ry + (rh - 48) / 2 + 29, val, size=28, fill=ICE_DEEP, weight=800, anchor="middle", font=SANS))
-        o.append(T(sx + sw - 30, ry + (rh - 48) / 2 + 28, unit if unit else "音浪", size=16, fill=SOFT, weight=600, anchor="end"))
+        # 分值徽章（数值+单位统一字号，居中）
+        label = f"{val}{unit}"
+        o.append(rect(sx + sw - 128, ry + (rh - 40) / 2, 108, 40, 20, fill="url(#pillGrad)", op=0.95, stroke=ICE, sw=1))
+        o.append(T(sx + sw - 74, ry + (rh - 40) / 2 + 29, label, size=24, fill=ICE_DEEP, weight=800, anchor="middle", font=SANS))
         ry += rh
 
     # ===== 二、扣分项 =====
@@ -690,23 +690,26 @@ def build_main():
     card_y = ly + 42
     o.append(rect(50, card_y, 980, 376, 22, fill="url(#glass)", op=1, stroke=WHITE, sw=2))
     levels = [
-        ("Lv.1", "0 – 59", "声乐萌新"),
-        ("Lv.2", "60 – 149", "歌唱新秀"),
-        ("Lv.3", "150 – 269", "实力唱将"),
-        ("Lv.4", "270 – 419", "金牌歌手"),
-        ("Lv.5", "420 – 599", "小馆歌神"),
-        ("Lv.6", "≥ 600", "着迷好声音"),
+        ("Lv.1", "0", "59", "声乐萌新"),
+        ("Lv.2", "60", "149", "歌唱新秀"),
+        ("Lv.3", "150", "269", "实力唱将"),
+        ("Lv.4", "270", "419", "金牌歌手"),
+        ("Lv.5", "420", "599", "小馆歌神"),
+        ("Lv.6", "600", "以上", "着迷好声音"),
     ]
     row_y = card_y + 14
     o.append(line(120, row_y + 28, 120, row_y + 6 * 58 - 28, stroke="#a9c9dc", sw=2, op=0.6))
-    for i, (lv, rng, name) in enumerate(levels):
+    for i, (lv, lo, hi, name) in enumerate(levels):
         y = row_y + i * 58
         o.append(rect(62, y, 956, 50, 12, fill=WHITE, op=0.34 if i % 2 == 0 else 0.18))
         o.append(circle(120, y + 25, 6, fill=WHITE, stroke=ICE_DEEP, sw=2))
         grad = "url(#levelGrad6)" if i == 5 else "url(#levelGrad)"
         o.append(rect(84, y + 7, 72, 36, 18, fill=grad, op=1, stroke=WHITE, sw=1.2))
         o.append(T(120, y + 32, lv, size=22, fill=WHITE, weight=700, anchor="middle", font=SANS))
-        o.append(T(186, y + 34, rng, size=26, fill=INK2, weight=600, ls=0.5))
+        # 数值区间：左值右对齐、破折号居中、右值左对齐，确保所有行破折号垂直对齐
+        o.append(T(238, y + 34, lo, size=26, fill=INK2, weight=600, anchor="end", ls=0.5))
+        o.append(T(244, y + 34, "–", size=26, fill=INK2, weight=600, anchor="middle", ls=0.5))
+        o.append(T(250, y + 34, hi, size=26, fill=INK2, weight=600, anchor="start", ls=0.5))
         o.append(T(372, y + 35, name, size=32, fill=INK, weight=700, font=SERIF, ls=2))
         # 星级
         for k in range(6):
@@ -764,11 +767,9 @@ def build_main():
         o.append(rect(x, y, 456, 48, 12, fill=WHITE, op=0.45, stroke=WHITE, sw=1))
         o.append(icon_coin(x + 28, y + 24, 0.85, c=ICE_DEEP))
         o.append(T(x + 50, y + 31, name, size=24, fill=INK2, weight=500))
-        if "/" in price:
-            o.append(T(x + 444, y + 32, price, size=25, fill=ICE_DEEP, weight=800, anchor="end"))
-        else:
-            o.append(T(x + 446, y + 32, "音浪", size=16, fill=SOFT, weight=600, anchor="end"))
-            o.append(T(x + 428, y + 32, price, size=25, fill=ICE_DEEP, weight=800, anchor="end"))
+        # 数值+单位统一字号，合并渲染避免遮挡
+        label = price if "/" in price else f"{price}音浪"
+        o.append(T(x + 444, y + 32, label, size=24, fill=ICE_DEEP, weight=800, anchor="end"))
 
     # ===== 底部二维码 =====
     qy = 2216
@@ -841,7 +842,7 @@ def build_wednesday():
     o.append(diamond(540, 408, 5, fill=ICE_DEEP, op=0.45))
 
     # ===== 活动流程 =====
-    sy = 478
+    sy = 460
     o.append(section(50, sy, "活动流程", "SCHEDULE", width=980, num="01"))
     card_y = sy + 42
     o.append(rect(50, card_y, 980, 148, 22, fill="url(#glass)", op=1, stroke=WHITE, sw=2))
@@ -861,7 +862,7 @@ def build_wednesday():
             o.append(line(540, card_y + 22, 540, card_y + 126, stroke=LINE, sw=1, op=0.5))
 
     # ===== 比赛模式 =====
-    my = 690
+    my = 710
     o.append(section(50, my, "比赛模式", "HOW IT WORKS", width=980, num="02"))
     card_y = my + 42
     o.append(rect(50, card_y, 980, 126, 22, fill="url(#glassDeep)", op=1, stroke=WHITE, sw=2))
@@ -872,7 +873,7 @@ def build_wednesday():
     o.append(pill(940, card_y + 48, 118, 36, "现场演唱", size=18, color=ICE_DEEP))
 
     # ===== 投票计分规则 =====
-    vy = 906
+    vy = 930
     o.append(section(50, vy, "投票计分规则", "VOTING & SCORING", width=980, num="03"))
 
     # 卡 1
@@ -897,7 +898,7 @@ def build_wednesday():
     o.append(T(176, c2y + 118, "专注演唱本身，实力就是最好的答案。", size=20, fill=SOFT, ls=1))
 
     # ===== 三个关键词徽章 =====
-    by = 1398
+    by = 1362
     badges = [("3 票", "每人投票权", icon_ballot), ("不可自投", "保持公平", icon_shield), ("现场打分", "实力说话", icon_star_badge)]
     for i, (big, small, ic) in enumerate(badges):
         cx = 200 + i * 340
