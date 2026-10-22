@@ -693,7 +693,7 @@ def build_main():
     ly = 1000
     o.append(section(50, ly, "等级称号", "LEVEL TITLES", width=980, num="03"))
     card_y = ly + 42
-    o.append(rect(50, card_y, 980, 376, 22, fill="url(#glass)", op=1, stroke=WHITE, sw=2))
+    o.append(rect(50, card_y, 980, 352, 22, fill="url(#glass)", op=1, stroke=WHITE, sw=2))
     levels = [
         ("Lv.1", "0", "59", "声乐萌新"),
         ("Lv.2", "60", "149", "歌唱新秀"),
@@ -702,34 +702,36 @@ def build_main():
         ("Lv.5", "420", "599", "小馆歌神"),
         ("Lv.6", "600", "以上", "着迷好声音"),
     ]
-    row_y = card_y + 14
-    o.append(line(120, row_y + 28, 120, row_y + 6 * 58 - 28, stroke="#a9c9dc", sw=2, op=0.6))
+    row_y = card_y + 18
+    o.append(line(120, row_y + 23, 120, row_y + 5 * 54 + 23, stroke="#a9c9dc", sw=2, op=0.6))
     for i, (lv, lo, hi, name) in enumerate(levels):
-        y = row_y + i * 58
-        o.append(rect(62, y, 956, 50, 12, fill=WHITE, op=0.34 if i % 2 == 0 else 0.18))
-        o.append(circle(120, y + 25, 6, fill=WHITE, stroke=ICE_DEEP, sw=2))
+        y = row_y + i * 54
+        o.append(rect(62, y, 956, 46, 12, fill=WHITE, op=0.34 if i % 2 == 0 else 0.18))
+        o.append(circle(120, y + 23, 6, fill=WHITE, stroke=ICE_DEEP, sw=2))
         grad = "url(#levelGrad6)" if i == 5 else "url(#levelGrad)"
-        o.append(rect(84, y + 7, 72, 36, 18, fill=grad, op=1, stroke=WHITE, sw=1.2))
+        o.append(rect(84, y + 5, 72, 36, 18, fill=grad, op=1, stroke=WHITE, sw=1.2))
         o.append(T(120, y + 32, lv, size=26, fill=WHITE, weight=700, anchor="middle", font=SANS))
         # 数值区间：左值右对齐、破折号居中、右值左对齐，确保所有行破折号垂直对齐
-        o.append(T(238, y + 34, lo, size=26, fill=INK2, weight=600, anchor="end", ls=0.5))
-        o.append(T(244, y + 34, "–", size=26, fill=INK2, weight=600, anchor="middle", ls=0.5))
-        o.append(T(250, y + 34, hi, size=26, fill=INK2, weight=600, anchor="start", ls=0.5))
-        o.append(T(372, y + 35, name, size=32, fill=INK, weight=700, font=SERIF, ls=2))
+        o.append(T(238, y + 32, lo, size=26, fill=INK2, weight=600, anchor="end", ls=0.5))
+        o.append(T(244, y + 32, "–", size=26, fill=INK2, weight=600, anchor="middle", ls=0.5))
+        o.append(T(250, y + 32, hi, size=26, fill=INK2, weight=600, anchor="start", ls=0.5))
+        # 单位“音浪”固定右对齐，六行上下对齐
+        o.append(T(382, y + 32, "音浪", size=26, fill=MUT, weight=500, anchor="end", ls=0.5))
+        o.append(T(464, y + 33, name, size=32, fill=INK, weight=700, font=SERIF, ls=2))
         # 星级
         for k in range(6):
-            o.append(diamond(846 + k * 24, y + 25, 6.2,
+            o.append(diamond(846 + k * 24, y + 23, 6.2,
                              fill=ICE_DEEP if k <= i else "#ffffff",
                              op=0.92 if k <= i else 0.55,
                              stroke="#9fc2d8", sw=0.8))
         if i == 5:
-            o.append(sparkle(1010, y + 25, 8, fill=WHITE, op=0.95))
+            o.append(sparkle(1010, y + 23, 8, fill=WHITE, op=0.95))
 
     # ===== 四、等级特权 =====
-    py = 1470
+    py = 1440
     o.append(section(50, py, "等级权益", "LEVEL BENEFITS", width=980, num="04"))
     card_y = py + 42
-    o.append(rect(50, card_y, 980, 320, 22, fill="url(#glassDeep)", op=1, stroke=WHITE, sw=2))
+    o.append(rect(50, card_y, 980, 352, 22, fill="url(#glassDeep)", op=1, stroke=WHITE, sw=2))
     perks = [
         ("Lv.1", "声乐萌新", "暂无额外特权"),
         ("Lv.2", "歌唱新秀", "小馆/小店任务奖励加成 +5%"),
@@ -738,16 +740,16 @@ def build_main():
         ("Lv.5", "小馆歌神", "小馆/小店任务奖励加成 +20% · 优先点歌及排麦"),
         ("Lv.6", "着迷好声音", "小馆/小店任务奖励加成 +30% · 优先点歌及排麦"),
     ]
-    ry = card_y + 12
+    ry = card_y + 18
     for i, (lv, name, desc) in enumerate(perks):
-        y = ry + i * 50
-        o.append(rect(84, y + 4, 72, 36, 18, fill="url(#levelGrad6)" if i == 5 else "url(#levelGrad)", op=0.95, stroke=WHITE, sw=1.2))
-        o.append(T(120, y + 28, lv, size=26, fill=WHITE, weight=700, anchor="middle"))
-        o.append(T(194, y + 28, name, size=30, fill=INK, weight=700, font=SERIF, ls=2))
-        o.append(T(380, y + 28, desc, size=26, fill=MUT, weight=400, ls=0.5))
-        o.append(icon_shield(1000, y + 28, 0.7, c=ICE))
+        y = ry + i * 54
+        o.append(rect(84, y + 5, 72, 36, 18, fill="url(#levelGrad6)" if i == 5 else "url(#levelGrad)", op=0.95, stroke=WHITE, sw=1.2))
+        o.append(T(120, y + 32, lv, size=26, fill=WHITE, weight=700, anchor="middle"))
+        o.append(T(194, y + 33, name, size=30, fill=INK, weight=700, font=SERIF, ls=2))
+        o.append(T(380, y + 32, desc, size=26, fill=MUT, weight=400, ls=0.5))
+        o.append(icon_shield(1000, y + 29, 0.7, c=ICE))
         if i < 5:
-            o.append(line(84, y + 46, 1040, y + 46, stroke=LINE, sw=0.8, op=0.35))
+            o.append(line(84, y + 49, 1040, y + 49, stroke=LINE, sw=0.8, op=0.35))
 
     # ===== 五、积分兑换 =====
     ey = 1880
