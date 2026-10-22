@@ -856,7 +856,7 @@ def build_wednesday():
     o.append(diamond(540, 408, 5, fill=ICE_DEEP, op=0.45))
 
     # ===== 活动流程 =====
-    sy = 460
+    sy = 500
     o.append(section(50, sy, "活动流程", "SCHEDULE", width=980, num="01"))
     card_y = sy + 42
     o.append(rect(50, card_y, 980, 148, 22, fill="url(#glass)", op=1, stroke=WHITE, sw=2))
@@ -876,7 +876,7 @@ def build_wednesday():
             o.append(line(540, card_y + 22, 540, card_y + 126, stroke=LINE, sw=1, op=0.5))
 
     # ===== 比赛模式 =====
-    my = 750
+    my = 800
     o.append(section(50, my, "比赛模式", "HOW IT WORKS", width=980, num="02"))
     card_y = my + 42
     o.append(rect(50, card_y, 980, 126, 22, fill="url(#glassDeep)", op=1, stroke=WHITE, sw=2))
@@ -887,7 +887,7 @@ def build_wednesday():
     o.append(pill(940, card_y + 48, 118, 36, "现场演唱", size=26, color=ICE_DEEP))
 
     # ===== 投票计分规则 =====
-    vy = 1000
+    vy = 1060
     o.append(section(50, vy, "投票计分规则", "VOTING & SCORING", width=980, num="03"))
 
     # 卡 1
@@ -911,27 +911,17 @@ def build_wednesday():
     o.append(T(176, c2y + 86, "不开启群众投票，由管理员统一按演唱表现打分。", size=26, fill=MUT))
     o.append(T(176, c2y + 118, "专注演唱本身，实力就是最好的答案。", size=26, fill=SOFT, ls=1))
 
-    # ===== 三个关键词徽章 =====
-    by = 1512
-    badges = [("3 票", "每人投票权", icon_ballot), ("不可自投", "保持公平", icon_shield), ("现场打分", "实力说话", icon_star_badge)]
-    for i, (big, small, ic) in enumerate(badges):
-        cx = 200 + i * 340
-        o.append(circle(cx, by + 56, 68, fill=WHITE, op=0.5, stroke=WHITE, sw=1.6))
-        o.append(circle(cx, by + 56, 58, fill="none", stroke=ICE, sw=1, op=0.65, dash="3 5"))
-        o.append(ic(cx, by + 28, 1.15, c=ICE_DEEP))
-        o.append(T(cx, by + 76, big, size=30, fill=INK, weight=800, anchor="middle", ls=1))
-        o.append(T(cx, by + 102, small, size=26, fill=SOFT, anchor="middle", ls=1))
-    o.append(T(540, 1618, "以声会友 · 唱出你的高光时刻", size=38, fill=ICE_DEEP, weight=700, anchor="middle", font=SERIF, ls=3))
-    o.append(line(380, 1642, 470, 1642, stroke=ICE_DEEP, sw=1, op=0.4))
-    o.append(line(610, 1642, 700, 1642, stroke=ICE_DEEP, sw=1, op=0.4))
-    o.append(diamond(540, 1642, 4, fill=ICE_DEEP, op=0.5))
+    o.append(T(540, 1510, "以声会友 · 唱出你的高光时刻", size=38, fill=ICE_DEEP, weight=700, anchor="middle", font=SERIF, ls=3))
+    o.append(line(380, 1534, 470, 1534, stroke=ICE_DEEP, sw=1, op=0.4))
+    o.append(line(610, 1534, 700, 1534, stroke=ICE_DEEP, sw=1, op=0.4))
+    o.append(diamond(540, 1534, 4, fill=ICE_DEEP, op=0.5))
 
     # 底部
-    o.append(trophy(170, 1740, 1.0, op=0.75))
-    o.append(note(860, 1726, 1.0, fill=ICE_DEEP, op=0.4, rot=10, double=True))
-    o.append(sparkle(960, 1678, 8, fill=WHITE, op=0.9))
-    o.append(wave_bars(360, 1710, 360, 46, n=24, fill=ICE_DEEP, op=0.32))
-    o.append(T(540, 1840, "着迷有声小馆  ·  ZHAOMI  VOICE", size=26, fill=SOFT, weight=600, anchor="middle", ls=4))
+    o.append(trophy(170, 1684, 1.0, op=0.75))
+    o.append(note(860, 1670, 1.0, fill=ICE_DEEP, op=0.4, rot=10, double=True))
+    o.append(sparkle(960, 1622, 8, fill=WHITE, op=0.9))
+    o.append(wave_bars(360, 1654, 360, 46, n=24, fill=ICE_DEEP, op=0.32))
+    o.append(T(540, 1784, "着迷有声小馆  ·  ZHAOMI  VOICE", size=26, fill=SOFT, weight=600, anchor="middle", ls=4))
 
     o.append(frame(W, H))
     o.append('</svg>')
