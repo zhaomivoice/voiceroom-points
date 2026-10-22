@@ -912,7 +912,7 @@ def build_wednesday():
     o.append(T(176, c2y + 118, "专注演唱本身，实力就是最好的答案。", size=26, fill=SOFT, ls=1))
 
     # ===== 三个关键词徽章 =====
-    by = 1472
+    by = 1512
     badges = [("3 票", "每人投票权", icon_ballot), ("不可自投", "保持公平", icon_shield), ("现场打分", "实力说话", icon_star_badge)]
     for i, (big, small, ic) in enumerate(badges):
         cx = 200 + i * 340
@@ -921,17 +921,17 @@ def build_wednesday():
         o.append(ic(cx, by + 28, 1.15, c=ICE_DEEP))
         o.append(T(cx, by + 76, big, size=30, fill=INK, weight=800, anchor="middle", ls=1))
         o.append(T(cx, by + 102, small, size=26, fill=SOFT, anchor="middle", ls=1))
-    o.append(T(540, 1578, "以声会友 · 唱出你的高光时刻", size=38, fill=ICE_DEEP, weight=700, anchor="middle", font=SERIF, ls=3))
-    o.append(line(380, 1602, 470, 1602, stroke=ICE_DEEP, sw=1, op=0.4))
-    o.append(line(610, 1602, 700, 1602, stroke=ICE_DEEP, sw=1, op=0.4))
-    o.append(diamond(540, 1602, 4, fill=ICE_DEEP, op=0.5))
+    o.append(T(540, 1618, "以声会友 · 唱出你的高光时刻", size=38, fill=ICE_DEEP, weight=700, anchor="middle", font=SERIF, ls=3))
+    o.append(line(380, 1642, 470, 1642, stroke=ICE_DEEP, sw=1, op=0.4))
+    o.append(line(610, 1642, 700, 1642, stroke=ICE_DEEP, sw=1, op=0.4))
+    o.append(diamond(540, 1642, 4, fill=ICE_DEEP, op=0.5))
 
     # 底部
-    o.append(trophy(170, 1700, 1.0, op=0.75))
-    o.append(note(860, 1686, 1.0, fill=ICE_DEEP, op=0.4, rot=10, double=True))
-    o.append(sparkle(960, 1638, 8, fill=WHITE, op=0.9))
-    o.append(wave_bars(360, 1670, 360, 46, n=24, fill=ICE_DEEP, op=0.32))
-    o.append(T(540, 1804, "着迷有声小馆  ·  ZHAOMI  VOICE", size=26, fill=SOFT, weight=600, anchor="middle", ls=4))
+    o.append(trophy(170, 1740, 1.0, op=0.75))
+    o.append(note(860, 1726, 1.0, fill=ICE_DEEP, op=0.4, rot=10, double=True))
+    o.append(sparkle(960, 1678, 8, fill=WHITE, op=0.9))
+    o.append(wave_bars(360, 1710, 360, 46, n=24, fill=ICE_DEEP, op=0.32))
+    o.append(T(540, 1840, "着迷有声小馆  ·  ZHAOMI  VOICE", size=26, fill=SOFT, weight=600, anchor="middle", ls=4))
 
     o.append(frame(W, H))
     o.append('</svg>')
