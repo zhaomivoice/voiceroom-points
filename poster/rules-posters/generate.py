@@ -690,7 +690,7 @@ def build_main():
     o.append(T(870, 996, "KEEP  THE  GROOVE", size=26, fill=SOFT, weight=600, anchor="middle", ls=4, op=0.8))
 
     # ===== 三、等级称号 =====
-    ly = 1040
+    ly = 1000
     o.append(section(50, ly, "等级称号", "LEVEL TITLES", width=980, num="03"))
     card_y = ly + 42
     o.append(rect(50, card_y, 980, 376, 22, fill="url(#glass)", op=1, stroke=WHITE, sw=2))
@@ -726,8 +726,8 @@ def build_main():
             o.append(sparkle(1010, y + 25, 8, fill=WHITE, op=0.95))
 
     # ===== 四、等级特权 =====
-    py = 1492
-    o.append(section(50, py, "等级特权", "LEVEL PRIVILEGES", width=980, num="04"))
+    py = 1470
+    o.append(section(50, py, "等级权益", "LEVEL BENEFITS", width=980, num="04"))
     card_y = py + 42
     o.append(rect(50, card_y, 980, 320, 22, fill="url(#glassDeep)", op=1, stroke=WHITE, sw=2))
     perks = [
@@ -741,24 +741,24 @@ def build_main():
     ry = card_y + 12
     for i, (lv, name, desc) in enumerate(perks):
         y = ry + i * 50
-        o.append(rect(66, y, 70, 32, 16, fill="url(#levelGrad6)" if i == 5 else "url(#levelGrad)", op=0.95))
-        o.append(T(101, y + 23, lv, size=26, fill=WHITE, weight=700, anchor="middle"))
-        o.append(T(158, y + 24, name, size=26, fill=INK, weight=700, ls=1))
-        o.append(T(330, y + 24, desc, size=26, fill=MUT, weight=400))
-        o.append(icon_shield(1004, y + 16, 0.7, c=ICE))
+        o.append(rect(84, y + 4, 72, 36, 18, fill="url(#levelGrad6)" if i == 5 else "url(#levelGrad)", op=0.95, stroke=WHITE, sw=1.2))
+        o.append(T(120, y + 28, lv, size=26, fill=WHITE, weight=700, anchor="middle"))
+        o.append(T(194, y + 28, name, size=30, fill=INK, weight=700, font=SERIF, ls=2))
+        o.append(T(380, y + 28, desc, size=26, fill=MUT, weight=400, ls=0.5))
+        o.append(icon_shield(1000, y + 28, 0.7, c=ICE))
         if i < 5:
-            o.append(line(66, y + 44, 1014, y + 44, stroke=LINE, sw=0.8, op=0.35))
+            o.append(line(84, y + 46, 1040, y + 46, stroke=LINE, sw=0.8, op=0.35))
 
     # ===== 五、积分兑换 =====
-    ey = 1892
-    o.append(section(50, ey, "积分兑换", "POINTS STORE", width=980, num="05"))
+    ey = 1880
+    o.append(section(50, ey, "音浪兑换", "YINLANG STORE", width=980, num="05"))
     card_y = ey + 42
     o.append(rect(50, card_y, 980, 352, 22, fill="url(#glass)", op=1, stroke=WHITE, sw=2))
     items = [
-        ("小馆称号前缀 · 15天", "50"),
-        ("小馆六字前缀 · 15天", "80"),
-        ("小馆称号前缀 · 30天", "90"),
-        ("小馆六字前缀 · 30天", "145"),
+        ("小馆称号前缀 · 15天", "90"),
+        ("小馆六字前缀 · 15天", "120"),
+        ("小馆称号前缀 · 30天", "150"),
+        ("小馆六字前缀 · 30天", "200"),
         ("小馆永久六字前缀", "688"),
         ("小馆活动冠名权", "150音浪/次"),
         ("周三 / 周日定制主题", "80音浪/次"),
@@ -783,10 +783,10 @@ def build_main():
     note_y = card_y + 12 + 5 * 58 + 8
     o.append(rect(66, note_y, 948, 34, 10, fill=ICE_DEEP, op=0.08))
     o.append(icon_info(86, note_y + 17, 0.65, c=ICE_DEEP))
-    o.append(T(112, note_y + 24, "说明：小馆等级前缀同步主群，六字前缀不同步。", size=26, fill=MUT, weight=500))
+    o.append(T(112, note_y + 24, "说明：小馆前缀均同步主群。音浪兑换扣除相应音浪，注意可能导致等级下降～", size=26, fill=MUT, weight=500))
 
     # ===== 底部二维码 =====
-    qy = 2292
+    qy = 2284
     o.append(rect(50, qy, 980, 228, 24, fill="url(#glassDeep)", op=1, stroke=WHITE, sw=2))
     o.append(rect(66, qy + 12, 208, 204, 18, fill=WHITE, op=0.95, stroke=ICE, sw=1.4))
     qr_data = base64.b64encode((ASSETS / "qr_yinlang.png").read_bytes()).decode()
@@ -843,11 +843,11 @@ def build_wednesday():
     o.append(diamond(686, 88, 4, fill=ICE_DEEP, op=0.6))
 
     # 主标题（花字艺术字体）
-    o.append(T(540, 226, "周三歌唱小比赛", size=116, fill=WHITE, weight=400, anchor="middle", font=ART_FUN, ls=2, stroke=WHITE, sw=9))
+    o.append(T(540, 266, "周三歌唱小比赛", size=116, fill=WHITE, weight=400, anchor="middle", font=ART_FUN, ls=2, stroke=WHITE, sw=9))
     o.append(T(540, 223, "周三歌唱小比赛", size=116, fill="url(#titleGrad)", weight=400, anchor="middle", font=ART_FUN, ls=2))
-    o.append(T(540, 266, "WEDNESDAY  SINGING  CONTEST", size=26, fill=ICE_DEEP, weight=700, anchor="middle", ls=6))
-    o.append(pill(540, 296, 430, 54, "每周三  20:00 – 22:00", size=30, color=INK, weight=700, ls=1))
-    o.append(T(540, 378, "无主题挑战  ·  馆长主题  ·  现场打分", size=26, fill=MUT, weight=500, anchor="middle", ls=2))
+    o.append(T(540, 306, "WEDNESDAY  SINGING  CONTEST", size=26, fill=ICE_DEEP, weight=700, anchor="middle", ls=6))
+    o.append(pill(540, 336, 430, 54, "每周三  20:00 – 22:00", size=30, color=INK, weight=700, ls=1))
+    o.append(T(540, 418, "无主题挑战  ·  馆长主题  ·  现场打分", size=26, fill=MUT, weight=500, anchor="middle", ls=2))
 
     # 分隔
     o.append(line(80, 408, 380, 408, stroke=LINE, sw=1.2, op=0.55))
@@ -856,7 +856,7 @@ def build_wednesday():
     o.append(diamond(540, 408, 5, fill=ICE_DEEP, op=0.45))
 
     # ===== 活动流程 =====
-    sy = 500
+    sy = 540
     o.append(section(50, sy, "活动流程", "SCHEDULE", width=980, num="01"))
     card_y = sy + 42
     o.append(rect(50, card_y, 980, 148, 22, fill="url(#glass)", op=1, stroke=WHITE, sw=2))
@@ -876,7 +876,7 @@ def build_wednesday():
             o.append(line(540, card_y + 22, 540, card_y + 126, stroke=LINE, sw=1, op=0.5))
 
     # ===== 比赛模式 =====
-    my = 800
+    my = 840
     o.append(section(50, my, "比赛模式", "HOW IT WORKS", width=980, num="02"))
     card_y = my + 42
     o.append(rect(50, card_y, 980, 126, 22, fill="url(#glassDeep)", op=1, stroke=WHITE, sw=2))
@@ -887,7 +887,7 @@ def build_wednesday():
     o.append(pill(940, card_y + 48, 118, 36, "现场演唱", size=26, color=ICE_DEEP))
 
     # ===== 投票计分规则 =====
-    vy = 1060
+    vy = 1100
     o.append(section(50, vy, "投票计分规则", "VOTING & SCORING", width=980, num="03"))
 
     # 卡 1
@@ -911,17 +911,17 @@ def build_wednesday():
     o.append(T(176, c2y + 86, "不开启群众投票，由管理员统一按演唱表现打分。", size=26, fill=MUT))
     o.append(T(176, c2y + 118, "专注演唱本身，实力就是最好的答案。", size=26, fill=SOFT, ls=1))
 
-    o.append(T(540, 1510, "以声会友 · 唱出你的高光时刻", size=38, fill=ICE_DEEP, weight=700, anchor="middle", font=SERIF, ls=3))
-    o.append(line(380, 1534, 470, 1534, stroke=ICE_DEEP, sw=1, op=0.4))
-    o.append(line(610, 1534, 700, 1534, stroke=ICE_DEEP, sw=1, op=0.4))
-    o.append(diamond(540, 1534, 4, fill=ICE_DEEP, op=0.5))
+    o.append(T(540, 1550, "以声会友 · 唱出你的高光时刻", size=38, fill=ICE_DEEP, weight=700, anchor="middle", font=SERIF, ls=3))
+    o.append(line(380, 1574, 470, 1574, stroke=ICE_DEEP, sw=1, op=0.4))
+    o.append(line(610, 1574, 700, 1574, stroke=ICE_DEEP, sw=1, op=0.4))
+    o.append(diamond(540, 1574, 4, fill=ICE_DEEP, op=0.5))
 
     # 底部
-    o.append(trophy(170, 1684, 1.0, op=0.75))
-    o.append(note(860, 1670, 1.0, fill=ICE_DEEP, op=0.4, rot=10, double=True))
-    o.append(sparkle(960, 1622, 8, fill=WHITE, op=0.9))
-    o.append(wave_bars(360, 1654, 360, 46, n=24, fill=ICE_DEEP, op=0.32))
-    o.append(T(540, 1784, "着迷有声小馆  ·  ZHAOMI  VOICE", size=26, fill=SOFT, weight=600, anchor="middle", ls=4))
+    o.append(trophy(170, 1724, 1.0, op=0.75))
+    o.append(note(860, 1710, 1.0, fill=ICE_DEEP, op=0.4, rot=10, double=True))
+    o.append(sparkle(960, 1662, 8, fill=WHITE, op=0.9))
+    o.append(wave_bars(360, 1694, 360, 46, n=24, fill=ICE_DEEP, op=0.32))
+    o.append(T(540, 1824, "着迷有声小馆  ·  ZHAOMI  VOICE", size=26, fill=SOFT, weight=600, anchor="middle", ls=4))
 
     o.append(frame(W, H))
     o.append('</svg>')
