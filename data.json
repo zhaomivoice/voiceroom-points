@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-23T08:13:42.709Z",
+    "updatedAt": "2026-10-23T08:13:46.162Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -95,16 +95,7 @@
       "7": "等级7说明"
     }
   },
-  "members": [
-    {
-      "id": "m1792336291141",
-      "name": "新娘",
-      "avatar": "",
-      "totalPoints": 9999,
-      "joinDate": "2026-10-18",
-      "active": true
-    }
-  ],
+  "members": [],
   "ledger": [
     {
       "id": "l1",
