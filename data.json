@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-23T08:13:18.456Z",
+    "updatedAt": "2026-10-23T08:13:21.816Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -96,14 +96,6 @@
     }
   },
   "members": [
-    {
-      "id": "m003",
-      "name": "阿澈",
-      "avatar": "",
-      "totalPoints": 180,
-      "joinDate": "2026-01-20",
-      "active": true
-    },
     {
       "id": "m004",
       "name": "南烟",
