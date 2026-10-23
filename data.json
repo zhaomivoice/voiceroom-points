@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-18T15:12:11.065Z",
+    "updatedAt": "2026-10-23T08:13:14.516Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -96,14 +96,6 @@
     }
   },
   "members": [
-    {
-      "id": "m001",
-      "name": "夜莺",
-      "avatar": "",
-      "totalPoints": 270,
-      "joinDate": "2026-01-08",
-      "active": true
-    },
     {
       "id": "m002",
       "name": "清野",
