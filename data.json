@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-23T08:13:28.807Z",
+    "updatedAt": "2026-10-23T08:13:32.462Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -96,14 +96,6 @@
     }
   },
   "members": [
-    {
-      "id": "m006",
-      "name": "子墨",
-      "avatar": "",
-      "totalPoints": 60,
-      "joinDate": "2026-05-06",
-      "active": true
-    },
     {
       "id": "m007",
       "name": "浮生",
