@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-23T08:13:35.790Z",
+    "updatedAt": "2026-10-23T08:13:39.144Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -96,14 +96,6 @@
     }
   },
   "members": [
-    {
-      "id": "m008",
-      "name": "晚风",
-      "avatar": "",
-      "totalPoints": 120,
-      "joinDate": "2026-07-21",
-      "active": true
-    },
     {
       "id": "m1792027434682",
       "name": "小迁",
