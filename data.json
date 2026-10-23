@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-23T08:13:39.144Z",
+    "updatedAt": "2026-10-23T08:13:42.709Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -96,14 +96,6 @@
     }
   },
   "members": [
-    {
-      "id": "m1792027434682",
-      "name": "小迁",
-      "avatar": "",
-      "totalPoints": 6666,
-      "joinDate": "2026-10-15",
-      "active": true
-    },
     {
       "id": "m1792336291141",
       "name": "新娘",
