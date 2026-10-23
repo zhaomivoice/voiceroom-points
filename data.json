@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-23T08:13:21.816Z",
+    "updatedAt": "2026-10-23T08:13:25.263Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -96,14 +96,6 @@
     }
   },
   "members": [
-    {
-      "id": "m004",
-      "name": "南烟",
-      "avatar": "",
-      "totalPoints": 110,
-      "joinDate": "2026-03-02",
-      "active": true
-    },
     {
       "id": "m005",
       "name": "小满",
