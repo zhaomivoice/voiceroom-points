@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-26T00:35:57.132Z",
+    "updatedAt": "2026-10-26T00:36:03.567Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -100,7 +100,7 @@
       "id": "m1792974957132",
       "name": "森林",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-26",
       "active": true
     }
@@ -253,6 +253,16 @@
       "member": "新娘",
       "delta": 9999,
       "reason": "测试",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1792974963567_i2ld",
+      "ts": "2026-10-26T00:36:03.567Z",
+      "memberId": "m1792974957132",
+      "member": "森林",
+      "delta": 6,
+      "reason": "打卡积分",
       "admin": "admin",
       "op": "add"
     }
