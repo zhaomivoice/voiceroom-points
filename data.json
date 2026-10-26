@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-26T15:04:05.583Z",
+    "updatedAt": "2026-10-26T15:04:29.952Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -170,7 +170,7 @@
       "id": "m1793027023372",
       "name": "穗安",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 2,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -178,7 +178,7 @@
       "id": "m1793027045583",
       "name": "心脉",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-26",
       "active": true
     }
@@ -429,6 +429,26 @@
       "ts": "2026-10-26T15:03:08.560Z",
       "memberId": "m1793026960995",
       "member": "樱雨",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793027069952_whds",
+      "ts": "2026-10-26T15:04:29.952Z",
+      "memberId": "m1793027023372",
+      "member": "穗安",
+      "delta": 2,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793027069952_m12s",
+      "ts": "2026-10-26T15:04:29.952Z",
+      "memberId": "m1793027045583",
+      "member": "心脉",
       "delta": 6,
       "reason": "打卡",
       "admin": "admin",
