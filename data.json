@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-26T15:00:34.324Z",
+    "updatedAt": "2026-10-26T15:00:44.685Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -121,6 +121,14 @@
     {
       "id": "m1793026834324",
       "name": "知秋",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-10-26",
+      "active": true
+    },
+    {
+      "id": "m1793026844685",
+      "name": "安布",
       "avatar": "",
       "totalPoints": 0,
       "joinDate": "2026-10-26",
