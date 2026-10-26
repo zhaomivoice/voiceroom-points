@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-26T15:02:26.008Z",
+    "updatedAt": "2026-10-26T15:02:40.995Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -153,6 +153,14 @@
     {
       "id": "m1793026946008",
       "name": "沐崽",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-10-26",
+      "active": true
+    },
+    {
+      "id": "m1793026960995",
+      "name": "樱雨",
       "avatar": "",
       "totalPoints": 0,
       "joinDate": "2026-10-26",
