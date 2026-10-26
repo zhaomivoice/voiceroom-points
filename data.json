@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-26T15:01:20.386Z",
+    "updatedAt": "2026-10-26T15:01:32.294Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -138,7 +138,7 @@
       "id": "m1793026855721",
       "name": "景贤",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 2,
       "joinDate": "2026-10-26",
       "active": true
     }
@@ -350,6 +350,16 @@
       "memberId": "m1793026844685",
       "member": "安布",
       "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793026892294_8x3s",
+      "ts": "2026-10-26T15:01:32.294Z",
+      "memberId": "m1793026855721",
+      "member": "景贤",
+      "delta": 2,
       "reason": "打卡",
       "admin": "admin",
       "op": "add"
