@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-26T14:58:29.217Z",
+    "updatedAt": "2026-10-26T14:59:28.077Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -98,7 +98,7 @@
       "id": "m1793026691899",
       "name": "小迁",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -106,7 +106,7 @@
       "id": "m1793026702979",
       "name": "阿清",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -114,7 +114,7 @@
       "id": "m1793026709217",
       "name": "春秋",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-26",
       "active": true
     }
@@ -277,6 +277,36 @@
       "member": "森林",
       "delta": 6,
       "reason": "打卡积分",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793026768077_rlts",
+      "ts": "2026-10-26T14:59:28.077Z",
+      "memberId": "m1793026691899",
+      "member": "小迁",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793026768077_j7dz",
+      "ts": "2026-10-26T14:59:28.077Z",
+      "memberId": "m1793026702979",
+      "member": "阿清",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793026768077_0pnr",
+      "ts": "2026-10-26T14:59:28.077Z",
+      "memberId": "m1793026709217",
+      "member": "春秋",
+      "delta": 6,
+      "reason": "打卡",
       "admin": "admin",
       "op": "add"
     }
