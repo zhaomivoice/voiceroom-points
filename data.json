@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-26T15:02:40.995Z",
+    "updatedAt": "2026-10-26T15:03:08.560Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -146,7 +146,7 @@
       "id": "m1793026939309",
       "name": "晓雅",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -154,7 +154,7 @@
       "id": "m1793026946008",
       "name": "沐崽",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -162,7 +162,7 @@
       "id": "m1793026960995",
       "name": "樱雨",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-26",
       "active": true
     }
@@ -384,6 +384,36 @@
       "memberId": "m1793026855721",
       "member": "景贤",
       "delta": 2,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793026988560_dcc4",
+      "ts": "2026-10-26T15:03:08.560Z",
+      "memberId": "m1793026939309",
+      "member": "晓雅",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793026988560_7g2m",
+      "ts": "2026-10-26T15:03:08.560Z",
+      "memberId": "m1793026946008",
+      "member": "沐崽",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793026988560_t8b1",
+      "ts": "2026-10-26T15:03:08.560Z",
+      "memberId": "m1793026960995",
+      "member": "樱雨",
+      "delta": 6,
       "reason": "打卡",
       "admin": "admin",
       "op": "add"
