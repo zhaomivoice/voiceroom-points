@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-29T14:08:07.941Z",
+    "updatedAt": "2026-10-29T14:10:43.896Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -98,7 +98,7 @@
       "id": "m1793026691899",
       "name": "小迁",
       "avatar": "",
-      "totalPoints": 18,
+      "totalPoints": 24,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -146,7 +146,7 @@
       "id": "m1793026939309",
       "name": "晓雅",
       "avatar": "",
-      "totalPoints": 18,
+      "totalPoints": 24,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -194,7 +194,7 @@
       "id": "m1793282633767",
       "name": "晚绾",
       "avatar": "",
-      "totalPoints": 12,
+      "totalPoints": 18,
       "joinDate": "2026-10-29",
       "active": true
     },
@@ -202,7 +202,7 @@
       "id": "m1793282875687",
       "name": "卿灼",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-29",
       "active": true
     },
@@ -210,7 +210,7 @@
       "id": "m1793282881450",
       "name": "四月",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 2,
       "joinDate": "2026-10-29",
       "active": true
     },
@@ -218,7 +218,7 @@
       "id": "m1793282887941",
       "name": "安心",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-10-29",
       "active": true
     }
@@ -709,6 +709,66 @@
       "ts": "2026-10-29T14:07:46.395Z",
       "memberId": "m1793026834324",
       "member": "知秋",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283043897_3qv2",
+      "ts": "2026-10-29T14:10:43.896Z",
+      "memberId": "m1793282875687",
+      "member": "卿灼",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283043897_3im7",
+      "ts": "2026-10-29T14:10:43.896Z",
+      "memberId": "m1793282881450",
+      "member": "四月",
+      "delta": 2,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283043897_7cx6",
+      "ts": "2026-10-29T14:10:43.896Z",
+      "memberId": "m1793282887941",
+      "member": "安心",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283043897_dobg",
+      "ts": "2026-10-29T14:10:43.896Z",
+      "memberId": "m1793026939309",
+      "member": "晓雅",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283043897_ej0t",
+      "ts": "2026-10-29T14:10:43.896Z",
+      "memberId": "m1793026691899",
+      "member": "小迁",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283043897_gksg",
+      "ts": "2026-10-29T14:10:43.896Z",
+      "memberId": "m1793282633767",
+      "member": "晚绾",
       "delta": 6,
       "reason": "打卡",
       "admin": "admin",
