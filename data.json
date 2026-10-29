@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-29T14:06:40.165Z",
+    "updatedAt": "2026-10-29T14:07:46.395Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -90,7 +90,7 @@
       "id": "m1792974957132",
       "name": "森林",
       "avatar": "",
-      "totalPoints": 12,
+      "totalPoints": 18,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -122,7 +122,7 @@
       "id": "m1793026834324",
       "name": "知秋",
       "avatar": "",
-      "totalPoints": 18,
+      "totalPoints": 24,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -162,7 +162,7 @@
       "id": "m1793026960995",
       "name": "樱雨",
       "avatar": "",
-      "totalPoints": 6,
+      "totalPoints": 12,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -186,7 +186,7 @@
       "id": "m1793282577223",
       "name": "端端",
       "avatar": "",
-      "totalPoints": 6,
+      "totalPoints": 12,
       "joinDate": "2026-10-29",
       "active": true
     },
@@ -645,6 +645,46 @@
       "ts": "2026-10-29T14:06:40.165Z",
       "memberId": "m1793027045583",
       "member": "心脉",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793282866395_hu1m",
+      "ts": "2026-10-29T14:07:46.395Z",
+      "memberId": "m1792974957132",
+      "member": "森林",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793282866395_uaor",
+      "ts": "2026-10-29T14:07:46.395Z",
+      "memberId": "m1793282577223",
+      "member": "端端",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793282866395_7zg4",
+      "ts": "2026-10-29T14:07:46.395Z",
+      "memberId": "m1793026960995",
+      "member": "樱雨",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793282866395_m0sg",
+      "ts": "2026-10-29T14:07:46.395Z",
+      "memberId": "m1793026834324",
+      "member": "知秋",
       "delta": 6,
       "reason": "打卡",
       "admin": "admin",
