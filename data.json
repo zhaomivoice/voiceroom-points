@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-29T14:10:43.896Z",
+    "updatedAt": "2026-10-29T14:17:06.395Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -98,7 +98,7 @@
       "id": "m1793026691899",
       "name": "小迁",
       "avatar": "",
-      "totalPoints": 24,
+      "totalPoints": 25,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -114,7 +114,7 @@
       "id": "m1793026709217",
       "name": "春秋",
       "avatar": "",
-      "totalPoints": 18,
+      "totalPoints": 19,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -138,7 +138,7 @@
       "id": "m1793026855721",
       "name": "景贤",
       "avatar": "",
-      "totalPoints": 8,
+      "totalPoints": 9,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -146,7 +146,7 @@
       "id": "m1793026939309",
       "name": "晓雅",
       "avatar": "",
-      "totalPoints": 24,
+      "totalPoints": 25,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -194,7 +194,7 @@
       "id": "m1793282633767",
       "name": "晚绾",
       "avatar": "",
-      "totalPoints": 18,
+      "totalPoints": 19,
       "joinDate": "2026-10-29",
       "active": true
     },
@@ -771,6 +771,56 @@
       "member": "晚绾",
       "delta": 6,
       "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283426395_9wt1",
+      "ts": "2026-10-29T14:17:06.395Z",
+      "memberId": "m1793026691899",
+      "member": "小迁",
+      "delta": 1,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283426395_cgy4",
+      "ts": "2026-10-29T14:17:06.395Z",
+      "memberId": "m1793026939309",
+      "member": "晓雅",
+      "delta": 1,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283426395_82ja",
+      "ts": "2026-10-29T14:17:06.395Z",
+      "memberId": "m1793282633767",
+      "member": "晚绾",
+      "delta": 1,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283426395_i78g",
+      "ts": "2026-10-29T14:17:06.395Z",
+      "memberId": "m1793026855721",
+      "member": "景贤",
+      "delta": 1,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793283426395_adgi",
+      "ts": "2026-10-29T14:17:06.395Z",
+      "memberId": "m1793026709217",
+      "member": "春秋",
+      "delta": 1,
+      "reason": "活动",
       "admin": "admin",
       "op": "add"
     }
