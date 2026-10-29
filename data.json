@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-29T14:07:55.687Z",
+    "updatedAt": "2026-10-29T14:08:01.450Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -201,6 +201,14 @@
     {
       "id": "m1793282875687",
       "name": "卿灼",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-10-29",
+      "active": true
+    },
+    {
+      "id": "m1793282881450",
+      "name": "四月",
       "avatar": "",
       "totalPoints": 0,
       "joinDate": "2026-10-29",
