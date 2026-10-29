@@ -561,18 +561,32 @@ function levelOf(points){
   return lv;
 }
 
-/* 区间聚合：[{id,name,pts}] 降序；includeZero=true 时把 0 音浪成员也纳入（用于固定 TOP10） */
+/* 各成员最近一次计分时间：即其达到当前累计音浪值的时刻（同分时先达到者靠前） */
+function reachTimes(ledger, start, end){
+  const at = {};
+  for(const e of ledger){
+    const t = Date.parse(e.ts);
+    if(Number.isNaN(t)) continue;
+    if(start !== undefined && (t < start || t >= end)) continue;
+    if(!at[e.memberId] || t > at[e.memberId]) at[e.memberId] = t;
+  }
+  return at;
+}
+
+/* 区间聚合：[{id,name,pts,at}] 降序；includeZero=true 时把 0 音浪成员也纳入（用于固定 TOP10） */
 function rankInRange(ledger, start, end, includeZero){
   const sum = {};
   for(const e of ledger){
     const t = Date.parse(e.ts);
     if(t >= start && t < end) sum[e.memberId] = (sum[e.memberId]||0) + (Number(e.delta)||0);
   }
+  const at = reachTimes(ledger, start, end);
   const rows = (DATA.members||[])
     .filter(m => m.active !== false)
-    .map(m => ({ id:m.id, name:m.name, pts: sum[m.id]||0 }))
+    .map(m => ({ id:m.id, name:m.name, pts: sum[m.id]||0, at: at[m.id]||Infinity }))
     .filter(r => includeZero || r.pts !== 0);
-  rows.sort((a,b)=> b.pts - a.pts || a.name.localeCompare(b.name,'zh'));
+  // 同分：先到达该音浪值者排名靠前，最后才按昵称兜底
+  rows.sort((a,b)=> b.pts - a.pts || a.at - b.at || a.name.localeCompare(b.name,'zh'));
   return rows;
 }
 
@@ -693,8 +707,12 @@ function renderAll(){
   let allRows, tk, showLevel = false;
   if(ALL_PERIOD === 'week'){ allRows = rankInRange(DATA.ledger, wk.start, wk.end, true); tk = null; }
   else if(ALL_PERIOD === 'month'){ allRows = rankInRange(DATA.ledger, mo.start, mo.end, true); tk = null; }
-  else { allRows = (DATA.members||[]).filter(m=>m.active!==false).map(m=>({id:m.id,name:m.name,pts:m.totalPoints||0})); tk = 'cumulative'; showLevel = true; }
-  allRows.sort((a,b)=> b.pts - a.pts || a.name.localeCompare(b.name,'zh'));
+  else {
+    const at = reachTimes(DATA.ledger);
+    allRows = (DATA.members||[]).filter(m=>m.active!==false).map(m=>({id:m.id,name:m.name,pts:m.totalPoints||0,at:at[m.id]||Infinity}));
+    tk = 'cumulative'; showLevel = true;
+  }
+  allRows.sort((a,b)=> b.pts - a.pts || a.at - b.at || a.name.localeCompare(b.name,'zh'));
   renderBoard(document.getElementById('allList'), allRows, undefined, tk, showLevel);
 }
 
