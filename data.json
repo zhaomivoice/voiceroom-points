@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-01T15:11:08.055Z",
+    "updatedAt": "2026-11-01T15:11:14.966Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -249,6 +249,14 @@
     {
       "id": "m1793545868055",
       "name": "池念",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-11-01",
+      "active": true
+    },
+    {
+      "id": "m1793545874966",
+      "name": "问天",
       "avatar": "",
       "totalPoints": 0,
       "joinDate": "2026-11-01",
