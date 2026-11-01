@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-01T15:20:09.744Z",
+    "updatedAt": "2026-11-01T15:21:03.241Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -266,7 +266,7 @@
       "id": "m1793546374962",
       "name": "被窝",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 10,
       "joinDate": "2026-11-01",
       "active": true
     },
@@ -274,7 +274,7 @@
       "id": "m1793546380790",
       "name": "叉烧",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 10,
       "joinDate": "2026-11-01",
       "active": true
     },
@@ -282,7 +282,7 @@
       "id": "m1793546388800",
       "name": "璃雾",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 10,
       "joinDate": "2026-11-01",
       "active": true
     },
@@ -290,7 +290,7 @@
       "id": "m1793546394697",
       "name": "兔叽",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 10,
       "joinDate": "2026-11-01",
       "active": true
     },
@@ -298,7 +298,7 @@
       "id": "m1793546409744",
       "name": "风铃",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 10,
       "joinDate": "2026-11-01",
       "active": true
     }
@@ -1589,6 +1589,106 @@
       "ts": "2026-11-01T15:19:27.549Z",
       "memberId": "m1793545874966",
       "member": "问天",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546447418_po00",
+      "ts": "2026-11-01T15:20:47.418Z",
+      "memberId": "m1793546388800",
+      "member": "璃雾",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546447418_5mnr",
+      "ts": "2026-11-01T15:20:47.418Z",
+      "memberId": "m1793546380790",
+      "member": "叉烧",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546447418_nugd",
+      "ts": "2026-11-01T15:20:47.418Z",
+      "memberId": "m1793546409744",
+      "member": "风铃",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546447418_ancy",
+      "ts": "2026-11-01T15:20:47.418Z",
+      "memberId": "m1793546394697",
+      "member": "兔叽",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546447418_uvml",
+      "ts": "2026-11-01T15:20:47.418Z",
+      "memberId": "m1793546374962",
+      "member": "被窝",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546463241_uwyo",
+      "ts": "2026-11-01T15:21:03.241Z",
+      "memberId": "m1793546388800",
+      "member": "璃雾",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546463241_k70h",
+      "ts": "2026-11-01T15:21:03.241Z",
+      "memberId": "m1793546380790",
+      "member": "叉烧",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546463241_h8gg",
+      "ts": "2026-11-01T15:21:03.241Z",
+      "memberId": "m1793546409744",
+      "member": "风铃",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546463241_8635",
+      "ts": "2026-11-01T15:21:03.241Z",
+      "memberId": "m1793546394697",
+      "member": "兔叽",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793546463241_2jyx",
+      "ts": "2026-11-01T15:21:03.241Z",
+      "memberId": "m1793546374962",
+      "member": "被窝",
       "delta": 5,
       "reason": "挂麦",
       "admin": "admin",
