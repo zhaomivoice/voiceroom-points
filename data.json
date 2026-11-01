@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-01T15:26:48.900Z",
+    "updatedAt": "2026-11-01T15:26:57.116Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -299,6 +299,14 @@
       "name": "风铃",
       "avatar": "",
       "totalPoints": 5,
+      "joinDate": "2026-11-01",
+      "active": true
+    },
+    {
+      "id": "m1793546817116",
+      "name": "如是",
+      "avatar": "",
+      "totalPoints": 0,
       "joinDate": "2026-11-01",
       "active": true
     }
