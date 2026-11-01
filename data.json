@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-01T15:11:14.966Z",
+    "updatedAt": "2026-11-01T15:13:13.715Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -98,7 +98,7 @@
       "id": "m1793026691899",
       "name": "小迁",
       "avatar": "",
-      "totalPoints": 53,
+      "totalPoints": 55,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -106,7 +106,7 @@
       "id": "m1793026702979",
       "name": "阿清",
       "avatar": "",
-      "totalPoints": 46,
+      "totalPoints": 48,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -114,7 +114,7 @@
       "id": "m1793026709217",
       "name": "春秋",
       "avatar": "",
-      "totalPoints": 53,
+      "totalPoints": 55,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -122,7 +122,7 @@
       "id": "m1793026834324",
       "name": "知秋",
       "avatar": "",
-      "totalPoints": 52,
+      "totalPoints": 54,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -146,7 +146,7 @@
       "id": "m1793026939309",
       "name": "晓雅",
       "avatar": "",
-      "totalPoints": 53,
+      "totalPoints": 55,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -194,7 +194,7 @@
       "id": "m1793282633767",
       "name": "晚绾",
       "avatar": "",
-      "totalPoints": 39,
+      "totalPoints": 41,
       "joinDate": "2026-10-29",
       "active": true
     },
@@ -210,7 +210,7 @@
       "id": "m1793282881450",
       "name": "四月",
       "avatar": "",
-      "totalPoints": 10,
+      "totalPoints": 12,
       "joinDate": "2026-10-29",
       "active": true
     },
@@ -250,7 +250,7 @@
       "id": "m1793545868055",
       "name": "池念",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-11-01",
       "active": true
     },
@@ -258,7 +258,7 @@
       "id": "m1793545874966",
       "name": "问天",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-11-01",
       "active": true
     }
@@ -1361,6 +1361,96 @@
       "member": "春秋",
       "delta": 6,
       "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793545993715_a2om",
+      "ts": "2026-11-01T15:13:13.715Z",
+      "memberId": "m1793545868055",
+      "member": "池念",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793545993715_7usg",
+      "ts": "2026-11-01T15:13:13.715Z",
+      "memberId": "m1793545874966",
+      "member": "问天",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793545993715_tn5u",
+      "ts": "2026-11-01T15:13:13.715Z",
+      "memberId": "m1793026709217",
+      "member": "春秋",
+      "delta": 2,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793545993715_mzmh",
+      "ts": "2026-11-01T15:13:13.715Z",
+      "memberId": "m1793026834324",
+      "member": "知秋",
+      "delta": 2,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793545993715_r21d",
+      "ts": "2026-11-01T15:13:13.715Z",
+      "memberId": "m1793026939309",
+      "member": "晓雅",
+      "delta": 2,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793545993715_fqje",
+      "ts": "2026-11-01T15:13:13.715Z",
+      "memberId": "m1793282881450",
+      "member": "四月",
+      "delta": 2,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793545993715_v35e",
+      "ts": "2026-11-01T15:13:13.715Z",
+      "memberId": "m1793026702979",
+      "member": "阿清",
+      "delta": 2,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793545993715_t2qr",
+      "ts": "2026-11-01T15:13:13.715Z",
+      "memberId": "m1793026691899",
+      "member": "小迁",
+      "delta": 2,
+      "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1793545993715_oebu",
+      "ts": "2026-11-01T15:13:13.715Z",
+      "memberId": "m1793282633767",
+      "member": "晚绾",
+      "delta": 2,
+      "reason": "活动",
       "admin": "admin",
       "op": "add"
     }
