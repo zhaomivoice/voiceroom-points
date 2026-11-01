@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-01T15:01:10.010Z",
+    "updatedAt": "2026-11-01T15:01:16.965Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -220,6 +220,14 @@
       "avatar": "",
       "totalPoints": 6,
       "joinDate": "2026-10-29",
+      "active": true
+    },
+    {
+      "id": "m1793545276965",
+      "name": "钰宝",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-11-01",
       "active": true
     }
   ],
