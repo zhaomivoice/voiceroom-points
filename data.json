@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-07T15:42:50.269Z",
+    "updatedAt": "2026-11-07T15:43:00.394Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -338,7 +338,7 @@
       "id": "m1794066170268",
       "name": "飒飒",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-11-07",
       "active": true
     }
@@ -2549,6 +2549,16 @@
       "ts": "2026-11-07T15:42:44.546Z",
       "memberId": "m1793545509881",
       "member": "秋秋",
+      "delta": 6,
+      "reason": "打卡",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794066180394_7mus",
+      "ts": "2026-11-07T15:43:00.394Z",
+      "memberId": "m1794066170268",
+      "member": "飒飒",
       "delta": 6,
       "reason": "打卡",
       "admin": "admin",
