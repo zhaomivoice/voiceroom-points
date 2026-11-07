@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-07T15:42:44.546Z",
+    "updatedAt": "2026-11-07T15:42:50.269Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -331,6 +331,14 @@
       "name": "阿临",
       "avatar": "",
       "totalPoints": 6,
+      "joinDate": "2026-11-07",
+      "active": true
+    },
+    {
+      "id": "m1794066170268",
+      "name": "飒飒",
+      "avatar": "",
+      "totalPoints": 0,
       "joinDate": "2026-11-07",
       "active": true
     }
