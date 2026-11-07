@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-07T15:40:29.523Z",
+    "updatedAt": "2026-11-07T15:40:36.786Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -323,6 +323,14 @@
       "name": "寿根",
       "avatar": "",
       "totalPoints": 10,
+      "joinDate": "2026-11-07",
+      "active": true
+    },
+    {
+      "id": "m1794066036786",
+      "name": "阿临",
+      "avatar": "",
+      "totalPoints": 0,
       "joinDate": "2026-11-07",
       "active": true
     }
