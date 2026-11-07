@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-07T15:34:04.444Z",
+    "updatedAt": "2026-11-07T15:34:13.639Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -315,6 +315,14 @@
       "name": "月光",
       "avatar": "",
       "totalPoints": 2,
+      "joinDate": "2026-11-07",
+      "active": true
+    },
+    {
+      "id": "m1794065653639",
+      "name": "寿根",
+      "avatar": "",
+      "totalPoints": 0,
       "joinDate": "2026-11-07",
       "active": true
     }
