@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-12T08:54:28.569Z",
+    "updatedAt": "2026-11-12T08:54:45.086Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -346,7 +346,7 @@
       "id": "m1794473668569",
       "name": "主宰",
       "avatar": "",
-      "totalPoints": 0,
+      "totalPoints": 6,
       "joinDate": "2026-11-12",
       "active": true
     }
@@ -2867,6 +2867,16 @@
       "ts": "2026-11-12T08:54:21.219Z",
       "memberId": "m1793027023372",
       "member": "穗安",
+      "delta": 6,
+      "reason": "唱歌",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473685086_l155",
+      "ts": "2026-11-12T08:54:45.086Z",
+      "memberId": "m1794473668569",
+      "member": "主宰",
       "delta": 6,
       "reason": "唱歌",
       "admin": "admin",
