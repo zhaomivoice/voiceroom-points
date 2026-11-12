@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-12T08:48:32.948Z",
+    "updatedAt": "2026-11-12T08:52:02.580Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -98,7 +98,7 @@
       "id": "m1793026691899",
       "name": "小迁",
       "avatar": "",
-      "totalPoints": 113,
+      "totalPoints": 118,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -106,7 +106,7 @@
       "id": "m1793026702979",
       "name": "阿清",
       "avatar": "",
-      "totalPoints": 92,
+      "totalPoints": 97,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -122,7 +122,7 @@
       "id": "m1793026834324",
       "name": "知秋",
       "avatar": "",
-      "totalPoints": 109,
+      "totalPoints": 114,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -146,7 +146,7 @@
       "id": "m1793026939309",
       "name": "晓雅",
       "avatar": "",
-      "totalPoints": 131,
+      "totalPoints": 136,
       "joinDate": "2026-10-26",
       "active": true
     },
@@ -194,7 +194,7 @@
       "id": "m1793282633767",
       "name": "晚绾",
       "avatar": "",
-      "totalPoints": 104,
+      "totalPoints": 109,
       "joinDate": "2026-10-29",
       "active": true
     },
@@ -226,7 +226,7 @@
       "id": "m1793545276965",
       "name": "钰宝",
       "avatar": "",
-      "totalPoints": 38,
+      "totalPoints": 43,
       "joinDate": "2026-11-01",
       "active": true
     },
@@ -266,7 +266,7 @@
       "id": "m1793546374962",
       "name": "被窝",
       "avatar": "",
-      "totalPoints": 5,
+      "totalPoints": 10,
       "joinDate": "2026-11-01",
       "active": true
     },
@@ -282,7 +282,7 @@
       "id": "m1793546388800",
       "name": "璃雾",
       "avatar": "",
-      "totalPoints": 5,
+      "totalPoints": 10,
       "joinDate": "2026-11-01",
       "active": true
     },
@@ -290,7 +290,7 @@
       "id": "m1793546394697",
       "name": "兔叽",
       "avatar": "",
-      "totalPoints": 5,
+      "totalPoints": 10,
       "joinDate": "2026-11-01",
       "active": true
     },
@@ -338,7 +338,7 @@
       "id": "m1794066170268",
       "name": "飒飒",
       "avatar": "",
-      "totalPoints": 6,
+      "totalPoints": 11,
       "joinDate": "2026-11-07",
       "active": true
     }
@@ -2701,6 +2701,106 @@
       "member": "知秋",
       "delta": 2,
       "reason": "活动",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_7jsf",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1793026702979",
+      "member": "阿清",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_th3p",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1793546388800",
+      "member": "璃雾",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_w565",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1793545276965",
+      "member": "钰宝",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_maja",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1793026834324",
+      "member": "知秋",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_7nwy",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1793546394697",
+      "member": "兔叽",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_jr9y",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1793026691899",
+      "member": "小迁",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_f5go",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1793282633767",
+      "member": "晚绾",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_r0ln",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1793026939309",
+      "member": "晓雅",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_zfhc",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1794066170268",
+      "member": "飒飒",
+      "delta": 5,
+      "reason": "挂麦",
+      "admin": "admin",
+      "op": "add"
+    },
+    {
+      "id": "l1794473522581_rv8v",
+      "ts": "2026-11-12T08:52:02.580Z",
+      "memberId": "m1793546374962",
+      "member": "被窝",
+      "delta": 5,
+      "reason": "挂麦",
       "admin": "admin",
       "op": "add"
     }
