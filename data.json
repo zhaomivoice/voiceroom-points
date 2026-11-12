@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-12T08:54:21.219Z",
+    "updatedAt": "2026-11-12T08:54:28.569Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -340,6 +340,14 @@
       "avatar": "",
       "totalPoints": 17,
       "joinDate": "2026-11-07",
+      "active": true
+    },
+    {
+      "id": "m1794473668569",
+      "name": "主宰",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-11-12",
       "active": true
     }
   ],
