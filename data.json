@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-17T01:47:14.733Z",
+    "updatedAt": "2026-11-17T01:47:22.681Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -355,6 +355,14 @@
       "name": "大愚",
       "avatar": "",
       "totalPoints": 6,
+      "joinDate": "2026-11-17",
+      "active": true
+    },
+    {
+      "id": "m1794880042681",
+      "name": "永远",
+      "avatar": "",
+      "totalPoints": 0,
       "joinDate": "2026-11-17",
       "active": true
     }
