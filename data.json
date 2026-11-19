@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-19T08:12:20.533Z",
+    "updatedAt": "2026-11-19T08:12:33.196Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -364,6 +364,14 @@
       "avatar": "",
       "totalPoints": 32,
       "joinDate": "2026-11-17",
+      "active": true
+    },
+    {
+      "id": "m1795075953196",
+      "name": "羊羊",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-11-19",
       "active": true
     }
   ],
