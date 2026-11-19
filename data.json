@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-19T08:12:39.696Z",
+    "updatedAt": "2026-11-19T08:12:57.638Z",
     "version": 1,
     "season": {
       "name": "暂无赛季",
@@ -377,6 +377,14 @@
     {
       "id": "m1795075959696",
       "name": "熱爱",
+      "avatar": "",
+      "totalPoints": 0,
+      "joinDate": "2026-11-19",
+      "active": true
+    },
+    {
+      "id": "m1795075977638",
+      "name": "星烬",
       "avatar": "",
       "totalPoints": 0,
       "joinDate": "2026-11-19",
